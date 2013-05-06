@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="processing20b8" level="application" />
+    <orderEntry type="library" name="jogl" level="application" />
+    <orderEntry type="library" name="SimpleOpenNI" level="project" />
+    <orderEntry type="library" name="Minim" level="project" />
+    <orderEntry type="library" name="jsyn-beta-16.5.14" level="project" />
+  </component>
+</module>
+

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SimpleOpenNI">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../processingTest/lib/simpleOpenNI/library/SimpleOpenNI.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/../processingTest/lib/simpleOpenNI/documentation" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../processingTest/lib/simpleOpenNI/examples/eclipse" />
+    </SOURCES>
+  </library>
+</component>
