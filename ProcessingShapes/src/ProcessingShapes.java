@@ -1,19 +1,17 @@
 import SimpleOpenNI.SimpleOpenNI;
+import ddf.minim.AudioBuffer;
 import ddf.minim.AudioInput;
 import ddf.minim.Minim;
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PVector;
-import com.jsyn.JSyn;
-import com.jsyn.Synthesizer;
-import com.jsyn.devices.AudioDeviceManager;
-import com.jsyn.unitgen.LineIn;
-import com.jsyn.unitgen.LineOut;
-
 
 import javax.sound.sampled.Control;
 import java.awt.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by Tobi (iBot), 08th April 2013
@@ -31,13 +29,11 @@ import java.util.List;
  */
 public class ProcessingShapes extends PApplet {
 
+    boolean kinectIsConfigured = false;
+
     SimpleOpenNI context;
     AudioInput ai;
     Queue<Float> sound;
-
-    Synthesizer synth;
-    LineIn lineIn;
-    LineOut lineOut;
     /**
      * This List will contain all the Shapes which we will fill with different colors
      */
@@ -63,44 +59,25 @@ public class ProcessingShapes extends PApplet {
      */
     @Override
     public void setup() {
-        playBack = new PlayBack();
-        minim = new Minim(this);
-        ai = minim.getLineIn(Minim.STEREO);
-        ai.printControls();
-        List<Control> controls = Arrays.asList(ai.getControls());
-        System.out.println(ai.getControls().length + " Controls: " + controls);
-        sound = new LinkedList<>();
+        setupCommonStuff();
+//        setupAudio();
+        setupKinect();
 
 
-        // Create a context for the synthesizer.
-        synth = JSyn.createSynthesizer();
-        // Add an audio input.
-        synth.add( lineIn = new LineIn() );
-        // Add an audio output.
-        synth.add( lineOut = new LineOut() );
-        // Connect the input to the output.
-        lineIn.output.connect( 0, lineOut.input, 0 );
-        lineIn.output.connect( 1, lineOut.input, 1 );
 
+    }
+
+    private void setupCommonStuff(){
         // size for fullscreen window, renderer OpenGL
         //  Don't forget to import native libraries for your OS. If OpenGL doesn't work, render without OpenGL...
 //        size(displayWidth, displayHeight, OPENGL);
-        size(displayWidth, displayHeight);
+        size(displayWidth, displayHeight, P3D);
 
         initShapes();
         background(Color.BLACK.getRGB());
         time = System.currentTimeMillis();
 
-        // instantiate a new context
-        context = new SimpleOpenNI(this);
 
-        // enable depthMap generation
-        context.enableDepth();
-
-        // enable skeleton generation for all joints
-        context.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
-
-        context.setMirror(true);
 //
         stroke(0, 255, 0);
         strokeWeight(3);
@@ -108,7 +85,29 @@ public class ProcessingShapes extends PApplet {
 
         // create a window the size of the depth information
 //        size(context.depthWidth(), context.depthHeight());
+    }
 
+    private void setupKinect() {
+        // instantiate a new context
+        context = new SimpleOpenNI(this);
+        // enable depthMap generation
+        context.enableDepth();
+
+        // enable skeleton generation for all joints
+        context.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
+
+        context.setMirror(true);
+        kinectIsConfigured = true;
+    }
+
+    private void setupAudio() {
+        playBack = new PlayBack();
+        minim = new Minim(this);
+        ai = minim.getLineIn(Minim.MONO);
+        ai.printControls();
+        List<Control> controls = Arrays.asList(ai.getControls());
+        System.out.println(ai.getControls().length + " Controls: " + controls);
+        sound = new LinkedList<>();
     }
 
     /**
@@ -118,42 +117,75 @@ public class ProcessingShapes extends PApplet {
     @Override
     public void draw() {
         background(Color.BLACK.getRGB());
+//        drawBackgroundBySound();
+        if (kinectIsConfigured) drawKinectStuff();
+
+//        drawSoundLines();
+//        drawTexturedShape(shapes.get(0));
+//drawAllShapes();
+
+    }
+
+    private void drawAllShapes(){
+        drawColoredShape(shapes.get(0), Color.GREEN);
+        drawColoredShape(shapes.get(1), Color.BLUE);
+        drawColoredShape(shapes.get(2), Color.RED);
+        drawColoredShape(shapes.get(3), Color.YELLOW);
+        drawColoredShape(shapes.get(4), Color.CYAN);
+        drawColoredShape(shapes.get(5), Color.MAGENTA);
+        drawColoredShape(shapes.get(6), Color.ORANGE);
+        drawColoredShape(shapes.get(7), Color.RED);
+        drawColoredShape(shapes.get(8), Color.GRAY);
+        drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
+        save("screenshot.jpg");
+    }
+
+    private void drawKinectStuff() {
         context.update();
 
         // update only after 1000 sec.
 //        if ((System.currentTimeMillis() - time) > 1000) {
 
 
+
         for (int i = 1; i < 3; i++) {
             if (context.isTrackingSkeleton(i)) {
 //                drawSkeleton(i);
 //                draw random colored shapes
-                drawShape(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND));
-                drawShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
-                drawShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
-                drawShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
+                drawColoredShape(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND));
+                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
+                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
+                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
+                drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
+
+
+
                 // set time to current system time
 //                time = System.currentTimeMillis();
 //            }
             } else {
-                //drawShape(shapes.get(i-1), Color.cyan);
+                //drawColoredShape(shapes.get(i-1), Color.cyan);
             }
         }
-
-        drawSoundLines();
-
-        drawBackgroundBySound();
-
     }
 
-    private void drawBackgroundBySound(){
+    private void drawBackgroundBySound() {
+
+
+//MINIM
         ai.addListener(playBack); //Samples from mic go to pb
-        //ap.addSignal(playBack); //ap will playback pb constantly.
-        float value = ai.mix.level()*50;
+//        ap.addSignal(playBack); //ap will playback pb constantly.
+        AudioBuffer audioBuffer = ai.mix;
+        float value = audioBuffer.level() * 1.3f;
+
+
+//        float value = ai.getGain();
+
         value = (float)Math.round(value * 100) / 100;
-        if (sound.size()>500){
+        if (sound.size() > 100) {
             sound.remove();
         }
+        if (value > 1) value = 1;
         sound.add(value);
         float average = 0;
         for (float f : sound){
@@ -161,17 +193,17 @@ public class ProcessingShapes extends PApplet {
         }
         value = average/sound.size();
         Color c = Color.getHSBColor(value, 0.99f, 0.99f);
-        System.out.println("Value: " + value);
+//        System.out.println("Value: " + value);
         background(c.getRGB());
     }
 
     private void drawSoundLines() {
-        background(0);
+//        background(0);
         stroke(255);
         // draw the waveforms
         for (int i = 0; i < ai.bufferSize() - 1; i++) {
-            line(i, 50 + ai.left.get(i) * 50, i + 1, 50 + ai.left.get(i + 1) * 50);
-            line(i, 150 + ai.right.get(i) * 50, i + 1, 150 + ai.right.get(i + 1) * 50);
+            line(i, 50 + ai.mix.get(i) * 50, i + 1, 50 + ai.mix.get(i + 1) * 50);
+//            line(i, 150 + ai.right.get(i) * 50, i + 1, 150 + ai.right.get(i + 1) * 50);
         }
     }
 
@@ -221,62 +253,83 @@ public class ProcessingShapes extends PApplet {
      * Examples shapes are created with a display resolution of 1920 *1080
      */
     private void initShapes() {
-        shapes.add(new Shape(596, 408));
-        shapes.add(new Shape(663, 214));
-        shapes.add(new Shape(847, 389));
-        shapes.add(new Shape(274, 123));
-        shapes.add(new Shape(99, 123));
-        shapes.add(new Shape(277, 355));
-        shapes.add(new Shape(1076, 509));
-        shapes.add(new Shape(1111, 153));
-//        shapes.add(new Shape(1007, 311));
+        shapes.add(new Shape(640, 75));
+        shapes.add(new Shape(665, 287));
+        shapes.add(new Shape(717, 299));
+        shapes.add(new Shape(717, 388));
+        shapes.add(new Shape(793, 572));
+        shapes.add(new Shape(634, 388));
+        shapes.add(new Shape(644, 515));
+        shapes.add(new Shape(655, 598));
+        shapes.add(new Shape(638, 678));
+        shapes.add(new Shape(712, 657));
+//        shapes.add(new Shape(692, 447));
 
-        shapes.get(0).add(195, -141);
-        shapes.get(0).add(-195, -242);
-        shapes.get(0).add(-195, -184);
-        shapes.get(0).add(-179, -159);
-        shapes.get(0).add(87, 242);
-        shapes.get(0).add(93, 165);
-        shapes.get(0).add(151, 185);
-        shapes.get(0).add(169, 188);
+        shapes.get(0).add(-11, -73);
+        shapes.get(0).add(-65, -61);
+        shapes.get(0).add(-38, 74);
+        shapes.get(0).add(66, 50);
 
-        shapes.get(1).add(-262, -48);
-        shapes.get(1).add(213, -52);
-        shapes.get(1).add(253, -42);
-        shapes.get(1).add(262, -32);
-        shapes.get(1).add(128, 53);
+        shapes.get(1).add(-32, -142);
+        shapes.get(1).add(-52, -120);
+        shapes.get(1).add(-90, 154);
+        shapes.get(1).add(-5, 43);
+        shapes.get(1).add(90, -87);
+        shapes.get(1).add(60, -127);
+        shapes.get(1).add(18, -154);
 
-        shapes.get(2).add(78, -207);
-        shapes.get(2).add(82, -189);
-        shapes.get(2).add(-82, 207);
-        shapes.get(2).add(-56, -122);
+        shapes.get(2).add(38, -99);
+        shapes.get(2).add(57, 100);
+        shapes.get(2).add(-57, 31);
 
-        shapes.get(3).add(78, -107);
-        shapes.get(3).add(81, 104);
-        shapes.get(3).add(-80, 108);
-        shapes.get(3).add(-81, -104);
+        shapes.get(3).add(-57, -58);
+        shapes.get(3).add(-24, 58);
+        shapes.get(3).add(57, 11);
 
-        shapes.get(4).add(-80, -105);
-        shapes.get(4).add(81, -106);
-        shapes.get(4).add(79, 105);
-        shapes.get(4).add(-80, 107);
+        shapes.get(4).add(-100, -126);
+        shapes.get(4).add(-29, 173);
+        shapes.get(4).add(63, 120);
+        shapes.get(4).add(100, 79);
+        shapes.get(4).add(-19, -173);
 
-        shapes.get(5).add(-86, -111);
-        shapes.get(5).add(86, -114);
-        shapes.get(5).add(85, 107);
-        shapes.get(5).add(-82, 115);
+        shapes.get(5).add(26, -58);
+        shapes.get(5).add(-59, 53);
+        shapes.get(5).add(59, 58);
 
-        shapes.get(6).add(-82, -86);
-        shapes.get(6).add(66, -87);
-        shapes.get(6).add(82, 85);
-        shapes.get(6).add(-67, 88);
+        shapes.get(6).add(-47, 75);
+        shapes.get(6).add(-69, -74);
+        shapes.get(6).add(48, -68);
+        shapes.get(6).add(70, 34);
 
-        shapes.get(7).add(-123, -153);
-        shapes.get(7).add(-104, 158);
-        shapes.get(7).add(123, 154);
-        shapes.get(7).add(98, -157);
+        shapes.get(7).add(59, -49);
+        shapes.get(7).add(5, 50);
+        shapes.get(7).add(-58, -8);
 
-//        shapes.get(8).add(0, 0);
+        shapes.get(8).add(22, -30);
+        shapes.get(8).add(41, 88);
+        shapes.get(8).add(-24, 62);
+        shapes.get(8).add(-41, -88);
+
+        shapes.get(9).add(2, -108);
+        shapes.get(9).add(-52, -9);
+        shapes.get(9).add(-33, 109);
+        shapes.get(9).add(52, 88);
+
+//        Shape s = new Shape(40,40);
+//        s.add(50,-10);
+//        s.add(70,30);
+//        s.add(50,70);
+//        s.add(10,70);
+//        s.add(0,0);
+//        shapes.add(s);
+//        System.out.println(s.getBoundingBox());
+
+        PImage image = loadImage("pic.jpg");
+
+        for (Shape shape : shapes){
+            shape.setImage(image);
+//            System.out.println(shape.getBoundingBox());
+        }
     }
 
     private Color getColorOfJoint(int userId, int joint) {
@@ -318,7 +371,7 @@ public class ProcessingShapes extends PApplet {
      * @param shape
      * @param color
      */
-    private void drawShape(Shape shape, Color color) {
+    private void drawColoredShape(Shape shape, Color color) {
         // I didn't analyse what pushMatrix(), translate(x,y) and popMatrix() do yet, but without calling this methods,
         //  the shapes will be drawn on a wrong position.
         // TODO: Understand what this methods exactly does...
@@ -339,12 +392,51 @@ public class ProcessingShapes extends PApplet {
         strokeWeight(3);
 
         // draw a vertex between all points of a shape
-        for (Point point : shape.points) {
+        for (Point point : shape.getPoints()) {
             vertex(point.x, point.y);
         }
 
         endShape(CLOSE);
         popMatrix();
+    }
+
+    /**
+     * This method draws a shape and fill it with an color
+     *
+     * @param shape
+     */
+    private void drawTexturedShape(Shape shape) {
+        // I didn't analyse what pushMatrix(), translate(x,y) and popMatrix() do yet, but without calling this methods,
+        //  the shapes will be drawn on a wrong position.
+        // TODO: Understand what this methods exactly does...
+        pushMatrix();
+
+        texture(shape.getImage());
+//fill(Color.BLUE.getRGB());
+        translate(shape.x, shape.y);
+
+        beginShape();
+
+        // uncomment to draw NO shape outlines
+//        noStroke();
+        // uncomment to set the outline color
+        stroke(Color.BLACK.getRGB());
+        // uncomment to set the outline weight
+        strokeWeight(3);
+
+        // draw a vertex between all points of a shape
+        for (Point point : shape.getPoints()) {
+            vertex(point.x, point.y,0,shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y);
+
+        }
+
+        endShape(CLOSE);
+        popMatrix();
+//        pushMatrix();
+//        fill(Color.red.getRGB());
+//        ellipseMode(CENTER);
+//        ellipse(shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y,10,10);
+//        popMatrix();
     }
 
     private void drawPolygon(Polygon poly, Color color) {
@@ -400,17 +492,17 @@ public class ProcessingShapes extends PApplet {
         }
     }
 
-    private class Shape extends Point {
-        public List<Point> points = new LinkedList<>();
-
-        public Shape(int x, int y) {
-            super(x, y);
-        }
-
-        public void add(int x, int y) {
-            points.add(new Point(x, y));
-        }
-    }
+//    private class Shape extends Point {
+//        public List<Point> points = new LinkedList<>();
+//
+//        public Shape(int x, int y) {
+//            super(x, y);
+//        }
+//
+//        public void add(int x, int y) {
+//            points.add(new Point(x, y));
+//        }
+//    }
 
 
 }
