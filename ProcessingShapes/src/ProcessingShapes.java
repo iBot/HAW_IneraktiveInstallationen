@@ -29,7 +29,8 @@ import java.util.Queue;
  */
 public class ProcessingShapes extends PApplet {
 
-    boolean kinectIsConfigured = false;
+    private boolean kinectIsConfigured = false;
+    private boolean soundIsConfigured = false;
 
     SimpleOpenNI context;
     AudioInput ai;
@@ -44,6 +45,7 @@ public class ProcessingShapes extends PApplet {
     private long time;
     private PlayBack playBack;
     private Minim minim;
+
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen mode
@@ -61,10 +63,7 @@ public class ProcessingShapes extends PApplet {
     public void setup() {
         setupCommonStuff();
 //        setupAudio();
-        setupKinect();
-
-
-
+//        setupKinect();
     }
 
     private void setupCommonStuff(){
@@ -108,6 +107,8 @@ public class ProcessingShapes extends PApplet {
         List<Control> controls = Arrays.asList(ai.getControls());
         System.out.println(ai.getControls().length + " Controls: " + controls);
         sound = new LinkedList<>();
+
+        soundIsConfigured = true;
     }
 
     /**
@@ -120,10 +121,15 @@ public class ProcessingShapes extends PApplet {
 //        drawBackgroundBySound();
         if (kinectIsConfigured) drawKinectStuff();
 
-//        drawSoundLines();
-//        drawTexturedShape(shapes.get(0));
-//drawAllShapes();
+        if (soundIsConfigured) drawSoundLines();
 
+        if (!soundIsConfigured & !kinectIsConfigured){
+//            drawAllShapes();
+
+            drawTexturedShape(shapes.get(0));
+
+//            save("screenshot.jpg");
+        }
     }
 
     private void drawAllShapes(){
@@ -137,7 +143,7 @@ public class ProcessingShapes extends PApplet {
         drawColoredShape(shapes.get(7), Color.RED);
         drawColoredShape(shapes.get(8), Color.GRAY);
         drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
-        save("screenshot.jpg");
+
     }
 
     private void drawKinectStuff() {
@@ -439,10 +445,10 @@ public class ProcessingShapes extends PApplet {
 //        popMatrix();
     }
 
-    private void drawPolygon(Polygon poly, Color color) {
-        //PGraphics
-
-    }
+//    private void drawPolygon(Polygon poly, Color color) {
+//        //PGraphics
+//
+//    }
 
     // when a person ('user') enters the field of view
     public void onNewUser(int userId) {

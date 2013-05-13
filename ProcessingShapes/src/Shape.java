@@ -34,38 +34,15 @@ public class Shape extends Point {
     }
 
     public void recalculateBoundingBox() {
-        int x1 = x, y1 = y, x2 = x, y2 = y, xp1 = x, yp1 = y;
-
-        for(Point p : points){
-            System.out.println(p);
-
-            if (xp1 + p.x < x1) {
-                x1 = xp1 + p.x;
-            }
-
-            if (yp1 + p.y < y1) {
-                y1 = yp1 + p.y;
-            }
-
-            if (xp1 + p.x > x2) {
-                x2 = xp1 + p.x;
-            }
-
-            if (yp1 + p.y > y2) {
-                y2 = yp1 + p.y;
-            }
-        }
-
-        boundingBox = new BoundingBox(new Point(x1, y1), new Point(x2, y2));
-
+        boundingBox=new BoundingBox(this);
     }
 
     public List<Point> getPoints() {
-        return points;
+        return new LinkedList<>(points);
     }
 
     public void setPoints(List<Point> points) {
-        this.points = points;
+        this.points = new LinkedList<>(points);
     }
 
     public void add(int x, int y) {

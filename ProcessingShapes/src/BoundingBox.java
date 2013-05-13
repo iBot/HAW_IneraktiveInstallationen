@@ -7,21 +7,49 @@
  */
 public class BoundingBox {
 
-    Point p1, p2, mid;
+    Point leftTop, rightBottom, mid;
 
 
-    public BoundingBox(Point p1, Point p2) {
-        this.p1 = p1;
-        this.p2 = p2;
-        this.mid = new Point(p2.x-p1.x, p2.y-p1.y);
+    public BoundingBox(Point leftTop, Point rightBottom) {
+        this.leftTop = leftTop;
+        this.rightBottom = rightBottom;
+        this.mid = new Point(this.rightBottom.x- this.leftTop.x, this.rightBottom.y- this.leftTop.y);
     }
 
-    public Point getP1() {
-        return p1;
+    public BoundingBox(Shape shape){
+        int x1 = shape.x, y1 = shape.y, x2 = shape.x, y2 = shape.y, xp1 = shape.x, yp1 = shape.y;
+
+        for(Point p : shape.getPoints()){
+            System.out.println(p);
+
+            if (xp1 + p.x < x1) {
+                x1 = xp1 + p.x;
+            }
+
+            if (yp1 + p.y < y1) {
+                y1 = yp1 + p.y;
+            }
+
+            if (xp1 + p.x > x2) {
+                x2 = xp1 + p.x;
+            }
+
+            if (yp1 + p.y > y2) {
+                y2 = yp1 + p.y;
+            }
+        }
+
+        leftTop=new Point(x1, y1);
+        rightBottom=new Point(x2, y2);
+        this.mid = new Point(rightBottom.x- leftTop.x, rightBottom.y- leftTop.y);
     }
 
-    public Point getP2() {
-        return p2;
+    public Point getLeftTop() {
+        return leftTop;
+    }
+
+    public Point getRightBottom() {
+        return rightBottom;
     }
 
     public Point getMidPoint(){
@@ -31,8 +59,8 @@ public class BoundingBox {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("BoundingBox{");
-        sb.append("p1=").append(p1);
-        sb.append(", p2=").append(p2);
+        sb.append("leftTop=").append(leftTop);
+        sb.append(", rightBottom=").append(rightBottom);
         sb.append(", mid=").append(mid);
         sb.append('}');
         return sb.toString();
