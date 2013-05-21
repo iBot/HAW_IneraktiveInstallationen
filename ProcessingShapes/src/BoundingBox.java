@@ -17,31 +17,30 @@ public class BoundingBox {
     }
 
     public BoundingBox(Shape shape){
-        int x1 = shape.x, y1 = shape.y, x2 = shape.x, y2 = shape.y, xp1 = shape.x, yp1 = shape.y;
 
-        for(Point p : shape.getPoints()){
-            System.out.println(p);
 
-            if (xp1 + p.x < x1) {
-                x1 = xp1 + p.x;
-            }
+        int rightBottomX = 0, leftTopX = 10000, rightBottomY = 0, leftTopY = 100000;
 
-            if (yp1 + p.y < y1) {
-                y1 = yp1 + p.y;
-            }
+        // draw a vertex between all points of a shape
+        for (Point point : shape.getPoints()) {
+            //noFill();
 
-            if (xp1 + p.x > x2) {
-                x2 = xp1 + p.x;
-            }
 
-            if (yp1 + p.y > y2) {
-                y2 = yp1 + p.y;
-            }
+            int x = point.x;
+            int y = point.y;
+
+            if(x > rightBottomX) rightBottomX = x;
+            if(x < leftTopX) leftTopX = x;
+            if(y > rightBottomY) rightBottomY = y;
+            if(y < leftTopY) leftTopY = y;
         }
 
-        leftTop=new Point(x1, y1);
-        rightBottom=new Point(x2, y2);
-        this.mid = new Point(rightBottom.x- leftTop.x, rightBottom.y- leftTop.y);
+        leftTop=new Point(leftTopX, leftTopY);
+        rightBottom=new Point(rightBottomX, rightBottomY);
+
+//        leftTop=new Point(leftTopX, leftTopY);
+//        rightBottom=new Point(rightBottomX, rightBottomY);
+        this.mid = new Point(((rightBottom.x- leftTop.x)/2) +leftTop.x, ((rightBottom.y- leftTop.y)/2)+leftTop.y);
     }
 
     public Point getLeftTop() {

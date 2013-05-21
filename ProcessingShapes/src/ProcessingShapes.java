@@ -124,26 +124,30 @@ public class ProcessingShapes extends PApplet {
         if (soundIsConfigured) drawSoundLines();
 
         if (!soundIsConfigured & !kinectIsConfigured){
-//            drawAllShapes();
+            drawAllShapes();
 
-            drawTexturedShape(shapes.get(0));
+//            drawTexturedShape(shapes.get(0));
 
 //            save("screenshot.jpg");
         }
     }
 
     private void drawAllShapes(){
-        drawColoredShape(shapes.get(0), Color.GREEN);
-        drawColoredShape(shapes.get(1), Color.BLUE);
-        drawColoredShape(shapes.get(2), Color.RED);
-        drawColoredShape(shapes.get(3), Color.YELLOW);
-        drawColoredShape(shapes.get(4), Color.CYAN);
-        drawColoredShape(shapes.get(5), Color.MAGENTA);
-        drawColoredShape(shapes.get(6), Color.ORANGE);
-        drawColoredShape(shapes.get(7), Color.RED);
-        drawColoredShape(shapes.get(8), Color.GRAY);
-        drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
+//        drawColoredShape(shapes.get(0), Color.GREEN);
+//        drawColoredShape(shapes.get(1), Color.BLUE);
+//        drawColoredShape(shapes.get(2), Color.RED);
+//        drawColoredShape(shapes.get(3), Color.YELLOW);
+//        drawColoredShape(shapes.get(4), Color.CYAN);
+//        drawColoredShape(shapes.get(5), Color.MAGENTA);
+//        drawColoredShape(shapes.get(6), Color.ORANGE);
+//        drawColoredShape(shapes.get(7), Color.RED);
+//        drawColoredShape(shapes.get(8), Color.GRAY);
+//        drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
 
+
+        for (Shape shape : shapes){
+            drawTexturedShape(shape);
+        }
     }
 
     private void drawKinectStuff() {
@@ -260,15 +264,15 @@ public class ProcessingShapes extends PApplet {
      */
     private void initShapes() {
         shapes.add(new Shape(640, 75));
-        shapes.add(new Shape(665, 287));
-        shapes.add(new Shape(717, 299));
-        shapes.add(new Shape(717, 388));
-        shapes.add(new Shape(793, 572));
-        shapes.add(new Shape(634, 388));
-        shapes.add(new Shape(644, 515));
-        shapes.add(new Shape(655, 598));
-        shapes.add(new Shape(638, 678));
-        shapes.add(new Shape(712, 657));
+//        shapes.add(new Shape(665, 287));
+//        shapes.add(new Shape(717, 299));
+//        shapes.add(new Shape(717, 388));
+//        shapes.add(new Shape(793, 572));
+//        shapes.add(new Shape(634, 388));
+//        shapes.add(new Shape(644, 515));
+//        shapes.add(new Shape(655, 598));
+//        shapes.add(new Shape(638, 678));
+//        shapes.add(new Shape(712, 657));
 //        shapes.add(new Shape(692, 447));
 
         shapes.get(0).add(-11, -73);
@@ -276,50 +280,50 @@ public class ProcessingShapes extends PApplet {
         shapes.get(0).add(-38, 74);
         shapes.get(0).add(66, 50);
 
-        shapes.get(1).add(-32, -142);
-        shapes.get(1).add(-52, -120);
-        shapes.get(1).add(-90, 154);
-        shapes.get(1).add(-5, 43);
-        shapes.get(1).add(90, -87);
-        shapes.get(1).add(60, -127);
-        shapes.get(1).add(18, -154);
-
-        shapes.get(2).add(38, -99);
-        shapes.get(2).add(57, 100);
-        shapes.get(2).add(-57, 31);
-
-        shapes.get(3).add(-57, -58);
-        shapes.get(3).add(-24, 58);
-        shapes.get(3).add(57, 11);
-
-        shapes.get(4).add(-100, -126);
-        shapes.get(4).add(-29, 173);
-        shapes.get(4).add(63, 120);
-        shapes.get(4).add(100, 79);
-        shapes.get(4).add(-19, -173);
-
-        shapes.get(5).add(26, -58);
-        shapes.get(5).add(-59, 53);
-        shapes.get(5).add(59, 58);
-
-        shapes.get(6).add(-47, 75);
-        shapes.get(6).add(-69, -74);
-        shapes.get(6).add(48, -68);
-        shapes.get(6).add(70, 34);
-
-        shapes.get(7).add(59, -49);
-        shapes.get(7).add(5, 50);
-        shapes.get(7).add(-58, -8);
-
-        shapes.get(8).add(22, -30);
-        shapes.get(8).add(41, 88);
-        shapes.get(8).add(-24, 62);
-        shapes.get(8).add(-41, -88);
-
-        shapes.get(9).add(2, -108);
-        shapes.get(9).add(-52, -9);
-        shapes.get(9).add(-33, 109);
-        shapes.get(9).add(52, 88);
+//        shapes.get(1).add(-32, -142);
+//        shapes.get(1).add(-52, -120);
+//        shapes.get(1).add(-90, 154);
+//        shapes.get(1).add(-5, 43);
+//        shapes.get(1).add(90, -87);
+//        shapes.get(1).add(60, -127);
+//        shapes.get(1).add(18, -154);
+//
+//        shapes.get(2).add(38, -99);
+//        shapes.get(2).add(57, 100);
+//        shapes.get(2).add(-57, 31);
+//
+//        shapes.get(3).add(-57, -58);
+//        shapes.get(3).add(-24, 58);
+//        shapes.get(3).add(57, 11);
+//
+//        shapes.get(4).add(-100, -126);
+//        shapes.get(4).add(-29, 173);
+//        shapes.get(4).add(63, 120);
+//        shapes.get(4).add(100, 79);
+//        shapes.get(4).add(-19, -173);
+//
+//        shapes.get(5).add(26, -58);
+//        shapes.get(5).add(-59, 53);
+//        shapes.get(5).add(59, 58);
+//
+//        shapes.get(6).add(-47, 75);
+//        shapes.get(6).add(-69, -74);
+//        shapes.get(6).add(48, -68);
+//        shapes.get(6).add(70, 34);
+//
+//        shapes.get(7).add(59, -49);
+//        shapes.get(7).add(5, 50);
+//        shapes.get(7).add(-58, -8);
+//
+//        shapes.get(8).add(22, -30);
+//        shapes.get(8).add(41, 88);
+//        shapes.get(8).add(-24, 62);
+//        shapes.get(8).add(-41, -88);
+//
+//        shapes.get(9).add(2, -108);
+//        shapes.get(9).add(-52, -9);
+//        shapes.get(9).add(-33, 109);
+//        shapes.get(9).add(52, 88);
 
 //        Shape s = new Shape(40,40);
 //        s.add(50,-10);
@@ -418,7 +422,7 @@ public class ProcessingShapes extends PApplet {
         pushMatrix();
 
         texture(shape.getImage());
-//fill(Color.BLUE.getRGB());
+        fill(Color.BLUE.getRGB());
         translate(shape.x, shape.y);
 
         beginShape();
@@ -437,12 +441,17 @@ public class ProcessingShapes extends PApplet {
         }
 
         endShape(CLOSE);
-        popMatrix();
-//        pushMatrix();
-//        fill(Color.red.getRGB());
-//        ellipseMode(CENTER);
-//        ellipse(shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y,10,10);
 //        popMatrix();
+//        pushMatrix();
+
+        ellipseMode(CENTER);
+        fill(Color.green.getRGB());
+        ellipse(shape.getBoundingBox().getLeftTop().x,shape.getBoundingBox().getLeftTop().y,10,10);
+        fill(Color.yellow.getRGB());
+        ellipse(shape.getBoundingBox().getRightBottom().x,shape.getBoundingBox().getRightBottom().y,10,10);
+        fill(Color.red.getRGB());
+        ellipse(shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y,10,10);
+        popMatrix();
     }
 
 //    private void drawPolygon(Polygon poly, Color color) {
