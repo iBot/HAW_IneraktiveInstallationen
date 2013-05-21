@@ -72,6 +72,8 @@ public class ProcessingShapes extends PApplet {
 //        size(displayWidth, displayHeight, OPENGL);
         size(displayWidth, displayHeight, P3D);
 
+        //size(1000, 400, P3D);
+
         initShapes();
         background(Color.BLACK.getRGB());
         time = System.currentTimeMillis();
@@ -263,67 +265,62 @@ public class ProcessingShapes extends PApplet {
      * Examples shapes are created with a display resolution of 1920 *1080
      */
     private void initShapes() {
-        shapes.add(new Shape(640, 75));
-//        shapes.add(new Shape(665, 287));
-//        shapes.add(new Shape(717, 299));
-//        shapes.add(new Shape(717, 388));
-//        shapes.add(new Shape(793, 572));
-//        shapes.add(new Shape(634, 388));
-//        shapes.add(new Shape(644, 515));
-//        shapes.add(new Shape(655, 598));
-//        shapes.add(new Shape(638, 678));
-//        shapes.add(new Shape(712, 657));
-//        shapes.add(new Shape(692, 447));
+    	shapes.add(new Shape(699, 111));
+		shapes.add(new Shape(657, 258));
+		shapes.add(new Shape(720, 214));
+		shapes.add(new Shape(647, 329));
+		shapes.add(new Shape(712, 330));
+		shapes.add(new Shape(717, 282));
+		shapes.add(new Shape(642, 408));
+		shapes.add(new Shape(639, 459));
+		shapes.add(new Shape(639, 502));
+		shapes.add(new Shape(731, 467));
 
-        shapes.get(0).add(-11, -73);
-        shapes.get(0).add(-65, -61);
-        shapes.get(0).add(-38, 74);
-        shapes.get(0).add(66, 50);
+		shapes.get(0).add(-36, -47);
+		shapes.get(0).add(11, -45);
+		shapes.get(0).add(36, 44);
+		shapes.get(0).add(-36, 48);
 
-//        shapes.get(1).add(-32, -142);
-//        shapes.get(1).add(-52, -120);
-//        shapes.get(1).add(-90, 154);
-//        shapes.get(1).add(-5, 43);
-//        shapes.get(1).add(90, -87);
-//        shapes.get(1).add(60, -127);
-//        shapes.get(1).add(18, -154);
-//
-//        shapes.get(2).add(38, -99);
-//        shapes.get(2).add(57, 100);
-//        shapes.get(2).add(-57, 31);
-//
-//        shapes.get(3).add(-57, -58);
-//        shapes.get(3).add(-24, 58);
-//        shapes.get(3).add(57, 11);
-//
-//        shapes.get(4).add(-100, -126);
-//        shapes.get(4).add(-29, 173);
-//        shapes.get(4).add(63, 120);
-//        shapes.get(4).add(100, 79);
-//        shapes.get(4).add(-19, -173);
-//
-//        shapes.get(5).add(26, -58);
-//        shapes.get(5).add(-59, 53);
-//        shapes.get(5).add(59, 58);
-//
-//        shapes.get(6).add(-47, 75);
-//        shapes.get(6).add(-69, -74);
-//        shapes.get(6).add(48, -68);
-//        shapes.get(6).add(70, 34);
-//
-//        shapes.get(7).add(59, -49);
-//        shapes.get(7).add(5, 50);
-//        shapes.get(7).add(-58, -8);
-//
-//        shapes.get(8).add(22, -30);
-//        shapes.get(8).add(41, 88);
-//        shapes.get(8).add(-24, 62);
-//        shapes.get(8).add(-41, -88);
-//
-//        shapes.get(9).add(2, -108);
-//        shapes.get(9).add(-52, -9);
-//        shapes.get(9).add(-33, 109);
-//        shapes.get(9).add(52, 88);
+		shapes.get(1).add(-41, 99);
+		shapes.get(1).add(7, -85);
+		shapes.get(1).add(28, -99);
+		shapes.get(1).add(42, 13);
+
+		shapes.get(2).add(-35, -55);
+		shapes.get(2).add(-2, -56);
+		shapes.get(2).add(36, -3);
+		shapes.get(2).add(-21, 57);
+
+		shapes.get(3).add(-31, 28);
+		shapes.get(3).add(32, -35);
+		shapes.get(3).add(26, 36);
+
+		shapes.get(4).add(-39, 35);
+		shapes.get(4).add(-33, -36);
+		shapes.get(4).add(40, 37);
+
+		shapes.get(5).add(-38, 12);
+		shapes.get(5).add(39, -71);
+		shapes.get(5).add(33, 72);
+
+		shapes.get(6).add(-26, -51);
+		shapes.get(6).add(31, -43);
+		shapes.get(6).add(25, 25);
+		shapes.get(6).add(-30, 51);
+
+		shapes.get(7).add(-27, 0);
+		shapes.get(7).add(28, -26);
+		shapes.get(7).add(-27, 27);
+
+		shapes.get(8).add(-27, -16);
+		shapes.get(8).add(28, -69);
+		shapes.get(8).add(22, 68);
+		shapes.get(8).add(-26, 69);
+
+		shapes.get(9).add(-58, -102);
+		shapes.get(9).add(17, -90);
+		shapes.get(9).add(70, 95);
+		shapes.get(9).add(-70, 103);
 
 //        Shape s = new Shape(40,40);
 //        s.add(50,-10);
@@ -334,7 +331,7 @@ public class ProcessingShapes extends PApplet {
 //        shapes.add(s);
 //        System.out.println(s.getBoundingBox());
 
-        PImage image = loadImage("pic.jpg");
+        PImage image = loadImage("/Users/milena/Desktop/rotk.jpg");
 
         for (Shape shape : shapes){
             shape.setImage(image);
@@ -390,7 +387,6 @@ public class ProcessingShapes extends PApplet {
         // set the color for filling the shape
         fill(color.getRGB());
 
-        translate(shape.x, shape.y);
 
         beginShape();
 
@@ -412,7 +408,7 @@ public class ProcessingShapes extends PApplet {
 
     /**
      * This method draws a shape and fill it with an color
-     *
+     *1
      * @param shape
      */
     private void drawTexturedShape(Shape shape) {
@@ -421,10 +417,7 @@ public class ProcessingShapes extends PApplet {
         // TODO: Understand what this methods exactly does...
         pushMatrix();
 
-        texture(shape.getImage());
-        fill(Color.BLUE.getRGB());
-        translate(shape.x, shape.y);
-
+        textureMode(NORMAL);
         beginShape();
 
         // uncomment to draw NO shape outlines
@@ -434,10 +427,25 @@ public class ProcessingShapes extends PApplet {
         // uncomment to set the outline weight
         strokeWeight(3);
 
+        texture(shape.getImage());
+        int i = 1;
         // draw a vertex between all points of a shape
         for (Point point : shape.getPoints()) {
-            vertex(point.x, point.y,0,shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y);
+        	switch (i)
+        	{
+        	case 1: vertex(point.x, point.y, 0, 0,0);
+        			break;
+        	case 2: vertex(point.x, point.y, 0, 1, 0);
+        			break;
+        	case 3: vertex(point.x, point.y, 0, 1, 1);
+        			break;
+        	case 4: vertex(point.x, point.y, 0, 0,1);
+        			break;
+        	default: vertex(point.x, point.y, 0);
+        	}
+        	i++;
 
+            
         }
 
         endShape(CLOSE);
