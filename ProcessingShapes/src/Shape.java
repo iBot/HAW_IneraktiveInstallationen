@@ -16,21 +16,13 @@ public class Shape extends Point {
     private List<Point> points = new LinkedList<>();
     private PImage image;
     private BoundingBox boundingBox;
-    private int x, y;
-    private Point leftTop, leftBottom, rightTop, rightBottom;
 
     public Shape(int x, int y) {
         this(x, y, null);
-        leftTop = new Point (10000,10000);
-        leftBottom = new Point (10000,0);
-        rightTop = new Point (0,10000);
-        rightBottom = new Point (0,0);
     }
 
     public Shape(int x, int y, PImage image) {
         super(x, y);
-        this.x = x;
-        this.y = y;
         this.image = image;
     }
 
@@ -55,9 +47,9 @@ public class Shape extends Point {
 
     public void add(int x, int y) {
     	
-    	int transX = this.x + x;
-    	int transY = this.y + y;
-        points.add(new Point(transX, transY));
+    	//int transX = this.x + x;
+    	//int transY = this.y + y;
+        points.add(new Point(x, y));
     }
 
     public PImage getImage() {

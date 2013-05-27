@@ -164,7 +164,9 @@ public class ProcessingShapes extends PApplet {
             if (context.isTrackingSkeleton(i)) {
 //                drawSkeleton(i);
 //                draw random colored shapes
-                drawColoredShape(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND));
+            	PVector position = new PVector();
+            	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
+                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND), position);
                 drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
                 drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
                 drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
@@ -386,7 +388,7 @@ public class ProcessingShapes extends PApplet {
 
         // set the color for filling the shape
         fill(color.getRGB());
-
+        translate(shape.x, shape.y);
 
         beginShape();
 
@@ -405,9 +407,56 @@ public class ProcessingShapes extends PApplet {
         endShape(CLOSE);
         popMatrix();
     }
-
+    
     /**
      * This method draws a shape and fill it with an color
+     *
+     * @param shape
+     * @param color
+     */
+    private void drawColoredShapeWithForms(Shape shape, Color color, PVector jointPos) {
+       
+        pushMatrix();
+
+        // set the color for filling the shape
+        fill(color.getRGB());
+        translate(shape.x, shape.y);
+
+        beginShape();
+        
+        for(int i = 0; i < 10; i++)
+        {
+        	ellipseFollowJoint(jointPos);
+        }
+
+        // uncomment to draw NO shape outlines
+//        noStroke();
+        // uncomment to set the outline color
+        stroke(Color.BLACK.getRGB());
+        // uncomment to set the outline weight
+        strokeWeight(3);
+
+        // draw a vertex between all points of a shape
+        for (Point point : shape.getPoints()) {
+            vertex(point.x, point.y);
+        }
+
+        endShape(CLOSE);
+        popMatrix();
+    }
+
+    private void ellipseFollowJoint(PVector position) {
+		for(int i=0; i<10; i++)
+		{
+			
+		}
+	}
+
+	/**
+     * This method draws a shape and fill it with an color
+     * !!!!!!Funzt grad nicht
+     * !!!!!!Funktioniert nur ohne translate...dh die Punkte in Shape mŸssen aufs ganze Koordinatensystem
+     * umgerechnet werden. 
      *1
      * @param shape
      */
