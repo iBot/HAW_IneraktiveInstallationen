@@ -92,8 +92,8 @@ public class ProcessingShapes extends PApplet {
 
     private void setupKinect() {
         // instantiate a new context
-        context1 = new SimpleOpenNI(this);
-        context2 = new SimpleOpenNI(this);
+        context1 = new SimpleOpenNI(0,this);
+        context2 = new SimpleOpenNI(1,this);
         
         UserManager userManager1 = new UserManager(context1);
         UserManager userManager2 = new UserManager(context2);
@@ -192,7 +192,7 @@ public class ProcessingShapes extends PApplet {
         for (int i = 1; i < 3; i++) {
         	
             if (context1.isTrackingSkeleton(i)) {
-            	System.out.println("context1 tracked skeleton "+i);
+            	System.out.println(context1+"context1 tracked skeleton "+i);
 //                drawSkeleton(i);
 //                draw random colored shapes
             	PVector position = new PVector();
@@ -205,8 +205,8 @@ public class ProcessingShapes extends PApplet {
 
 
             }
-            if (context2.isTrackingSkeleton(i)) {
-            	System.out.println("context1 tracked skeleton "+i);
+            else if (context2.isTrackingSkeleton(i)) {
+            	System.out.println(context2+"context2 tracked skeleton "+i);
 //              drawSkeleton(i);
 //              draw random colored shapes
           	PVector position = new PVector();
