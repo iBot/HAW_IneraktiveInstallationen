@@ -193,6 +193,7 @@ public class ProcessingShapes extends PApplet {
         	
             if (context1.isTrackingSkeleton(i)) {
             	System.out.println(context1+"context1 tracked skeleton "+i);
+            	System.out.println(Arrays.toString(context1.getUsers()));
 //                drawSkeleton(i);
 //                draw random colored shapes
             	PVector position = new PVector();
@@ -207,6 +208,7 @@ public class ProcessingShapes extends PApplet {
             }
             else if (context2.isTrackingSkeleton(i)) {
             	System.out.println(context2+"context2 tracked skeleton "+i);
+            	System.out.println(Arrays.toString(context2.getUsers()));
 //              drawSkeleton(i);
 //              draw random colored shapes
           	PVector position = new PVector();
