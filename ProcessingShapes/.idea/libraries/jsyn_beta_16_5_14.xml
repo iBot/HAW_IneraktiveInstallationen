@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jsyn-beta-16.5.14">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/jsyn/jsyn-beta-16.5.14.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

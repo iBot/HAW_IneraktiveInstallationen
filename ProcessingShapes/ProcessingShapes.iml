@@ -9,9 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="processing20b8" level="application" />
     <orderEntry type="library" name="jogl" level="application" />
-    <orderEntry type="library" name="SimpleOpenNI" level="project" />
-    <orderEntry type="library" name="Minim" level="project" />
-    <orderEntry type="library" name="jsyn-beta-16.5.14" level="project" />
+    <orderEntry type="library" name="Minim" level="application" />
+    <orderEntry type="library" name="SimpleOpenNI" level="application" />
   </component>
 </module>
 
