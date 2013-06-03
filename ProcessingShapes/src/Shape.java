@@ -17,6 +17,10 @@ public class Shape extends Point {
     private PImage image;
     private BoundingBox boundingBox;
 
+	public int num = 20;
+	public float mx[] = new float[num];
+	public float my[] = new float[num];
+
     public Shape(int x, int y) {
         this(x, y, null);
     }

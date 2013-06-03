@@ -55,6 +55,16 @@ public class BoundingBox {
         return mid;
     }
 
+    public int getWidth()
+    {
+    	return Math.abs(rightBottom.x-leftTop.x);
+    }
+    
+    public int getHeight()
+    {
+    	return Math.abs(rightBottom.y-leftTop.y);
+    }
+    
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("BoundingBox{");
