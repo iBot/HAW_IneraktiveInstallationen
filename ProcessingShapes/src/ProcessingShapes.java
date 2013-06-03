@@ -185,7 +185,7 @@ public class ProcessingShapes extends PApplet {
 //                draw random colored shapes
             	PVector position = new PVector();
             	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND), position);
+                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND));
                 drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
                 drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
                 drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
