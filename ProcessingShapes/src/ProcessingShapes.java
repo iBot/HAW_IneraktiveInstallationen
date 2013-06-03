@@ -47,7 +47,7 @@ public class ProcessingShapes extends PApplet {
     private PlayBack playBack;
     private Minim minim;
     
-    int num = 60;
+    int num = 20;
     float mx[] = new float[num];
     float my[] = new float[num];
 
@@ -165,10 +165,10 @@ public class ProcessingShapes extends PApplet {
 //        drawColoredShape(shapes.get(8), Color.GRAY);
 //        drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
 
-
-        for (Shape shape : shapes){
-            drawColoredShapeWithForms(shape, Color.CYAN);
-        }
+        drawColoredShapeWithForms(shapes.get(0),Color.ORANGE);
+//        for (Shape shape : shapes){
+//            drawColoredShapeWithForms(shape, Color.CYAN);
+//        }
     }
 
     private void drawKinectStuff() {
@@ -437,19 +437,7 @@ public class ProcessingShapes extends PApplet {
        
         pushMatrix();
 
-        noStroke();
-        fill(Color.BLACK.getRGB());
-     // Cycle through the array, using a different entry on each frame. 
-        // Using modulo (%) like this is faster than moving all the values over.
-        int which = frameCount % num;
-        mx[which] = mouseX;
-        my[which] = mouseY;
-        
-        for (int i = 0; i < num; i++) {
-          // which+1 is the smallest (the oldest in the array)
-          int index = (which+1 + i) % num;
-          ellipse(mx[index], my[index], i, i);
-        }
+
         
         // set the color for filling the shape
         fill(color.getRGB());
@@ -470,12 +458,35 @@ public class ProcessingShapes extends PApplet {
             vertex(point.x, point.y);
         }
 
-        
-      
+
+
         
         endShape(CLOSE);
-        
+
+
+
+
         popMatrix();
+
+        noStroke();
+        fill(Color.CYAN.getRGB());
+        // Cycle through the array, using a different entry on each frame.
+        // Using modulo (%) like this is faster than moving all the values over.
+        int which = frameCount % num;
+        mx[which] = mouseX;
+        my[which] = mouseY;
+
+        for (int i = 0; i < num; i++) {
+            // which+1 is the smallest (the oldest in the array)
+            int index = (which+1 + i) % num;
+            if (shape.getPolygon().contains(mx[index], my[index])){
+//                System.out.println(">>>>>>>> true");
+
+                ellipse(mx[index], my[index], i, i);
+            } else {
+//                System.out.println("######## false");
+            }
+        }
     }
 
     private void ellipseFollowJoint(PVector position) {

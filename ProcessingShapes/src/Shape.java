@@ -76,13 +76,13 @@ public class Shape extends Point {
         int[] xPoints = new int[points.size()];
         int[] yPoints = new int[points.size()];
         for (int i = 0; i < xPoints.length; i++) {
-            if (i == 0) {
-                xPoints[i] = points.get(i).x;
-                yPoints[i] = points.get(i).y;
-            } else {
-                xPoints[i] = points.get(i).x + xPoints[0];
-                yPoints[i] = points.get(i).y + yPoints[0];
-            }
+//            if (i == 0) {
+//                xPoints[i] = points.get(i).x;
+//                yPoints[i] = points.get(i).y;
+//            } else {
+                xPoints[i] = points.get(i).x + x;
+                yPoints[i] = points.get(i).y + y;
+//            }
         }
         return new Polygon(xPoints, yPoints, points.size());
     }

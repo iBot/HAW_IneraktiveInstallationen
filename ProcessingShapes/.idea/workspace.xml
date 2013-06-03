@@ -3,13 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="1301d623-3a62-4607-887d-ed3cd4e37666" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ProcessingShapes.java" afterPath="$PROJECT_DIR$/src/ProcessingShapes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Shape.java" afterPath="$PROJECT_DIR$/src/Shape.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ProcessingShapes.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/fragment.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370242249104" ignored="false" />
-    <file path="/ProcessingShapes.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370244267803" ignored="false" />
-    <file path="/Dummy.txt" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370244781434" ignored="false" />
+    <file path="/ProcessingShapes.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370247185113" ignored="false" />
+    <file path="/Dummy.txt" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370244841317" ignored="false" />
     <file path="$PROJECT_DIR$/../IIPrototyp/.idea/workspace.xml" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1365591491944" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451830" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/html5/xhtml5.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451830" ignored="false" />
@@ -31,7 +32,7 @@
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451832" ignored="false" />
     <file path="/a.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366614963768" ignored="false" />
     <file path="/Point.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367216969344" ignored="false" />
-    <file path="/Shape.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367218185838" ignored="false" />
+    <file path="/Shape.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370246772959" ignored="false" />
     <file path="/PlayBack.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367228700156" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +97,7 @@
       <file leaf-file-name="ProcessingShapes.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ProcessingShapes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="187" column="109" selection-start="5907" selection-end="5907" vertical-scroll-proportion="0.22316384">
+            <state line="45" column="22" selection-start="1275" selection-end="1275" vertical-scroll-proportion="0.04310345">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,7 +144,7 @@
       <file leaf-file-name="Shape.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Shape.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="5" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0">
+            <state line="81" column="22" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -189,8 +190,8 @@
         <option value="$PROJECT_DIR$/src/orginal/ProcessingShapes.java" />
         <option value="$PROJECT_DIR$/src/orginal/ProcessingShapesOriginal.java" />
         <option value="$PROJECT_DIR$/src/orginal/Point.java" />
-        <option value="$PROJECT_DIR$/src/Shape.java" />
         <option value="$PROJECT_DIR$/src/PlayBack.java" />
+        <option value="$PROJECT_DIR$/src/Shape.java" />
         <option value="$PROJECT_DIR$/src/ProcessingShapes.java" />
       </list>
     </option>
@@ -499,7 +500,11 @@
       <created>1370241386943</created>
       <updated>1370241386943</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Coordinatenabfrage möglich.">
+      <created>1370244851459</created>
+      <updated>1370244851459</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -510,6 +515,7 @@
       <window_info id="SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24242425" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Java2SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -518,15 +524,14 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16515152" sideWeight="0.3164983" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16515152" sideWeight="0.41414142" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16515152" sideWeight="0.32323232" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36026937" sideWeight="0.6659091" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16515152" sideWeight="0.2138047" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37037036" sideWeight="0.6659091" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="0" y="0" width="1280" height="743" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24242425" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -689,14 +694,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Shape.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="5" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0">
+        <state line="81" column="22" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ProcessingShapes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="187" column="109" selection-start="5907" selection-end="5907" vertical-scroll-proportion="0.22316384">
+        <state line="45" column="22" selection-start="1275" selection-end="1275" vertical-scroll-proportion="0.04310345">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
