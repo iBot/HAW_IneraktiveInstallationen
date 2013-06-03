@@ -29,7 +29,8 @@ import java.util.Queue;
  */
 public class ProcessingShapes extends PApplet {
 
-    SimpleOpenNI context;
+    SimpleOpenNI context1;
+    SimpleOpenNI context2;
     AudioInput ai;
     Queue<Float> sound;
     private boolean kinectIsConfigured = false;
@@ -91,14 +92,22 @@ public class ProcessingShapes extends PApplet {
 
     private void setupKinect() {
         // instantiate a new context
-        context = new SimpleOpenNI(this);
+        context1 = new SimpleOpenNI(0, this);
+        context2 = new SimpleOpenNI(1, this);
+        
+
+    	System.out.println(context1+"");
+    	System.out.println(context2+"");
         // enable depthMap generation
-        context.enableDepth();
+        context1.enableDepth();
+        context2.enableDepth();
 
         // enable skeleton generation for all joints
-        context.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
+        context1.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
+        context2.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
 
-        context.setMirror(true);
+        context1.setMirror(true);
+        context2.setMirror(true);
         kinectIsConfigured = true;
     }
 
@@ -137,14 +146,14 @@ public class ProcessingShapes extends PApplet {
     }
 
     private void printCoordinatesOfLeftHand() {
-        if (context.isTrackingSkeleton(1)) {
+        if (context1.isTrackingSkeleton(1)) {
             PVector jointPos = new PVector();
-            context.getJointPositionSkeleton(1, SimpleOpenNI.SKEL_LEFT_HAND,
+            context1.getJointPositionSkeleton(1, SimpleOpenNI.SKEL_LEFT_HAND,
                     jointPos);
             if (xMax<jointPos.x) xMax = jointPos.x;
             if (yMax<jointPos.y) yMax = jointPos.y;
             System.out.printf("X= %s (%s); Y= %s (%s); Z= %s%n", jointPos.x,xMax, jointPos.y,yMax, jointPos.z);
-            context.drawLimb(1, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_WRIST);
+            context1.drawLimb(1, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_WRIST);
 
         }
     }
@@ -168,7 +177,8 @@ public class ProcessingShapes extends PApplet {
     }
 
     private void drawKinectStuff() {
-        context.update();
+        context1.update();
+        context2.update();
 
         // update only after 1000 sec.
 //        if ((System.currentTimeMillis() - time) > 1000) {
@@ -176,25 +186,31 @@ public class ProcessingShapes extends PApplet {
 
 
         for (int i = 1; i < 3; i++) {
-            if (context.isTrackingSkeleton(i)) {
+            if (context1.isTrackingSkeleton(i)) {
 //                drawSkeleton(i);
 //                draw random colored shapes
             	PVector position = new PVector();
-            	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND), position);
-                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
-                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
-                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
-                drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
+            	context1.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
+                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context1), position);
+//                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
+//                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
+//                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
+//                drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
 
 
-
-                // set time to current system time
-//                time = System.currentTimeMillis();
-//            }
-            } else {
-                //drawColoredShape(shapes.get(i-1), Color.cyan);
             }
+            if (context2.isTrackingSkeleton(i)) {
+//              drawSkeleton(i);
+//              draw random colored shapes
+          	PVector position = new PVector();
+          	context2.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
+              drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context2), position);
+//              drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
+//              drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
+//              drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
+//              drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
+
+          }
         }
     }
 
@@ -356,7 +372,7 @@ public class ProcessingShapes extends PApplet {
         }
     }
 
-    private Color getColorOfJoint(int userId, int joint) {
+    private Color getColorOfJoint(int userId, int joint, SimpleOpenNI context) {
         // get 3D position of a joint
         PVector jointPos = new PVector();
         context.getJointPositionSkeleton(userId, joint,
@@ -551,7 +567,7 @@ public class ProcessingShapes extends PApplet {
         println("New User Detected - userId: " + userId);
 
         // start pose detection
-        context.startPoseDetection("Psi", userId);
+        context2.startPoseDetection("Psi", userId);
     }
 
     // when a person ('user') leaves the field of view
@@ -565,10 +581,10 @@ public class ProcessingShapes extends PApplet {
                 + pose);
 
         // stop pose detection
-        context.stopPoseDetection(userId);
+        context2.stopPoseDetection(userId);
 
         // start attempting to calibrate the skeleton
-        context.requestCalibrationSkeleton(userId, true);
+        context2.requestCalibrationSkeleton(userId, true);
     }
 
     // when calibration begins
@@ -585,26 +601,15 @@ public class ProcessingShapes extends PApplet {
             println("  User calibrated !!!");
 
             // begin skeleton tracking
-            context.startTrackingSkeleton(userId);
+            context2.startTrackingSkeleton(userId);
         } else {
             println("  Failed to calibrate user !!!");
 
             // Start pose detection
-            context.startPoseDetection("Psi", userId);
+            context2.startPoseDetection("Psi", userId);
         }
     }
 
-//    private class Shape extends Point {
-//        public List<Point> points = new LinkedList<>();
-//
-//        public Shape(int x, int y) {
-//            super(x, y);
-//        }
-//
-//        public void add(int x, int y) {
-//            points.add(new Point(x, y));
-//        }
-//    }
 
 
 }
