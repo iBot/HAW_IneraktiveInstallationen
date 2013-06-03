@@ -46,6 +46,10 @@ public class ProcessingShapes extends PApplet {
     private long time;
     private PlayBack playBack;
     private Minim minim;
+    
+    int num = 60;
+    float mx[] = new float[num];
+    float my[] = new float[num];
 
 
     /**
@@ -64,7 +68,7 @@ public class ProcessingShapes extends PApplet {
     public void setup() {
         setupCommonStuff();
 //        setupAudio();
-        setupKinect();
+       // setupKinect();
     }
 
     private void setupCommonStuff() {
@@ -72,7 +76,7 @@ public class ProcessingShapes extends PApplet {
         //  Don't forget to import native libraries for your OS. If OpenGL doesn't work, render without OpenGL...
 //        size(displayWidth, displayHeight, OPENGL);
 //        size(displayWidth, displayHeight, P3D);
-        size(displayWidth, displayHeight);
+        size(displayWidth, displayHeight, P3D);
         //size(1000, 400, P3D);
 
         initShapes();
@@ -163,7 +167,7 @@ public class ProcessingShapes extends PApplet {
 
 
         for (Shape shape : shapes){
-            drawTexturedShape(shape);
+            drawColoredShapeWithForms(shape, Color.CYAN);
         }
     }
 
@@ -429,21 +433,31 @@ public class ProcessingShapes extends PApplet {
      * @param shape
      * @param color
      */
-    private void drawColoredShapeWithForms(Shape shape, Color color, PVector jointPos) {
+    private void drawColoredShapeWithForms(Shape shape, Color color) {//, PVector jointPos) {
        
         pushMatrix();
 
+        noStroke();
+        fill(Color.BLACK.getRGB());
+     // Cycle through the array, using a different entry on each frame. 
+        // Using modulo (%) like this is faster than moving all the values over.
+        int which = frameCount % num;
+        mx[which] = mouseX;
+        my[which] = mouseY;
+        
+        for (int i = 0; i < num; i++) {
+          // which+1 is the smallest (the oldest in the array)
+          int index = (which+1 + i) % num;
+          ellipse(mx[index], my[index], i, i);
+        }
+        
         // set the color for filling the shape
         fill(color.getRGB());
         translate(shape.x, shape.y);
 
         beginShape();
-        
-        for(int i = 0; i < 10; i++)
-        {
-        	ellipseFollowJoint(jointPos);
-        }
-
+      
+         
         // uncomment to draw NO shape outlines
 //        noStroke();
         // uncomment to set the outline color
@@ -456,7 +470,11 @@ public class ProcessingShapes extends PApplet {
             vertex(point.x, point.y);
         }
 
+        
+      
+        
         endShape(CLOSE);
+        
         popMatrix();
     }
 
