@@ -47,10 +47,6 @@ public class ProcessingShapes extends PApplet {
     private PlayBack playBack;
     private Minim minim;
     
-    int num = 20;
-    float mx[] = new float[num];
-    float my[] = new float[num];
-
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen mode
@@ -68,7 +64,7 @@ public class ProcessingShapes extends PApplet {
     public void setup() {
         setupCommonStuff();
 //        setupAudio();
-       // setupKinect();
+        setupKinect();
     }
 
     private void setupCommonStuff() {
@@ -165,10 +161,10 @@ public class ProcessingShapes extends PApplet {
 //        drawColoredShape(shapes.get(8), Color.GRAY);
 //        drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
 
-        drawColoredShapeWithForms(shapes.get(0),Color.ORANGE);
-//        for (Shape shape : shapes){
-//            drawColoredShapeWithForms(shape, Color.CYAN);
-//        }
+        //drawColoredShapeWithForms(shapes.get(0),Color.ORANGE);
+        for (Shape shape : shapes){
+            drawColoredShape(shape, Color.CYAN);
+        }
     }
 
     private void drawKinectStuff() {
@@ -185,7 +181,7 @@ public class ProcessingShapes extends PApplet {
 //                draw random colored shapes
             	PVector position = new PVector();
             	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND));
+                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND), position);
                 drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
                 drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
                 drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
@@ -433,7 +429,7 @@ public class ProcessingShapes extends PApplet {
      * @param shape
      * @param color
      */
-    private void drawColoredShapeWithForms(Shape shape, Color color) {//, PVector jointPos) {
+    private void drawColoredShapeWithForms(Shape shape, Color color, PVector jointPos) {
        
         pushMatrix();
 
@@ -463,38 +459,28 @@ public class ProcessingShapes extends PApplet {
         
         endShape(CLOSE);
 
-
-
-
         popMatrix();
 
         noStroke();
         fill(Color.CYAN.getRGB());
         // Cycle through the array, using a different entry on each frame.
         // Using modulo (%) like this is faster than moving all the values over.
-        int which = frameCount % num;
-        mx[which] = mouseX;
-        my[which] = mouseY;
+        int which = frameCount % shape.num;
+        shape.mx[which] = jointPos.x;
+        shape.my[which] = jointPos.y;
 
-        for (int i = 0; i < num; i++) {
+        for (int i = 0; i < shape.num; i++) {
             // which+1 is the smallest (the oldest in the array)
-            int index = (which+1 + i) % num;
-            if (shape.getPolygon().contains(mx[index], my[index])){
+            int index = (which+1 + i) % shape.num;
+            if (shape.getPolygon().contains(shape.mx[index], shape.my[index])){
 //                System.out.println(">>>>>>>> true");
 
-                ellipse(mx[index], my[index], i, i);
+                ellipse(shape.mx[index], shape.my[index], i, i);
             } else {
 //                System.out.println("######## false");
             }
         }
     }
-
-    private void ellipseFollowJoint(PVector position) {
-		for(int i=0; i<10; i++)
-		{
-			
-		}
-	}
 
 	/**
      * This method draws a shape and fill it with an color
