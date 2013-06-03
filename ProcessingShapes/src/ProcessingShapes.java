@@ -47,7 +47,7 @@ public class ProcessingShapes extends PApplet {
     private long time;
     private PlayBack playBack;
     private Minim minim;
-
+    
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen mode
@@ -92,19 +92,22 @@ public class ProcessingShapes extends PApplet {
 
     private void setupKinect() {
         // instantiate a new context
-        context1 = new SimpleOpenNI(0, this);
-        context2 = new SimpleOpenNI(1, this);
+        context1 = new SimpleOpenNI(this);
+        context2 = new SimpleOpenNI(this);
+        
+        UserManager userManager1 = new UserManager(context1);
+        UserManager userManager2 = new UserManager(context2);
+        
 
-
-        System.out.println(context1 + "");
-        System.out.println(context2 + "");
+    	System.out.println(context1+"");
+    	System.out.println(context2+"");
         // enable depthMap generation
         context1.enableDepth();
         context2.enableDepth();
 
         // enable skeleton generation for all joints
-        context1.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
-        context2.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
+        context1.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager1);
+        context2.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager2);
 
         context1.setMirror(true);
         context2.setMirror(true);
@@ -112,6 +115,7 @@ public class ProcessingShapes extends PApplet {
     }
 
     private void setupAudio() {
+    	
         playBack = new PlayBack();
         minim = new Minim(this);
         ai = minim.getLineIn(Minim.MONO);
@@ -135,7 +139,7 @@ public class ProcessingShapes extends PApplet {
 
         if (soundIsConfigured) drawSoundLines();
 
-        if (!soundIsConfigured & !kinectIsConfigured) {
+        if (!soundIsConfigured & !kinectIsConfigured){
             drawAllShapes();
 
 //            drawTexturedShape(shapes.get(0));
@@ -150,9 +154,9 @@ public class ProcessingShapes extends PApplet {
             PVector jointPos = new PVector();
             context1.getJointPositionSkeleton(1, SimpleOpenNI.SKEL_LEFT_HAND,
                     jointPos);
-            if (xMax < jointPos.x) xMax = jointPos.x;
-            if (yMax < jointPos.y) yMax = jointPos.y;
-            System.out.printf("X= %s (%s); Y= %s (%s); Z= %s%n", jointPos.x, xMax, jointPos.y, yMax, jointPos.z);
+            if (xMax<jointPos.x) xMax = jointPos.x;
+            if (yMax<jointPos.y) yMax = jointPos.y;
+            System.out.printf("X= %s (%s); Y= %s (%s); Z= %s%n", jointPos.x,xMax, jointPos.y,yMax, jointPos.z);
             context1.drawLimb(1, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_WRIST);
 
         }
@@ -171,7 +175,7 @@ public class ProcessingShapes extends PApplet {
 //        drawColoredShape(shapes.get(9), Color.LIGHT_GRAY);
 
         //drawColoredShapeWithForms(shapes.get(0),Color.ORANGE);
-        for (Shape shape : shapes) {
+        for (Shape shape : shapes){
             drawColoredShape(shape, Color.CYAN);
         }
     }
@@ -184,12 +188,15 @@ public class ProcessingShapes extends PApplet {
 //        if ((System.currentTimeMillis() - time) > 1000) {
 
 
+
         for (int i = 1; i < 3; i++) {
+        	
             if (context1.isTrackingSkeleton(i)) {
+            	System.out.println("context1 tracked skeleton "+i);
 //                drawSkeleton(i);
 //                draw random colored shapes
-                PVector position = new PVector();
-                context1.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
+            	PVector position = new PVector();
+            	context1.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
                 drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context1), position);
 //                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
 //                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
@@ -199,17 +206,18 @@ public class ProcessingShapes extends PApplet {
 
             }
             if (context2.isTrackingSkeleton(i)) {
+            	System.out.println("context1 tracked skeleton "+i);
 //              drawSkeleton(i);
 //              draw random colored shapes
-                PVector position = new PVector();
-                context2.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithForms(shapes.get(shapes.size() - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context2), position);
+          	PVector position = new PVector();
+          	context2.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
+              drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context2), position);
 //              drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
 //              drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
 //              drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
 //              drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
 
-            }
+          }
         }
     }
 
@@ -225,17 +233,17 @@ public class ProcessingShapes extends PApplet {
 
 //        float value = ai.getGain();
 
-        value = (float) Math.round(value * 100) / 100;
+        value = (float)Math.round(value * 100) / 100;
         if (sound.size() > 100) {
             sound.remove();
         }
         if (value > 1) value = 1;
         sound.add(value);
         float average = 0;
-        for (float f : sound) {
+        for (float f : sound){
             average += f;
         }
-        value = average / sound.size();
+        value = average/sound.size();
         Color c = Color.getHSBColor(value, 0.99f, 0.99f);
 //        System.out.println("Value: " + value);
         background(c.getRGB());
@@ -297,62 +305,62 @@ public class ProcessingShapes extends PApplet {
      * Examples shapes are created with a display resolution of 1920 *1080
      */
     private void initShapes() {
-        shapes.add(new Shape(699, 111));
-        shapes.add(new Shape(657, 258));
-        shapes.add(new Shape(720, 214));
-        shapes.add(new Shape(647, 329));
-        shapes.add(new Shape(712, 330));
-        shapes.add(new Shape(717, 282));
-        shapes.add(new Shape(642, 408));
-        shapes.add(new Shape(639, 459));
-        shapes.add(new Shape(639, 502));
-        shapes.add(new Shape(731, 467));
+    	shapes.add(new Shape(699, 111));
+		shapes.add(new Shape(657, 258));
+		shapes.add(new Shape(720, 214));
+		shapes.add(new Shape(647, 329));
+		shapes.add(new Shape(712, 330));
+		shapes.add(new Shape(717, 282));
+		shapes.add(new Shape(642, 408));
+		shapes.add(new Shape(639, 459));
+		shapes.add(new Shape(639, 502));
+		shapes.add(new Shape(731, 467));
 
-        shapes.get(0).add(-36, -47);
-        shapes.get(0).add(11, -45);
-        shapes.get(0).add(36, 44);
-        shapes.get(0).add(-36, 48);
+		shapes.get(0).add(-36, -47);
+		shapes.get(0).add(11, -45);
+		shapes.get(0).add(36, 44);
+		shapes.get(0).add(-36, 48);
 
-        shapes.get(1).add(-41, 99);
-        shapes.get(1).add(7, -85);
-        shapes.get(1).add(28, -99);
-        shapes.get(1).add(42, 13);
+		shapes.get(1).add(-41, 99);
+		shapes.get(1).add(7, -85);
+		shapes.get(1).add(28, -99);
+		shapes.get(1).add(42, 13);
 
-        shapes.get(2).add(-35, -55);
-        shapes.get(2).add(-2, -56);
-        shapes.get(2).add(36, -3);
-        shapes.get(2).add(-21, 57);
+		shapes.get(2).add(-35, -55);
+		shapes.get(2).add(-2, -56);
+		shapes.get(2).add(36, -3);
+		shapes.get(2).add(-21, 57);
 
-        shapes.get(3).add(-31, 28);
-        shapes.get(3).add(32, -35);
-        shapes.get(3).add(26, 36);
+		shapes.get(3).add(-31, 28);
+		shapes.get(3).add(32, -35);
+		shapes.get(3).add(26, 36);
 
-        shapes.get(4).add(-39, 35);
-        shapes.get(4).add(-33, -36);
-        shapes.get(4).add(40, 37);
+		shapes.get(4).add(-39, 35);
+		shapes.get(4).add(-33, -36);
+		shapes.get(4).add(40, 37);
 
-        shapes.get(5).add(-38, 12);
-        shapes.get(5).add(39, -71);
-        shapes.get(5).add(33, 72);
+		shapes.get(5).add(-38, 12);
+		shapes.get(5).add(39, -71);
+		shapes.get(5).add(33, 72);
 
-        shapes.get(6).add(-26, -51);
-        shapes.get(6).add(31, -43);
-        shapes.get(6).add(25, 25);
-        shapes.get(6).add(-30, 51);
+		shapes.get(6).add(-26, -51);
+		shapes.get(6).add(31, -43);
+		shapes.get(6).add(25, 25);
+		shapes.get(6).add(-30, 51);
 
-        shapes.get(7).add(-27, 0);
-        shapes.get(7).add(28, -26);
-        shapes.get(7).add(-27, 27);
+		shapes.get(7).add(-27, 0);
+		shapes.get(7).add(28, -26);
+		shapes.get(7).add(-27, 27);
 
-        shapes.get(8).add(-27, -16);
-        shapes.get(8).add(28, -69);
-        shapes.get(8).add(22, 68);
-        shapes.get(8).add(-26, 69);
+		shapes.get(8).add(-27, -16);
+		shapes.get(8).add(28, -69);
+		shapes.get(8).add(22, 68);
+		shapes.get(8).add(-26, 69);
 
-        shapes.get(9).add(-58, -102);
-        shapes.get(9).add(17, -90);
-        shapes.get(9).add(70, 95);
-        shapes.get(9).add(-70, 103);
+		shapes.get(9).add(-58, -102);
+		shapes.get(9).add(17, -90);
+		shapes.get(9).add(70, 95);
+		shapes.get(9).add(-70, 103);
 
 //        Shape s = new Shape(40,40);
 //        s.add(50,-10);
@@ -365,7 +373,7 @@ public class ProcessingShapes extends PApplet {
 
         PImage image = loadImage("pic.jpg");
 
-        for (Shape shape : shapes) {
+        for (Shape shape : shapes){
             shape.setImage(image);
 //            System.out.println(shape.getBoundingBox());
         }
@@ -437,7 +445,7 @@ public class ProcessingShapes extends PApplet {
         endShape(CLOSE);
         popMatrix();
     }
-
+    
     /**
      * This method draws a shape and fill it with an color
      *
@@ -445,17 +453,18 @@ public class ProcessingShapes extends PApplet {
      * @param color
      */
     private void drawColoredShapeWithForms(Shape shape, Color color, PVector jointPos) {
-
+       
         pushMatrix();
 
 
+        
         // set the color for filling the shape
         fill(color.getRGB());
         translate(shape.x, shape.y);
 
         beginShape();
-
-
+      
+         
         // uncomment to draw NO shape outlines
 //        noStroke();
         // uncomment to set the outline color
@@ -469,6 +478,8 @@ public class ProcessingShapes extends PApplet {
         }
 
 
+
+        
         endShape(CLOSE);
 
         popMatrix();
@@ -483,8 +494,8 @@ public class ProcessingShapes extends PApplet {
 
         for (int i = 0; i < shape.num; i++) {
             // which+1 is the smallest (the oldest in the array)
-            int index = (which + 1 + i) % shape.num;
-            if (shape.getPolygon().contains(shape.mx[index], shape.my[index])) {
+            int index = (which+1 + i) % shape.num;
+            if (shape.getPolygon().contains(shape.mx[index], shape.my[index])){
 //                System.out.println(">>>>>>>> true");
 
                 ellipse(shape.mx[index], shape.my[index], i, i);
@@ -494,13 +505,12 @@ public class ProcessingShapes extends PApplet {
         }
     }
 
-    /**
+	/**
      * This method draws a shape and fill it with an color
      * !!!!!!Funzt grad nicht
      * !!!!!!Funktioniert nur ohne translate...dh die Punkte in Shape m�ssen aufs ganze Koordinatensystem
-     * umgerechnet werden.
-     * 1
-     *
+     * umgerechnet werden. 
+     *1
      * @param shape
      */
     private void drawTexturedShape(Shape shape) {
@@ -523,25 +533,21 @@ public class ProcessingShapes extends PApplet {
         int i = 1;
         // draw a vertex between all points of a shape
         for (Point point : shape.getPoints()) {
-            switch (i) {
-                case 1:
-                    vertex(point.x, point.y, 0, 0, 0);
-                    break;
-                case 2:
-                    vertex(point.x, point.y, 0, 1, 0);
-                    break;
-                case 3:
-                    vertex(point.x, point.y, 0, 1, 1);
-                    break;
-                case 4:
-                    vertex(point.x, point.y, 0, 0, 1);
-                    break;
-                default:
-                    vertex(point.x, point.y, 0);
-            }
-            i++;
+        	switch (i)
+        	{
+        	case 1: vertex(point.x, point.y, 0, 0,0);
+        			break;
+        	case 2: vertex(point.x, point.y, 0, 1, 0);
+        			break;
+        	case 3: vertex(point.x, point.y, 0, 1, 1);
+        			break;
+        	case 4: vertex(point.x, point.y, 0, 0,1);
+        			break;
+        	default: vertex(point.x, point.y, 0);
+        	}
+        	i++;
 
-
+            
         }
 
         endShape(CLOSE);
@@ -550,11 +556,11 @@ public class ProcessingShapes extends PApplet {
 
         ellipseMode(CENTER);
         fill(Color.green.getRGB());
-        ellipse(shape.getBoundingBox().getLeftTop().x, shape.getBoundingBox().getLeftTop().y, 10, 10);
+        ellipse(shape.getBoundingBox().getLeftTop().x,shape.getBoundingBox().getLeftTop().y,10,10);
         fill(Color.yellow.getRGB());
-        ellipse(shape.getBoundingBox().getRightBottom().x, shape.getBoundingBox().getRightBottom().y, 10, 10);
+        ellipse(shape.getBoundingBox().getRightBottom().x,shape.getBoundingBox().getRightBottom().y,10,10);
         fill(Color.red.getRGB());
-        ellipse(shape.getBoundingBox().getMidPoint().x, shape.getBoundingBox().getMidPoint().y, 10, 10);
+        ellipse(shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y,10,10);
         popMatrix();
     }
 
@@ -610,6 +616,7 @@ public class ProcessingShapes extends PApplet {
 //            context2.startPoseDetection("Psi", userId);
 //        }
 //    }
+
 
 
 }

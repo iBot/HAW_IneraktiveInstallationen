@@ -56,16 +56,13 @@ public void setup()
 
 public void draw()
 {
-  // update the cam
-    cam1.update();
-    cam2.update();
-//  SimpleOpenNI.updateAll();
+	cam1.update();
+	cam2.update();
   
   // draw depthImageMap
   image(cam1.depthImage(),0,0);
   image(cam1.irImage(),0,480 + 10);
-//
-//    System.out.println("is null? "+cam2);
+  
   image(cam2.depthImage(),640,0);
   image(cam2.irImage(),640,480);
   

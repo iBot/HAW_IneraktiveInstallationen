@@ -2,59 +2,61 @@ import SimpleOpenNI.SimpleOpenNI;
 
 public class UserManager
 {
-  protected SimpleOpenNI  _context;
+  protected SimpleOpenNI  context;
   
   public UserManager(SimpleOpenNI context)
   {
-    _context = context;
+    this.context = context;
   }
   
-  public void onNewUser(int userId)
-  {
-    System.out.println(_context + " onNewUser - userId: " + userId);
-    System.out.println("  start pose detection");
+  
+  
+//when a person ('user') enters the field of view
+public void onNewUser(int userId) {
+	System.out.println("New User Detected - userId: " + userId);
 
-    _context.startPoseDetection("Psi", userId);
-  }
+    // start pose detection
+    context.startPoseDetection("Psi", userId);
+}
 
-  public void onLostUser(int userId)
-  {
-	  System.out.println(_context + " onLostUser - userId: " + userId);
-  }
+// when a person ('user') leaves the field of view
+public void onLostUser(int userId) {
+	System.out.println("User Lost - userId: " + userId);
+}
 
-  public void onStartCalibration(int userId)
-  {
-	  System.out.println(_context + " onStartCalibration - userId: " + userId);
-  }
+// when a user begins a pose
+public void onStartPose(String pose, int userId) {
+    System.out.println("Start of Pose Detected  - userId: " + userId + ", pose: "
+            + pose);
 
-  public void onEndCalibration(int userId, boolean successfull)
-  {
-	  System.out.println(_context + " onEndCalibration - userId: " + userId + ", successfull: " + successfull);
+    // stop pose detection
+    context.stopPoseDetection(userId);
 
-    if (successfull) 
-    { 
+    // start attempting to calibrate the skeleton
+    context.requestCalibrationSkeleton(userId, true);
+}
+
+// when calibration begins
+public void onStartCalibration(int userId) {
+	System.out.println("Beginning Calibration - userId: " + userId);
+}
+
+// when calibaration ends - successfully or unsucessfully
+public void onEndCalibration(int userId, boolean successfull) {
+	System.out.println("Calibration of userId: " + userId + ", successfull: "
+            + successfull);
+
+    if (successfull) {
     	System.out.println("  User calibrated !!!");
-      _context.startTrackingSkeleton(userId);
-    } 
-    else 
-    { 
+
+        // begin skeleton tracking
+        context.startTrackingSkeleton(userId);
+    } else {
     	System.out.println("  Failed to calibrate user !!!");
-    	System.out.println("  Start pose detection");
-      _context.startPoseDetection("Psi", userId);
+
+        // Start pose detection
+        context.startPoseDetection("Psi", userId);
     }
-  }
+}
 
-  public void onStartPose(String pose, int userId)
-  {
-	  System.out.println(_context + " onStartdPose - userId: " + userId + ", pose: " + pose);
-	  System.out.println(" stop pose detection");
-
-    _context.stopPoseDetection(userId); 
-    _context.requestCalibrationSkeleton(userId, true);
-  }
-
-  public void onEndPose(String pose, int userId)
-  {
-	  System.out.println( _context + " onEndPose - userId: " + userId + ", pose: " + pose);
-  }
 }
