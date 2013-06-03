@@ -92,8 +92,11 @@ public class ProcessingShapes extends PApplet {
 
     private void setupKinect() {
         // instantiate a new context
-        context1 = new SimpleOpenNI(0, this);
-        context2 = new SimpleOpenNI(1, this);
+        context1 = new SimpleOpenNI(this);
+        context2 = new SimpleOpenNI(this);
+        
+        UserManager userManager1 = new UserManager(context1);
+        UserManager userManager2 = new UserManager(context2);
         
 
     	System.out.println(context1+"");
@@ -103,8 +106,8 @@ public class ProcessingShapes extends PApplet {
         context2.enableDepth();
 
         // enable skeleton generation for all joints
-        context1.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
-        context2.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);
+        context1.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager1);
+        context2.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager2);
 
         context1.setMirror(true);
         context2.setMirror(true);
@@ -186,7 +189,9 @@ public class ProcessingShapes extends PApplet {
 
 
         for (int i = 1; i < 3; i++) {
+        	
             if (context1.isTrackingSkeleton(i)) {
+            	System.out.println("context1 tracked skeleton "+i);
 //                drawSkeleton(i);
 //                draw random colored shapes
             	PVector position = new PVector();
@@ -200,6 +205,7 @@ public class ProcessingShapes extends PApplet {
 
             }
             if (context2.isTrackingSkeleton(i)) {
+            	System.out.println("context1 tracked skeleton "+i);
 //              drawSkeleton(i);
 //              draw random colored shapes
           	PVector position = new PVector();
@@ -562,53 +568,53 @@ public class ProcessingShapes extends PApplet {
 //
 //    }
 
-    // when a person ('user') enters the field of view
-    public void onNewUser(int userId) {
-        println("New User Detected - userId: " + userId);
-
-        // start pose detection
-        context2.startPoseDetection("Psi", userId);
-    }
-
-    // when a person ('user') leaves the field of view
-    public void onLostUser(int userId) {
-        println("User Lost - userId: " + userId);
-    }
-
-    // when a user begins a pose
-    public void onStartPose(String pose, int userId) {
-        println("Start of Pose Detected  - userId: " + userId + ", pose: "
-                + pose);
-
-        // stop pose detection
-        context2.stopPoseDetection(userId);
-
-        // start attempting to calibrate the skeleton
-        context2.requestCalibrationSkeleton(userId, true);
-    }
-
-    // when calibration begins
-    public void onStartCalibration(int userId) {
-        println("Beginning Calibration - userId: " + userId);
-    }
-
-    // when calibaration ends - successfully or unsucessfully
-    public void onEndCalibration(int userId, boolean successfull) {
-        println("Calibration of userId: " + userId + ", successfull: "
-                + successfull);
-
-        if (successfull) {
-            println("  User calibrated !!!");
-
-            // begin skeleton tracking
-            context2.startTrackingSkeleton(userId);
-        } else {
-            println("  Failed to calibrate user !!!");
-
-            // Start pose detection
-            context2.startPoseDetection("Psi", userId);
-        }
-    }
+//    // when a person ('user') enters the field of view
+//    public void onNewUser(int userId) {
+//        println("New User Detected - userId: " + userId);
+//
+//        // start pose detection
+//        context2.startPoseDetection("Psi", userId);
+//    }
+//
+//    // when a person ('user') leaves the field of view
+//    public void onLostUser(int userId) {
+//        println("User Lost - userId: " + userId);
+//    }
+//
+//    // when a user begins a pose
+//    public void onStartPose(String pose, int userId) {
+//        println("Start of Pose Detected  - userId: " + userId + ", pose: "
+//                + pose);
+//
+//        // stop pose detection
+//        context2.stopPoseDetection(userId);
+//
+//        // start attempting to calibrate the skeleton
+//        context2.requestCalibrationSkeleton(userId, true);
+//    }
+//
+//    // when calibration begins
+//    public void onStartCalibration(int userId) {
+//        println("Beginning Calibration - userId: " + userId);
+//    }
+//
+//    // when calibaration ends - successfully or unsucessfully
+//    public void onEndCalibration(int userId, boolean successfull) {
+//        println("Calibration of userId: " + userId + ", successfull: "
+//                + successfull);
+//
+//        if (successfull) {
+//            println("  User calibrated !!!");
+//
+//            // begin skeleton tracking
+//            context2.startTrackingSkeleton(userId);
+//        } else {
+//            println("  Failed to calibrate user !!!");
+//
+//            // Start pose detection
+//            context2.startPoseDetection("Psi", userId);
+//        }
+//    }
 
 
 

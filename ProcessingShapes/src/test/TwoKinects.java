@@ -39,8 +39,8 @@ public void setup()
     println(i + ":" + strList.get(i));
 
   // init the cameras
-  cam1 = new SimpleOpenNI(0,this);
-  cam2 = new SimpleOpenNI(1,this);
+  cam1 = new SimpleOpenNI(this);
+  cam2 = new SimpleOpenNI(this);
 
   // set the camera generators
   cam1.enableDepth();
@@ -56,15 +56,15 @@ public void setup()
 
 public void draw()
 {
-  // update the cam
-  SimpleOpenNI.updateAll();
+	cam1.update();
+	cam2.update();
   
   // draw depthImageMap
   image(cam1.depthImage(),0,0);
   image(cam1.irImage(),0,480 + 10);
-//  
-//  image(cam2.depthImage(),640,0);
-//  image(cam2.irImage(),640,480);
+  
+  image(cam2.depthImage(),640,0);
+  image(cam2.irImage(),640,480);
   
 }
 }
