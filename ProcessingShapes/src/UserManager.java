@@ -11,7 +11,7 @@ public class UserManager
   
   public void onNewUser(int userId)
   {
-    System.out.println("onNewUser - userId: " + userId);
+    System.out.println(_context + " onNewUser - userId: " + userId);
     System.out.println("  start pose detection");
 
     _context.startPoseDetection("Psi", userId);
@@ -19,17 +19,17 @@ public class UserManager
 
   public void onLostUser(int userId)
   {
-	  System.out.println("onLostUser - userId: " + userId);
+	  System.out.println(_context + " onLostUser - userId: " + userId);
   }
 
   public void onStartCalibration(int userId)
   {
-	  System.out.println("onStartCalibration - userId: " + userId);
+	  System.out.println(_context + " onStartCalibration - userId: " + userId);
   }
 
   public void onEndCalibration(int userId, boolean successfull)
   {
-	  System.out.println("onEndCalibration - userId: " + userId + ", successfull: " + successfull);
+	  System.out.println(_context + " onEndCalibration - userId: " + userId + ", successfull: " + successfull);
 
     if (successfull) 
     { 
@@ -46,7 +46,7 @@ public class UserManager
 
   public void onStartPose(String pose, int userId)
   {
-	  System.out.println("onStartdPose - userId: " + userId + ", pose: " + pose);
+	  System.out.println(_context + " onStartdPose - userId: " + userId + ", pose: " + pose);
 	  System.out.println(" stop pose detection");
 
     _context.stopPoseDetection(userId); 
@@ -55,6 +55,6 @@ public class UserManager
 
   public void onEndPose(String pose, int userId)
   {
-	  System.out.println("onEndPose - userId: " + userId + ", pose: " + pose);
+	  System.out.println( _context + " onEndPose - userId: " + userId + ", pose: " + pose);
   }
 }

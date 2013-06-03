@@ -2,15 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1301d623-3a62-4607-887d-ed3cd4e37666" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ProcessingShapes.iml" afterPath="$PROJECT_DIR$/ProcessingShapes.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ProcessingShapes.java" afterPath="$PROJECT_DIR$/src/ProcessingShapes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Shape.java" afterPath="$PROJECT_DIR$/src/Shape.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/TwoKinects.java" afterPath="$PROJECT_DIR$/src/test/TwoKinects.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserManager.java" afterPath="$PROJECT_DIR$/src/UserManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ProcessingShapes.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/fragment.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370242249104" ignored="false" />
+    <file path="/fragment.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370255426929" ignored="false" />
     <file path="/ProcessingShapes.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370247185113" ignored="false" />
-    <file path="/Dummy.txt" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370244841317" ignored="false" />
+    <file path="/Dummy.txt" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370258954957" ignored="false" />
     <file path="$PROJECT_DIR$/../IIPrototyp/.idea/workspace.xml" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1365591491944" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451830" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/html5/xhtml5.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451830" ignored="false" />
@@ -34,6 +36,8 @@
     <file path="/Point.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367216969344" ignored="false" />
     <file path="/Shape.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370246772959" ignored="false" />
     <file path="/PlayBack.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367228700156" ignored="false" />
+    <file path="/TwoKinects.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370255720236" ignored="false" />
+    <file path="/UserManager.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370258541680" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +52,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -84,7 +89,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -97,10 +101,28 @@
       <file leaf-file-name="ProcessingShapes.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ProcessingShapes.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="22" selection-start="1275" selection-end="1275" vertical-scroll-proportion="0.04310345">
+            <state line="92" column="17" selection-start="2665" selection-end="2665" vertical-scroll-proportion="0.33383232">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserManager.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/UserManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="0" selection-start="1579" selection-end="1579" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TwoKinects.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/TwoKinects.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="0" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -123,15 +145,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Polygon.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/awt/Polygon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="125" column="11" selection-start="3554" selection-end="3554" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="PlayBack.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PlayBack.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -145,24 +158,6 @@
         <entry file="file://$PROJECT_DIR$/src/Shape.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="81" column="22" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleOpenNI.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../../../../intellij_android_workspace/processingTest/lib/simpleOpenNI/library/SimpleOpenNI.jar!/SimpleOpenNI/SimpleOpenNI.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="169" column="17" selection-start="6611" selection-end="6611" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ArrayList.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/util/ArrayList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="603" column="0" selection-start="22213" selection-end="22213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -192,14 +187,17 @@
         <option value="$PROJECT_DIR$/src/orginal/Point.java" />
         <option value="$PROJECT_DIR$/src/PlayBack.java" />
         <option value="$PROJECT_DIR$/src/Shape.java" />
+        <option value="$PROJECT_DIR$/src/test/TwoKinects.java" />
+        <option value="$PROJECT_DIR$/src/UserManager.java" />
         <option value="$PROJECT_DIR$/src/ProcessingShapes.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-3" />
-    <option name="width" value="1372" />
-    <option name="height" value="745" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -227,6 +225,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -269,14 +269,30 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProcessingShapes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ProcessingShapes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -284,14 +300,15 @@
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.lastSelected" value="preferences.keymap" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../processing-2.0b9/core/library" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="dynamic.classpath" value="false" />
@@ -304,6 +321,21 @@
     </key>
   </component>
   <component name="RunManager" selected="Applet.ShapesApplet">
+    <configuration default="false" name="TwoKinects" type="Applet" factoryName="Applet" temporary="true">
+      <module name="ProcessingShapes" />
+      <option name="MAIN_CLASS_NAME" value="test.TwoKinects" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="file://$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" value="-Xms528m -Xmx5000m -Djava.library.path=&quot;C:\Users\sirius\Documents\Processing\libraries\SimpleOpenNI\library&quot;;&quot;C:\Users\sirius\IdeaProjects\processing-2.0b9\core\library\jogl-all-natives-windows-amd64&quot;" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
@@ -415,7 +447,7 @@
       <option name="WIDTH" value="400" />
       <option name="HEIGHT" value="300" />
       <option name="POLICY_FILE" value="file://$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" value="-Xms528m -Xmx5000m -Djava.library.path=&quot;/data/Studium/II/HAW_IneraktiveInstallationen/ProcessingShapes/lib/simpleOpenNI/library&quot;:&quot;/data/Studium/II/HAW_IneraktiveInstallationen/ProcessingShapes/lib/processing-2.0b8/core/library/jogl-all-natives-linux-amd64.jar&quot;:&quot;/data/Studium/II/HAW_IneraktiveInstallationen/ProcessingShapes/lib/processing-2.0b8/core/library/jogl-all-natives-amd64&quot;" />
+      <option name="VM_PARAMETERS" value="-Xms528m -Xmx5000m -Djava.library.path=&quot;C:\Users\sirius\Documents\Processing\libraries\SimpleOpenNI\library&quot;;&quot;C:\Users\sirius\IdeaProjects\processing-2.0b9\core\library\jogl-all-natives-windows-amd64&quot;" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
       <RunnerSettings RunnerId="Run" />
@@ -424,7 +456,7 @@
     </configuration>
     <configuration default="false" name="Shapes" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="ProcessingShapes" />
-      <option name="VM_PARAMETERS" value="-Xms528m -Xmx5000m -Djava.library.path=&quot;$PROJECT_DIR$/../processingTest/lib/simpleOpenNI/library&quot;:&quot;$PROJECT_DIR$/../processingTest/projekt_II/processing-2.0b8/core/library/jogl-all-natives-linux-amd64.jar&quot;:&quot;$PROJECT_DIR$/../processingTest/projekt_II/processing-2.0b8/core/library/jogl-all-natives-amd64&quot;" />
+      <option name="VM_PARAMETERS" value="-Xms528m -Xmx5000m -Djava.library.path=&quot;C:\Users\sirius\Documents\Processing\libraries\SimpleOpenNI\library&quot;;&quot;C:\Users\sirius\IdeaProjects\processing-2.0b9\core\library\jogl-all-natives-windows-amd64&quot;" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -454,12 +486,18 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Applet.ColorChangerPrototype" />
       <item index="1" class="java.lang.String" itemvalue="Applet.ShapesApplet" />
       <item index="2" class="java.lang.String" itemvalue="Application.Shapes" />
       <item index="3" class="java.lang.String" itemvalue="Application.ShapesOriginal" />
+      <item index="4" class="java.lang.String" itemvalue="Applet.TwoKinects" />
     </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Applet.TwoKinects" />
+      </list>
+    </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -508,30 +546,30 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3" y="0" width="1372" height="745" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24242425" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Java2SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3872054" sideWeight="0.33333334" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17941585" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16515152" sideWeight="0.41414142" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13899614" sideWeight="0.47705147" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16515152" sideWeight="0.2138047" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37037036" sideWeight="0.6659091" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13899614" sideWeight="0.52155775" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3588317" sideWeight="0.6659091" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="0" y="0" width="1280" height="743" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24242425" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java2SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -602,6 +640,34 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="164" selection-end="164" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Prototyp3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="48" selection-start="898" selection-end="934" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PlayBack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="20" selection-start="422" selection-end="434" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Shape.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="22" selection-start="1911" selection-end="1911" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ProcessingShapes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="0" selection-start="681" selection-end="681" vertical-scroll-proportion="0.0">
@@ -632,21 +698,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/awt/Graphics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="181" column="25" selection-start="7097" selection-end="7097" vertical-scroll-proportion="0.33333334" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PlayBack.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="20" selection-start="422" selection-end="434" vertical-scroll-proportion="0.0">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/javax/sound/sampled/Control.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="22" selection-start="881" selection-end="881" vertical-scroll-proportion="-1.6561514" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/minim/src/ddf/minim/Controller.java">
@@ -659,35 +715,9 @@
         <state line="39" column="27" selection-start="1548" selection-end="1548" vertical-scroll-proportion="0.33136094" />
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/awt/Polygon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="125" column="11" selection-start="3554" selection-end="3554" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../intellij_android_workspace/processingTest/lib/simpleOpenNI/library/SimpleOpenNI.jar!/SimpleOpenNI/SimpleOpenNI.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="169" column="17" selection-start="6611" selection-end="6611" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Prototyp3.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="48" selection-start="898" selection-end="934" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../intellij_android_workspace/processingTest/projekt_II/processing-2.0b8/core/library/core.jar!/processing/core/PApplet.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="603" column="0" selection-start="22213" selection-end="22213" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -699,9 +729,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/TwoKinects.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="0" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/UserManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="0" selection-start="1579" selection-end="1579" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ProcessingShapes.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="22" selection-start="1275" selection-end="1275" vertical-scroll-proportion="0.04310345">
+        <state line="92" column="17" selection-start="2665" selection-end="2665" vertical-scroll-proportion="0.33383232">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -737,7 +781,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>jogl</last-edited>
+          <last-edited>Proceesing&amp;JOGL</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
