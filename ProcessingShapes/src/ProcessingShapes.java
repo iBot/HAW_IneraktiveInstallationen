@@ -191,11 +191,11 @@ public class ProcessingShapes extends PApplet {
             	PVector position = new PVector();
             	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
             	drawBoundingBox(shapes.get(shapes.size()-1));
-                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
-//                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
-//                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
-//                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
-//                drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
+//                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
+                drawColoredShapeWithForms(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND, context),position);
+                drawColoredShapeWithForms(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE, context),position);
+                drawColoredShapeWithForms(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE, context),position);
+                drawColoredShapeWithForms(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD, context),position);
 
           }
         }

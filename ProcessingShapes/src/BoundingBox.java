@@ -1,5 +1,4 @@
-import com.jogamp.opengl.util.packrect.Rect;
-import processing.*;
+
 
 /**
  * Created with IntelliJ IDEA.

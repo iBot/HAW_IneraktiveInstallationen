@@ -8,8 +8,10 @@
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SimpleOpenNI" level="application" />
-    <orderEntry type="library" name="minim" level="application" />
-    <orderEntry type="library" name="Proceesing&amp;JOGL" level="application" />
+    <orderEntry type="library" name="jogl" level="application" />
+    <orderEntry type="library" name="Minim" level="application" />
+    <orderEntry type="library" name="processing20b8" level="application" />
+    <orderEntry type="library" name="fisica" level="application" />
   </component>
 </module>
 
