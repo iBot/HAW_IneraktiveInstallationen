@@ -188,20 +188,25 @@ public class ProcessingShapes extends PApplet {
             	//System.out.println(Arrays.toString(context.getUsers()));
 //                drawSkeleton(i);
 //                draw random colored shapes
-            	PVector position = new PVector();
-            	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-            	drawBoundingBox(shapes.get(shapes.size()-1));
+            	
+            	//drawBoundingBox(shapes.get(shapes.size()-1));
 //                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
-                drawColoredShapeWithForms(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND, context),position);
-                drawColoredShapeWithForms(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE, context),position);
-                drawColoredShapeWithForms(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE, context),position);
-                drawColoredShapeWithForms(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD, context),position);
+                drawColoredShapeWithForms(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND, context),getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
+                drawColoredShapeWithForms(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE, context),getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
+                drawColoredShapeWithForms(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE, context),getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
+                drawColoredShapeWithForms(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD, context),getPosition(SimpleOpenNI.SKEL_HEAD, i));
 
           }
         }
     }
 
-    private void drawBackgroundBySound() {
+    private PVector getPosition(int joint, int i) {
+    	PVector position = new PVector();
+    	context.getJointPositionSkeleton(i, joint, position);
+    	return position;
+	}
+
+	private void drawBackgroundBySound() {
 
 
 //MINIM
