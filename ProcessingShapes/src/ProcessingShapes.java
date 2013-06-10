@@ -70,9 +70,9 @@ public class ProcessingShapes extends PApplet {
     private void setupCommonStuff() {
         // size for fullscreen window, renderer OpenGL
         //  Don't forget to import native libraries for your OS. If OpenGL doesn't work, render without OpenGL...
-//        size(displayWidth, displayHeight, OPENGL);
+        size(displayWidth, displayHeight, OPENGL);
 //        size(displayWidth, displayHeight, P3D);
-        size(displayWidth, displayHeight, P3D);
+        //size(displayWidth, displayHeight, P2D);
         //size(1000, 400, P3D);
 
         initShapes();
@@ -184,13 +184,13 @@ public class ProcessingShapes extends PApplet {
         for (int i = 1; i < 3; i++) {
         	
             if (context.isTrackingSkeleton(i)) {
-            	System.out.println(context+"context tracked skeleton "+i);
-            	System.out.println(Arrays.toString(context.getUsers()));
+            	//System.out.println(context+"context tracked skeleton "+i);
+            	//System.out.println(Arrays.toString(context.getUsers()));
 //                drawSkeleton(i);
 //                draw random colored shapes
             	PVector position = new PVector();
             	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
+                drawColoredShapeWithHandFollower(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
 //                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
 //                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
 //                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
@@ -366,7 +366,8 @@ public class ProcessingShapes extends PApplet {
         PVector jointPos_conv = new PVector();
         context.convertRealWorldToProjective(jointPos, jointPos_conv);
 
-
+        System.out.println("X: "+jointPos.x+" Y: "+jointPos.y);
+        System.out.println("Konvertiert: X: "+jointPos_conv.x+" Y: "+jointPos_conv.y);
         // senkrecht = x Koordinate???
         float hue = jointPos_conv.y / displayHeight;
 //        System.out.println("Hue: " + hue);
@@ -423,6 +424,57 @@ public class ProcessingShapes extends PApplet {
 
         endShape(CLOSE);
         popMatrix();
+    }
+    
+    private void drawColoredShapeWithHandFollower(Shape shape, Color color, PVector jointPos){
+pushMatrix();
+
+
+        
+        // set the color for filling the shape
+        fill(color.getRGB());
+        translate(shape.x, shape.y);
+
+        beginShape();
+      
+         
+        // uncomment to draw NO shape outlines
+//        noStroke();
+        // uncomment to set the outline color
+        stroke(Color.BLACK.getRGB());
+        // uncomment to set the outline weight
+        strokeWeight(3);
+
+        // draw a vertex between all points of a shape
+        for (Point point : shape.getPoints()) {
+            vertex(point.x, point.y);
+        }
+
+
+
+        
+        endShape(CLOSE);
+        
+        
+        popMatrix();
+        
+        pushMatrix();
+        translate(shape.getBoundingBox().getLeftTop().x, shape.getBoundingBox().getLeftTop().y);
+        fill(Color.CYAN.getRGB());
+        noStroke();
+        PVector ellipsePos = new PVector();
+        PVector jointPos_conv = new PVector();
+        context.convertRealWorldToProjective(jointPos, jointPos_conv);
+        
+        ellipsePos.x = jointPos_conv.x * shape.getBoundingBox().getWidth()/displayWidth;
+        ellipsePos.y = jointPos_conv.y * shape.getBoundingBox().getHeight()/displayHeight;
+        
+        System.out.println("Spieler X: "+jointPos.x+" Y: "+jointPos.y);
+        System.out.println("Breite: "+shape.getBoundingBox().getWidth()+" Höhe: "+shape.getBoundingBox().getHeight());
+        System.out.println("X: "+ellipsePos.x+" Y: "+ellipsePos.y);
+        ellipse(ellipsePos.x, ellipsePos.y, 20, 20);
+        popMatrix();
+        
     }
     
     /**
