@@ -1,5 +1,7 @@
 import SimpleOpenNI.SimpleOpenNI;
 
+import java.util.*;
+
 public class UserManager
 {
   protected SimpleOpenNI  context;
@@ -22,6 +24,7 @@ public void onNewUser(int userId) {
 // when a person ('user') leaves the field of view
 public void onLostUser(int userId) {
 	System.out.println("User Lost - userId: " + userId);
+    ProcessingShapes.userShapes.remove(userId);
 }
 
 // when a user begins a pose
@@ -51,6 +54,13 @@ public void onEndCalibration(int userId, boolean successfull) {
 
         // begin skeleton tracking
         context.startTrackingSkeleton(userId);
+        List<Shape> tmpShapes = new ArrayList<>(ProcessingShapes.shapes);
+        for (List<Shape> usedShapes: ProcessingShapes.userShapes.values()){
+            tmpShapes.removeAll(usedShapes);
+        }
+        Collections.shuffle(tmpShapes);
+        tmpShapes.subList(0,4);
+        ProcessingShapes.userShapes.put(userId,tmpShapes.subList(0,4));
     } else {
     	System.out.println("  Failed to calibrate user !!!");
 
