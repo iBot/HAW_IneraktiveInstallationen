@@ -16,6 +16,7 @@ public class Shape extends Point {
     private List<Point> points = new LinkedList<>();
     private PImage image;
     private BoundingBox boundingBox;
+    private Color color;
 
 	public int num = 20;
 	public float mx[] = new float[num];
@@ -86,4 +87,12 @@ public class Shape extends Point {
         }
         return new Polygon(xPoints, yPoints, points.size());
     }
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	public Color getColor(){
+		return color;
+	}
 }

@@ -67,7 +67,8 @@ public class ProcessingShapes extends PApplet {
         setupKinect();
     }
 
-    private void setupCommonStuff() {
+
+	private void setupCommonStuff() {
         // size for fullscreen window, renderer OpenGL
         //  Don't forget to import native libraries for your OS. If OpenGL doesn't work, render without OpenGL...
         size(displayWidth, displayHeight, OPENGL);
@@ -191,10 +192,18 @@ public class ProcessingShapes extends PApplet {
             	
             	//drawBoundingBox(shapes.get(shapes.size()-1));
 //                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
-                drawColoredShapeWithForms(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND, context),getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
-                drawColoredShapeWithForms(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE, context),getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
-                drawColoredShapeWithForms(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE, context),getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
-                drawColoredShapeWithForms(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD, context),getPosition(SimpleOpenNI.SKEL_HEAD, i));
+                drawColoredShapeWithForms(shapes.get(i + 1), 
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_HAND, shapes.get(i+1)),
+                		getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
+                drawColoredShapeWithForms(shapes.get(i + 3), 
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_KNEE, shapes.get(i + 3)),
+                		getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
+                drawColoredShapeWithForms(shapes.get(i + 5), 
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_KNEE, shapes.get(i + 5)),
+                		getPosition(SimpleOpenNI.SKEL_LEFT_KNEE, i));
+                drawColoredShapeWithForms(shapes.get(i + 7), 
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_HEAD, shapes.get(i + 7)),
+                		getPosition(SimpleOpenNI.SKEL_HEAD, i));
 
           }
         }
@@ -355,6 +364,17 @@ public class ProcessingShapes extends PApplet {
 //        s.add(0,0);
 //        shapes.add(s);
 //        System.out.println(s.getBoundingBox());
+		
+		shapes.get(0).setColor(new Color(0xD04328));
+		shapes.get(1).setColor(new Color(0x63382D));
+		shapes.get(2).setColor(new Color(0xC2782F));
+		shapes.get(3).setColor(new Color(0x8A443A));
+		shapes.get(4).setColor(new Color(0x346E45));
+		shapes.get(5).setColor(new Color(0x344761));
+		shapes.get(6).setColor(new Color(0xDB4D27));
+		shapes.get(7).setColor(new Color(0x344761));
+		shapes.get(8).setColor(new Color(0xC2782F));
+		shapes.get(8).setColor(new Color(0xDB4D27));
 
         PImage image = loadImage("pic.jpg");
 
@@ -364,6 +384,21 @@ public class ProcessingShapes extends PApplet {
         }
     }
 
+    private Color getChangedSaturationColor(int userId, int joint, Shape shape){
+    	PVector jointPos = new PVector();
+        context.getJointPositionSkeleton(userId, joint,
+                jointPos);
+        PVector jointPos_conv = new PVector();
+        context.convertRealWorldToProjective(jointPos, jointPos_conv);
+    	float saturation = jointPos_conv.y / displayHeight;
+    	Color c = shape.getColor();
+    	float[] hsb = new float[3];
+    	Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(),hsb);
+    	Color neu = Color.getHSBColor(hsb[0], saturation, hsb[2]);
+    	
+    	return neu;
+    }
+    
     private Color getColorOfJoint(int userId, int joint, SimpleOpenNI context) {
         // get 3D position of a joint
         PVector jointPos = new PVector();
