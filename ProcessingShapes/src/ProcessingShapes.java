@@ -29,8 +29,7 @@ import java.util.Queue;
  */
 public class ProcessingShapes extends PApplet {
 
-    SimpleOpenNI context1;
-    SimpleOpenNI context2;
+    SimpleOpenNI context;
     AudioInput ai;
     Queue<Float> sound;
     private boolean kinectIsConfigured = false;
@@ -92,25 +91,19 @@ public class ProcessingShapes extends PApplet {
 
     private void setupKinect() {
         // instantiate a new context
-        context1 = new SimpleOpenNI(0,this);
-        context2 = new SimpleOpenNI(1,this);
+        context = new SimpleOpenNI(this);
         
-        UserManager userManager1 = new UserManager(context1);
-        UserManager userManager2 = new UserManager(context2);
+        UserManager userManager = new UserManager(context);
         
 
-    	System.out.println(context1+"");
-    	System.out.println(context2+"");
+    	System.out.println(context+"");
         // enable depthMap generation
-        context1.enableDepth();
-        context2.enableDepth();
+        context.enableDepth();
 
         // enable skeleton generation for all joints
-        context1.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager1);
-        context2.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager2);
+        context.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL, userManager);
 
-        context1.setMirror(true);
-        context2.setMirror(true);
+        context.setMirror(true);
         kinectIsConfigured = true;
     }
 
@@ -150,14 +143,14 @@ public class ProcessingShapes extends PApplet {
     }
 
     private void printCoordinatesOfLeftHand() {
-        if (context1.isTrackingSkeleton(1)) {
+        if (context.isTrackingSkeleton(1)) {
             PVector jointPos = new PVector();
-            context1.getJointPositionSkeleton(1, SimpleOpenNI.SKEL_LEFT_HAND,
+            context.getJointPositionSkeleton(1, SimpleOpenNI.SKEL_LEFT_HAND,
                     jointPos);
             if (xMax<jointPos.x) xMax = jointPos.x;
             if (yMax<jointPos.y) yMax = jointPos.y;
             System.out.printf("X= %s (%s); Y= %s (%s); Z= %s%n", jointPos.x,xMax, jointPos.y,yMax, jointPos.z);
-            context1.drawLimb(1, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_WRIST);
+            context.drawLimb(1, SimpleOpenNI.SKEL_LEFT_HAND, SimpleOpenNI.SKEL_LEFT_WRIST);
 
         }
     }
@@ -181,8 +174,7 @@ public class ProcessingShapes extends PApplet {
     }
 
     private void drawKinectStuff() {
-        context1.update();
-        context2.update();
+        context.update();
 
         // update only after 1000 sec.
 //        if ((System.currentTimeMillis() - time) > 1000) {
@@ -191,33 +183,18 @@ public class ProcessingShapes extends PApplet {
 
         for (int i = 1; i < 3; i++) {
         	
-            if (context1.isTrackingSkeleton(i)) {
-            	System.out.println(context1+"context1 tracked skeleton "+i);
-            	System.out.println(Arrays.toString(context1.getUsers()));
+            if (context.isTrackingSkeleton(i)) {
+            	System.out.println(context+"context tracked skeleton "+i);
+            	System.out.println(Arrays.toString(context.getUsers()));
 //                drawSkeleton(i);
 //                draw random colored shapes
             	PVector position = new PVector();
-            	context1.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context1), position);
+            	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
+                drawColoredShapeWithForms(shapes.get(i - 1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
 //                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
 //                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
 //                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
 //                drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
-
-
-            }
-            else if (context2.isTrackingSkeleton(i)) {
-            	System.out.println(context2+"context2 tracked skeleton "+i);
-            	System.out.println(Arrays.toString(context2.getUsers()));
-//              drawSkeleton(i);
-//              draw random colored shapes
-          	PVector position = new PVector();
-          	context2.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-              drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context2), position);
-//              drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
-//              drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
-//              drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
-//              drawColoredShape(shapes.get(i + 7), getColorOfJoint(i, SimpleOpenNI.SKEL_HEAD));
 
           }
         }
@@ -263,39 +240,39 @@ public class ProcessingShapes extends PApplet {
 
     public void drawSkeleton(int userId) {
         // draw limbs
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_HEAD, SimpleOpenNI.SKEL_NECK);
+        context.drawLimb(userId, SimpleOpenNI.SKEL_HEAD, SimpleOpenNI.SKEL_NECK);
 
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_NECK,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_NECK,
                 SimpleOpenNI.SKEL_LEFT_SHOULDER);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER,
                 SimpleOpenNI.SKEL_LEFT_ELBOW);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_ELBOW,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_ELBOW,
                 SimpleOpenNI.SKEL_LEFT_HAND);
 
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_NECK,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_NECK,
                 SimpleOpenNI.SKEL_RIGHT_SHOULDER);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER,
                 SimpleOpenNI.SKEL_RIGHT_ELBOW);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_ELBOW,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_ELBOW,
                 SimpleOpenNI.SKEL_RIGHT_HAND);
 
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_SHOULDER,
                 SimpleOpenNI.SKEL_TORSO);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_SHOULDER,
                 SimpleOpenNI.SKEL_TORSO);
 
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_TORSO,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_TORSO,
                 SimpleOpenNI.SKEL_LEFT_HIP);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_HIP,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_HIP,
                 SimpleOpenNI.SKEL_LEFT_KNEE);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_KNEE,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_LEFT_KNEE,
                 SimpleOpenNI.SKEL_LEFT_FOOT);
 
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_TORSO,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_TORSO,
                 SimpleOpenNI.SKEL_RIGHT_HIP);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_HIP,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_HIP,
                 SimpleOpenNI.SKEL_RIGHT_KNEE);
-        context1.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_KNEE,
+        context.drawLimb(userId, SimpleOpenNI.SKEL_RIGHT_KNEE,
                 SimpleOpenNI.SKEL_RIGHT_FOOT);
     }
 
@@ -510,7 +487,7 @@ public class ProcessingShapes extends PApplet {
 	/**
      * This method draws a shape and fill it with an color
      * !!!!!!Funzt grad nicht
-     * !!!!!!Funktioniert nur ohne translate...dh die Punkte in Shape m�ssen aufs ganze Koordinatensystem
+     * !!!!!!Funktioniert nur ohne translate...dh die Punkte in Shape m���ssen aufs ganze Koordinatensystem
      * umgerechnet werden. 
      *1
      * @param shape
