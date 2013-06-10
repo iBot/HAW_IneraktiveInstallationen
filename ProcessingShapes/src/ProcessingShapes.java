@@ -194,16 +194,16 @@ public class ProcessingShapes extends PApplet {
             	//drawBoundingBox(shapes.get(shapes.size()-1));
 //                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
                 drawColoredShapeWithForms(userShapes.get(i).get(0),
-                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_HAND, shapes.get(i+1)),
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_HAND, userShapes.get(i).get(0)),
                 		getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
                 drawColoredShapeWithForms(userShapes.get(i).get(1),
-                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_KNEE, shapes.get(i + 3)),
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_KNEE, userShapes.get(i).get(1)),
                 		getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
                 drawColoredShapeWithForms(userShapes.get(i).get(2),
-                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_KNEE, shapes.get(i + 5)),
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_KNEE, userShapes.get(i).get(2)),
                 		getPosition(SimpleOpenNI.SKEL_LEFT_KNEE, i));
                 drawColoredShapeWithForms(userShapes.get(i).get(3),
-                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_HAND, shapes.get(i + 7)),
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_HAND, userShapes.get(i).get(3)),
                 		getPosition(SimpleOpenNI.SKEL_RIGHT_HAND, i));
 
           }
