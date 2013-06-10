@@ -8,10 +8,8 @@ import processing.core.PVector;
 
 import javax.sound.sampled.Control;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * Created by Tobi (iBot), 08th April 2013
@@ -39,7 +37,10 @@ public class ProcessingShapes extends PApplet {
     /**
      * This List will contain all the Shapes which we will fill with different colors
      */
-    private List<Shape> shapes = new LinkedList<>();
+    public static List<Shape> shapes = new LinkedList<>();
+
+
+    public static Map<Integer,List<Shape>> userShapes = new HashMap<>();
     /**
      * The time variable will be used to calculate the time difference between the update intervals
      */
@@ -192,18 +193,18 @@ public class ProcessingShapes extends PApplet {
             	
             	//drawBoundingBox(shapes.get(shapes.size()-1));
 //                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
-                drawColoredShapeWithForms(shapes.get(i + 1), 
+                drawColoredShapeWithForms(userShapes.get(i).get(0),
                 		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_HAND, shapes.get(i+1)),
                 		getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
-                drawColoredShapeWithForms(shapes.get(i + 3), 
+                drawColoredShapeWithForms(userShapes.get(i).get(1),
                 		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_KNEE, shapes.get(i + 3)),
                 		getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
-                drawColoredShapeWithForms(shapes.get(i + 5), 
+                drawColoredShapeWithForms(userShapes.get(i).get(2),
                 		getChangedSaturationColor(i, SimpleOpenNI.SKEL_LEFT_KNEE, shapes.get(i + 5)),
                 		getPosition(SimpleOpenNI.SKEL_LEFT_KNEE, i));
-                drawColoredShapeWithForms(shapes.get(i + 7), 
-                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_HEAD, shapes.get(i + 7)),
-                		getPosition(SimpleOpenNI.SKEL_HEAD, i));
+                drawColoredShapeWithForms(userShapes.get(i).get(3),
+                		getChangedSaturationColor(i, SimpleOpenNI.SKEL_RIGHT_HAND, shapes.get(i + 7)),
+                		getPosition(SimpleOpenNI.SKEL_RIGHT_HAND, i));
 
           }
         }
