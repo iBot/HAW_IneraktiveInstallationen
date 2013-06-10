@@ -190,7 +190,8 @@ public class ProcessingShapes extends PApplet {
 //                draw random colored shapes
             	PVector position = new PVector();
             	context.getJointPositionSkeleton(i, SimpleOpenNI.SKEL_RIGHT_HAND, position);
-                drawColoredShapeWithHandFollower(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
+            	drawBoundingBox(shapes.get(shapes.size()-1));
+                drawColoredShapeWithForms(shapes.get(shapes.size()-1), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_HAND, context), position);
 //                drawColoredShape(shapes.get(i + 1), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_HAND));
 //                drawColoredShape(shapes.get(i + 3), getColorOfJoint(i, SimpleOpenNI.SKEL_RIGHT_KNEE));
 //                drawColoredShape(shapes.get(i + 5), getColorOfJoint(i, SimpleOpenNI.SKEL_LEFT_KNEE));
@@ -458,16 +459,21 @@ pushMatrix();
         
         popMatrix();
         
+        BoundingBox bb = shape.getBoundingBox();
+        
         pushMatrix();
-        translate(shape.getBoundingBox().getLeftTop().x, shape.getBoundingBox().getLeftTop().y);
-        fill(Color.CYAN.getRGB());
+        
+        System.out.println("BoundingBox: X: "+bb.getLeftTop().x+" Y: "+bb.getLeftTop().y);
+        translate(bb.getLeftTop().x, bb.getLeftTop().y);
+        
+        fill(Color.DARK_GRAY.getRGB());
         noStroke();
         PVector ellipsePos = new PVector();
         PVector jointPos_conv = new PVector();
         context.convertRealWorldToProjective(jointPos, jointPos_conv);
         
-        ellipsePos.x = jointPos_conv.x * shape.getBoundingBox().getWidth()/displayWidth;
-        ellipsePos.y = jointPos_conv.y * shape.getBoundingBox().getHeight()/displayHeight;
+        ellipsePos.x = jointPos_conv.x * (shape.getBoundingBox().getWidth()*2)/displayWidth;
+        ellipsePos.y = jointPos_conv.y * (shape.getBoundingBox().getHeight()*2)/displayHeight;
         
         System.out.println("Spieler X: "+jointPos.x+" Y: "+jointPos.y);
         System.out.println("Breite: "+shape.getBoundingBox().getWidth()+" Höhe: "+shape.getBoundingBox().getHeight());
@@ -486,9 +492,7 @@ pushMatrix();
     private void drawColoredShapeWithForms(Shape shape, Color color, PVector jointPos) {
        
         pushMatrix();
-
-
-        
+ 
         // set the color for filling the shape
         fill(color.getRGB());
         translate(shape.x, shape.y);
@@ -515,13 +519,19 @@ pushMatrix();
 
         popMatrix();
 
+        
+        BoundingBox bb = shape.getBoundingBox();
+        
+        PVector jointPos_conv = new PVector();
+        context.convertRealWorldToProjective(jointPos, jointPos_conv);
+        
         noStroke();
-        fill(Color.CYAN.getRGB());
+        fill(Color.DARK_GRAY.getRGB());
         // Cycle through the array, using a different entry on each frame.
         // Using modulo (%) like this is faster than moving all the values over.
         int which = frameCount % shape.num;
-        shape.mx[which] = jointPos.x;
-        shape.my[which] = jointPos.y;
+        shape.mx[which] = jointPos_conv.x * (bb.getWidth()*2)/displayWidth+bb.getLeftTop().x;
+        shape.my[which] = jointPos_conv.y * (bb.getHeight()*2)/displayHeight+bb.getLeftTop().y;
 
         for (int i = 0; i < shape.num; i++) {
             // which+1 is the smallest (the oldest in the array)
@@ -530,9 +540,9 @@ pushMatrix();
 //                System.out.println(">>>>>>>> true");
 
                 ellipse(shape.mx[index], shape.my[index], i, i);
-            } else {
+            } //else {
 //                System.out.println("######## false");
-            }
+            //}
         }
     }
 
@@ -593,6 +603,17 @@ pushMatrix();
         fill(Color.red.getRGB());
         ellipse(shape.getBoundingBox().getMidPoint().x,shape.getBoundingBox().getMidPoint().y,10,10);
         popMatrix();
+    }
+    
+    private void drawBoundingBox(Shape shape)
+    {
+    	noFill();
+    	strokeWeight(3);
+    	stroke(Color.red.getRGB());
+    	BoundingBox bb = shape.getBoundingBox();
+    	//rectMode(CORNERS);
+    	//rect(bb.getLeftTop().x, bb.getLeftTop().y, bb.getRightBottom().x, bb.getRightBottom().y);
+    	rect(bb.getLeftTop().x, bb.getLeftTop().y, bb.getWidth(), bb.getHeight());
     }
 
 //    private void drawPolygon(Polygon poly, Color color) {

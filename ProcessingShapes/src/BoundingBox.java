@@ -1,3 +1,6 @@
+import com.jogamp.opengl.util.packrect.Rect;
+import processing.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: tobi
@@ -8,7 +11,7 @@
 public class BoundingBox {
 
     Point leftTop, rightBottom, mid;
-
+    Shape shape;
 
     public BoundingBox(Point leftTop, Point rightBottom) {
         this.leftTop = leftTop;
@@ -18,7 +21,7 @@ public class BoundingBox {
 
     public BoundingBox(Shape shape){
 
-
+    	this.shape = shape;
         int rightBottomX = 0, leftTopX = 10000, rightBottomY = 0, leftTopY = 100000;
 
         // draw a vertex between all points of a shape
@@ -26,8 +29,8 @@ public class BoundingBox {
             //noFill();
 
 
-            int x = point.x;
-            int y = point.y;
+            int x = point.x+shape.x;
+            int y = point.y+shape.y;
 
             if(x > rightBottomX) rightBottomX = x;
             if(x < leftTopX) leftTopX = x;
@@ -64,6 +67,7 @@ public class BoundingBox {
     {
     	return Math.abs(rightBottom.y-leftTop.y);
     }
+    
     
     @Override
     public String toString() {
