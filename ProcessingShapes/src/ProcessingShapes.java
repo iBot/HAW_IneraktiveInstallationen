@@ -11,6 +11,9 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+//Anschauen für Schwarm!
+//        http://www.openprocessing.org/sketch/82997
+
 /**
  * Created by Tobi (iBot), 08th April 2013
  *  Based on:
@@ -394,7 +397,8 @@ public class ProcessingShapes extends PApplet {
     	float saturation = jointPos_conv.y / displayHeight;
     	Color c = shape.getColor();
     	float[] hsb = new float[3];
-    	Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(),hsb);
+        System.out.println("Red: "+c.getRed()+" Green: "+c.getGreen()+" getBlue: "+c.getBlue()+" hsb: "+hsb);
+        Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(),hsb);
     	Color neu = Color.getHSBColor(hsb[0], saturation, hsb[2]);
     	
     	return neu;
