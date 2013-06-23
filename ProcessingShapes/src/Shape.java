@@ -1,3 +1,4 @@
+import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.awt.*;
@@ -21,6 +22,9 @@ public class Shape extends Point {
 	public int num = 20;
 	public float mx[] = new float[num];
 	public float my[] = new float[num];
+	
+//	public FollowTail tail[] = new FollowTail[5];
+	public Tail tail[] = new Tail[5];
 
     public Shape(int x, int y) {
         this(x, y, null);
@@ -29,6 +33,13 @@ public class Shape extends Point {
     public Shape(int x, int y, PImage image) {
         super(x, y);
         this.image = image;
+        
+        
+    }
+    public void initTail(PApplet applet){
+    	for(int i=0; i<tail.length; i++){
+        	tail[i] = new Tail(getBoundingBox(), applet);
+        }
     }
 
     public BoundingBox getBoundingBox() {
