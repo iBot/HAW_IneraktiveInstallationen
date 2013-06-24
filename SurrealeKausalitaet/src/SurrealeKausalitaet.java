@@ -5,14 +5,13 @@ import processing.core.PVector;
 
 import javax.sound.sampled.Control;
 
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.Queue;
 
-public class SurrealeKausalitaet extends PApplet{
-	
+public class SurrealeKausalitaet extends PApplet {
+
 	SimpleOpenNI context;
 	Queue<Float> sound;
 	private boolean kinectIsConfigured = false;
@@ -40,7 +39,7 @@ public class SurrealeKausalitaet extends PApplet{
 		PApplet.main(new String[] { "--present", "--bgcolor=#000000",
 				"--present-stop-color=#000000", "SurrealeKausalitaet" });
 	}
-	
+
 	@Override
 	public void setup() {
 		size(displayWidth, displayHeight, OPENGL);
@@ -52,7 +51,7 @@ public class SurrealeKausalitaet extends PApplet{
 		smooth();
 		setupKinect();
 	}
-	
+
 	private void setupKinect() {
 		// instantiate a new context
 		context = new SimpleOpenNI(this);
@@ -69,23 +68,44 @@ public class SurrealeKausalitaet extends PApplet{
 		context.setMirror(true);
 		kinectIsConfigured = true;
 	}
-	
+
 	@Override
 	public void draw() {
 		context.update();
 
-		//Max 2 Spieler
+		// Max 2 Spieler
 		for (int i = 1; i < 3; i++) {
 
 			if (context.isTrackingSkeleton(i)) {
-				
-				drawColoredShapeWithTails(userShapes.get(i).get(0), getChangedSaturationColor(i,
-						SimpleOpenNI.SKEL_LEFT_HAND, userShapes.get(i)
-						.get(0)), getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
+				System.out.println(userShapes.get(i));
+				drawColoredShapeWithTails(
+						userShapes.get(i).get(0),
+						getChangedSaturationColor(i,
+								SimpleOpenNI.SKEL_LEFT_HAND, userShapes.get(i)
+										.get(0)),
+						getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
+				drawColoredShapeWithTails(
+						userShapes.get(i).get(1),
+						getChangedSaturationColor(i,
+								SimpleOpenNI.SKEL_RIGHT_HAND, userShapes.get(i)
+										.get(1)),
+						getPosition(SimpleOpenNI.SKEL_RIGHT_HAND, i));
+				drawColoredShapeWithTails(
+						userShapes.get(i).get(2),
+						getChangedSaturationColor(i,
+								SimpleOpenNI.SKEL_RIGHT_KNEE, userShapes.get(i)
+										.get(2)),
+						getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
+				drawColoredShapeWithTails(
+						userShapes.get(i).get(3),
+						getChangedSaturationColor(i,
+								SimpleOpenNI.SKEL_LEFT_KNEE, userShapes.get(i)
+										.get(3)),
+						getPosition(SimpleOpenNI.SKEL_LEFT_KNEE, i));
 			}
 		}
 	}
-	
+
 	/**
 	 * This method draws a shape and fill it with an color and draw Tails Which
 	 * follow the Hand
@@ -122,6 +142,7 @@ public class SurrealeKausalitaet extends PApplet{
 		endShape(CLOSE);
 		popMatrix();
 
+		noStroke();
 		fill(Color.BLUE.getRGB());
 		float eX = jointPos.x * (shape.getBoundingBox().getWidth() * 2)
 				/ displayWidth + shape.getBoundingBox().getLeftTop().x;
@@ -137,14 +158,13 @@ public class SurrealeKausalitaet extends PApplet{
 
 		}
 	}
-	
-	
+
 	private PVector getPosition(int joint, int i) {
 		PVector position = new PVector();
 		context.getJointPositionSkeleton(i, joint, position);
 		return position;
 	}
-	
+
 	private Color getChangedSaturationColor(int userId, int joint, Shape shape) {
 		PVector jointPos = new PVector();
 		context.getJointPositionSkeleton(userId, joint, jointPos);
@@ -153,15 +173,14 @@ public class SurrealeKausalitaet extends PApplet{
 		float saturation = jointPos_conv.y / displayHeight;
 		Color c = shape.getColor();
 		float[] hsb = new float[3];
-		System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
-				+ " getBlue: " + c.getBlue() + " hsb: " + hsb);
+		// System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
+		// + " getBlue: " + c.getBlue() + " hsb: " + hsb);
 		Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
 		Color neu = Color.getHSBColor(hsb[0], saturation, hsb[2]);
 
 		return neu;
 	}
 
-	
 	/**
 	 * This method will create all the shapes for this sketch and add them to
 	 * the List shapes If you use the Mapper.jar to map surfaces: Use 'Export' >
@@ -245,5 +264,5 @@ public class SurrealeKausalitaet extends PApplet{
 			// System.out.println(shape.getBoundingBox());
 		}
 	}
-	
+
 }

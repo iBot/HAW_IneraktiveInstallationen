@@ -19,12 +19,14 @@ public class Tail extends PApplet {
 
 	BoundingBox bb;
 	PApplet applet;
+	Shape shape;
 
-	public Tail(BoundingBox bb, PApplet applet){
+	public Tail(BoundingBox bb, PApplet applet, Shape shape){
 		location = new PVector(random(bb.getLeftTop().x, 
 				bb.getWidth()+bb.getLeftTop().x), random(bb.getLeftTop().y, 
 						bb.getHeight()+bb.getLeftTop().y));
 		this.applet = applet;
+		this.shape = shape;
 		velocity = new PVector(0, 0);
 		this.bb = bb;
 		// adds a random jitter factor to each worm to stop them clumping
@@ -63,7 +65,8 @@ public class Tail extends PApplet {
 
 		// generates the tail drawing
 		for (int i = 0; i < 20; i++) {
-			applet.ellipse(holdX[i], holdY[i], 20 - i, 20 - i);
+			if(shape.getPolygon().contains(holdX[i], holdY[i]))
+				applet.ellipse(holdX[i], holdY[i], 10 - i/2, 10 - i/2);
 		}
 
 		// stores the current location and shifts previous locations down the

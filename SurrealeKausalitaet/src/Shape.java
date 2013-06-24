@@ -38,7 +38,7 @@ public class Shape extends Point {
     }
     public void initTail(PApplet applet){
     	for(int i=0; i<tail.length; i++){
-        	tail[i] = new Tail(getBoundingBox(), applet);
+        	tail[i] = new Tail(getBoundingBox(), applet, this);
         }
     }
 

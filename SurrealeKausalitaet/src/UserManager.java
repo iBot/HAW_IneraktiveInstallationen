@@ -52,8 +52,7 @@ public void onEndCalibration(int userId, boolean successfull) {
     if (successfull) {
     	System.out.println("  User calibrated !!!");
 
-        // begin skeleton tracking
-        context.startTrackingSkeleton(userId);
+       
         List<Shape> tmpShapes = new ArrayList<>(SurrealeKausalitaet.shapes);
         for (List<Shape> usedShapes: SurrealeKausalitaet.userShapes.values()){
             tmpShapes.removeAll(usedShapes);
@@ -61,6 +60,8 @@ public void onEndCalibration(int userId, boolean successfull) {
         Collections.shuffle(tmpShapes);
         tmpShapes.subList(0,4);
         SurrealeKausalitaet.userShapes.put(userId,tmpShapes.subList(0,4));
+        // begin skeleton tracking
+        context.startTrackingSkeleton(userId);
     } else {
     	System.out.println("  Failed to calibrate user !!!");
 
