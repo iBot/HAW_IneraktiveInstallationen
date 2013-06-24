@@ -71,6 +71,7 @@ public class SurrealeKausalitaet extends PApplet {
 
 	@Override
 	public void draw() {
+		background(Color.BLACK.getRGB());
 		context.update();
 
 		// Max 2 Spieler
