@@ -256,7 +256,7 @@ public class SurrealeKausalitaet extends PApplet {
 		shapes.get(6).setColor(new Color(0xDB4D27));
 		shapes.get(7).setColor(new Color(0x344761));
 		shapes.get(8).setColor(new Color(0xC2782F));
-		shapes.get(8).setColor(new Color(0xDB4D27));
+		shapes.get(9).setColor(new Color(0xDB4D27));
 
 		PImage image = loadImage("pic.jpg");
 
