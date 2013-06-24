@@ -61,7 +61,7 @@ public class Tail extends PApplet {
 
 		applet.fill(Color.WHITE.getRGB());
 
-		applet.ellipse(holdX[0], holdY[0], 20, 20);
+//		applet.ellipse(holdX[0], holdY[0], 10, 10);
 
 		// generates the tail drawing
 		for (int i = 0; i < 20; i++) {

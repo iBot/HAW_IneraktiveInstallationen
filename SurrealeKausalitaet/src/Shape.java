@@ -24,7 +24,7 @@ public class Shape extends Point {
 	public float my[] = new float[num];
 	
 //	public FollowTail tail[] = new FollowTail[5];
-	public Tail tail[] = new Tail[5];
+	public Tail tail[] = new Tail[1];
 
     public Shape(int x, int y) {
         this(x, y, null);

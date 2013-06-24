@@ -143,11 +143,14 @@ public class SurrealeKausalitaet extends PApplet {
 		endShape(CLOSE);
 		popMatrix();
 
+		PVector jointPos_conv = new PVector();
+		context.convertRealWorldToProjective(jointPos, jointPos_conv);
+		
 		noStroke();
 		fill(Color.BLUE.getRGB());
-		float eX = jointPos.x * (shape.getBoundingBox().getWidth() * 2)
+		float eX = jointPos_conv.x * (shape.getBoundingBox().getWidth() * 2)
 				/ displayWidth + shape.getBoundingBox().getLeftTop().x;
-		float eY = jointPos.y * (shape.getBoundingBox().getHeight() * 2)
+		float eY = jointPos_conv.y * (shape.getBoundingBox().getHeight() * 2)
 				/ displayHeight + shape.getBoundingBox().getLeftTop().y;
 
 		// ellipse(eX, eY, 20, 20);
