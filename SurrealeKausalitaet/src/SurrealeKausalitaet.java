@@ -78,7 +78,7 @@ public class SurrealeKausalitaet extends PApplet {
 		for (int i = 1; i < 3; i++) {
 
 			if (context.isTrackingSkeleton(i)) {
-				System.out.println(userShapes.get(i));
+//				System.out.println(userShapes.get(i));
 				drawColoredShapeWithTails(
 						userShapes.get(i).get(0),
 						getChangedSaturationColor(i,
@@ -261,7 +261,7 @@ public class SurrealeKausalitaet extends PApplet {
 		shapes.get(8).setColor(new Color(0xC2782F));
 		shapes.get(9).setColor(new Color(0xDB4D27));
 
-		PImage image = loadImage("pic.jpg");
+//		PImage image = loadImage("pic.jpg");
 
 		for (Shape shape : shapes) {
 			shape.initTail(this);
