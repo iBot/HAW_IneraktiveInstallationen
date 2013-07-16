@@ -52,7 +52,7 @@ public class SurrealeKausalitaet extends PApplet {
         size(displayWidth, displayHeight, OPENGL);
         initShapes();
         background(Color.BLACK.getRGB());
-        //TODO: Zeit kann gelöscht werde, oder?
+        //TODO: Zeit kann gel��scht werde, oder?
         time = System.currentTimeMillis();
         stroke(0, 255, 0);
         strokeWeight(3);
@@ -94,31 +94,26 @@ public class SurrealeKausalitaet extends PApplet {
         for (int i = 1; i < (numberOfPlayers + 1); i++) {
 
             if (context.isTrackingSkeleton(i)) {
-//				System.out.println(userShapes.get(i));
-                drawColoredShapeWithTails(
+                drawColoredShape(
                         userShapes.get(i).get(0),
-                        getChangedSaturationColor(i,
+                        getChangedColor(i,
                                 SimpleOpenNI.SKEL_LEFT_HAND, userShapes.get(i)
-                                .get(0)),
-                        getPosition(SimpleOpenNI.SKEL_LEFT_HAND, i));
-                drawColoredShapeWithTails(
-                        userShapes.get(i).get(1),
-                        getChangedSaturationColor(i,
-                                SimpleOpenNI.SKEL_RIGHT_HAND, userShapes.get(i)
-                                .get(1)),
-                        getPosition(SimpleOpenNI.SKEL_RIGHT_HAND, i));
-                drawColoredShapeWithTails(
-                        userShapes.get(i).get(2),
-                        getChangedSaturationColor(i,
-                                SimpleOpenNI.SKEL_RIGHT_KNEE, userShapes.get(i)
-                                .get(2)),
-                        getPosition(SimpleOpenNI.SKEL_RIGHT_KNEE, i));
-                drawColoredShapeWithTails(
-                        userShapes.get(i).get(3),
-                        getChangedSaturationColor(i,
-                                SimpleOpenNI.SKEL_LEFT_KNEE, userShapes.get(i)
-                                .get(3)),
-                        getPosition(SimpleOpenNI.SKEL_LEFT_KNEE, i));
+                                .get(0)));
+//                drawColoredShape(
+//                        userShapes.get(i).get(1),
+//                        getChangedColor(i,
+//                                SimpleOpenNI.SKEL_RIGHT_HAND, userShapes.get(i)
+//                                .get(1)));
+//                drawColoredShape(
+//                        userShapes.get(i).get(2),
+//                        getChangedColor(i,
+//                                SimpleOpenNI.SKEL_RIGHT_KNEE, userShapes.get(i)
+//                                .get(2)));
+//                drawColoredShape(
+//                        userShapes.get(i).get(3),
+//                        getChangedColor(i,
+//                                SimpleOpenNI.SKEL_LEFT_KNEE, userShapes.get(i)
+//                                .get(3)));
             }
         }
     }
@@ -131,12 +126,8 @@ public class SurrealeKausalitaet extends PApplet {
      * @param color    the color of the shape
      * @param jointPos the position of start of the tail
      */
-    private void drawColoredShapeWithTails(Shape shape, Color color,
-                                           PVector jointPos) {
-        // I didn't analyse what pushMatrix(), translate(x,y) and popMatrix() do
-        // yet, but without calling this methods,
-        // the shapes will be drawn on a wrong position.
-        // TODO: Understand what this methods exactly does...
+    private void drawColoredShape(Shape shape, Color color) {
+    	
         pushMatrix();
 
         // set the color for filling the shape
@@ -145,11 +136,9 @@ public class SurrealeKausalitaet extends PApplet {
 
         beginShape();
 
-        // uncomment to draw NO shape outlines
-        // noStroke();
-        // uncomment to set the outline color
+        // set the outline color
         stroke(Color.BLACK.getRGB());
-        // uncomment to set the outline weight
+        // set the outline weight
         strokeWeight(3);
 
         // draw a vertex between all points of a shape
@@ -160,24 +149,6 @@ public class SurrealeKausalitaet extends PApplet {
         endShape(CLOSE);
         popMatrix();
 
-//		PVector jointPos_conv = new PVector();
-//		context.convertRealWorldToProjective(jointPos, jointPos_conv);
-//
-//		noStroke();
-//		fill(Color.BLUE.getRGB());
-//		float eX = jointPos_conv.x * (shape.getBoundingBox().getWidth() * 2)
-//				/ displayWidth + shape.getBoundingBox().getLeftTop().x;
-//		float eY = jointPos_conv.y * (shape.getBoundingBox().getHeight() * 2)
-//				/ displayHeight + shape.getBoundingBox().getLeftTop().y;
-//
-//		// ellipse(eX, eY, 20, 20);
-//		PVector handPos = new PVector(eX, eY);
-//		for (int j = 0; j < shape.tail.length; j++) {
-//			shape.tail[j].checkEdges();
-//			shape.tail[j].update(handPos);
-//			shape.tail[j].display();
-//
-//		}
     }
 
     /**
@@ -220,6 +191,53 @@ public class SurrealeKausalitaet extends PApplet {
 
         return neu;
     }
+    
+    /**
+     * This Method is used to recalculate the Color of a Shape, based on the position of
+     * a given joint
+     *
+     * @param userId the user, whose joint position should be checked
+     * @param joint  the joint, whose should be checked
+     * @param shape  the shape, whose color should be adjusted
+     * @return the recalculated color
+     */
+    private Color getChangedColor(int userId, int joint, Shape shape) {
+        // jointPos contains coordinats of realWorld
+        PVector jointPos = new PVector();
+        context.getJointPositionSkeleton(userId, joint, jointPos);
+        // jointPos_conv will contain coordinats of projective
+        PVector jointPos_conv = new PVector();
+        context.convertRealWorldToProjective(jointPos, jointPos_conv);
+
+        float haelfte = displayWidth/2f;
+        Color c = shape.getColor();
+        int red = 0, green = 0, blue = 0;
+        if(jointPos_conv.x >= haelfte){
+        	jointPos_conv.x = jointPos_conv.x-haelfte;
+        	float prozent = jointPos_conv.x/haelfte*20f;
+        	red = Math.round(c.getRed()*(1+prozent/100f));
+        	green = Math.round(c.getGreen()*(1+prozent/100f));
+        	blue = Math.round(c.getBlue()*(1+prozent/100f));
+        	
+        	
+        }
+        else if(jointPos_conv.x < haelfte){
+        	float prozent = jointPos_conv.x/haelfte*20f;
+        	red = Math.round(c.getRed()*(1-prozent/100f));
+        	green = Math.round(c.getGreen()*(1-prozent/100f));
+        	blue = Math.round(c.getBlue()*(1-prozent/100f));
+        }
+        if(red<0) red = 0;
+        if(red>255) red = 255;
+        if(green<0) green = 0;
+        if(green>255) green = 255;
+        if(blue<0) blue = 0;
+        if(blue>255) blue = 255;
+        System.out.println("Rot: "+red+" Grün: "+green+" Blau: "+blue);
+        Color neu = new Color(red, green, blue);
+
+        return neu;
+    }
 
     /**
      * This method will create all the shapes for this sketch and add them to
@@ -229,14 +247,13 @@ public class SurrealeKausalitaet extends PApplet {
      * Examples shapes are created with a display resolution of 1920 *1080
      */
     private void initShapes() {
-        //TODO: Shapes aus Datei parsen, welcher Parameter beim Programmstart übergeben wird.
+        //TODO: Shapes aus Datei parsen, welcher Parameter beim Programmstart ��bergeben wird.
         shapes.add(new Shape(367, 567));
         shapes.add(new Shape(280, 567));
         shapes.add(new Shape(476, 566));
         shapes.add(new Shape(723, 534));
         shapes.add(new Shape(555, 592));
         shapes.add(new Shape(303, 481));
-//        shapes.add(new Shape(297, 507));
 
         shapes.get(0).add(66, -41);
         shapes.get(0).add(74, 38);
@@ -265,28 +282,28 @@ public class SurrealeKausalitaet extends PApplet {
         shapes.get(5).add(130, 45);
         shapes.get(5).add(141, 15);
         shapes.get(5).add(-92, -45);
-//
-//        shapes.get(6).add(-135, -18);
-//        shapes.get(6).add(136, 19);
+        
+        //Orange
+		shapes.get(0).setColor(new Color(0xD04328));
+        //Braun
+		shapes.get(1).setColor(new Color(0x63382D));
+        //Ocker
+		shapes.get(2).setColor(new Color(0xC2782F));
+        //Mov
+		shapes.get(3).setColor(new Color(0x8A443A));
+        //Laubgrün
+		shapes.get(4).setColor(new Color(0x346E45));
+        //Kobaldblau
+		shapes.get(5).setColor(new Color(0x344761));
+        //Rot-Orange
+//		shapes.get(6).setColor(new Color(0x5A4826));
+//        
+//		shapes.get(7).setColor(new Color(0x796659));
+//		shapes.get(8).setColor(new Color(0x3A7487));
+//		shapes.get(9).setColor(new Color(0x7D9F64));
+//		shapes.get(9).setColor(new Color(0xC63D30));
+//		shapes.get(9).setColor(new Color(0x1C764F));
 
-        shapes.get(0).setColor(Color.orange);
-        shapes.get(1).setColor(Color.blue);
-        shapes.get(2).setColor(Color.green);
-        shapes.get(3).setColor(Color.yellow);
-        shapes.get(4).setColor(Color.cyan);
-        shapes.get(5).setColor(Color.PINK);
-//		shapes.get(0).setColor(new Color(0xD04328));
-//		shapes.get(1).setColor(new Color(0x63382D));
-//		shapes.get(2).setColor(new Color(0xC2782F));
-//		shapes.get(3).setColor(new Color(0x8A443A));
-//		shapes.get(4).setColor(new Color(0x346E45));
-//		shapes.get(5).setColor(new Color(0x344761));
-//		shapes.get(6).setColor(new Color(0xDB4D27));
-//		shapes.get(7).setColor(new Color(0x344761));
-//		shapes.get(8).setColor(new Color(0xC2782F));
-//		shapes.get(9).setColor(new Color(0xDB4D27));
-
-//		PImage image = loadImage("pic.jpg");
 
         for (Shape shape : shapes) {
             shape.initTail(this);

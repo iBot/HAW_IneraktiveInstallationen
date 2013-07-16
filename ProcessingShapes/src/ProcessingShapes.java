@@ -528,6 +528,62 @@ pushMatrix();
         
     }
     
+    * This method draws a shape and fill it with an color and draw Tails Which
+    * follow the Hand
+    *
+    * @param shape    the shape which will contain the tail
+    * @param color    the color of the shape
+    * @param jointPos the position of start of the tail
+    */
+   private void drawColoredShapeWithTails(Shape shape, Color color,
+                                          PVector jointPos) {
+       // I didn't analyse what pushMatrix(), translate(x,y) and popMatrix() do
+       // yet, but without calling this methods,
+       // the shapes will be drawn on a wrong position.
+       // TODO: Understand what this methods exactly does...
+       pushMatrix();
+
+       // set the color for filling the shape
+       fill(color.getRGB());
+       translate(shape.x, shape.y);
+
+       beginShape();
+
+       // uncomment to draw NO shape outlines
+       // noStroke();
+       // uncomment to set the outline color
+       stroke(Color.BLACK.getRGB());
+       // uncomment to set the outline weight
+       strokeWeight(3);
+
+       // draw a vertex between all points of a shape
+       for (Point point : shape.getPoints()) {
+           vertex(point.x, point.y);
+       }
+
+       endShape(CLOSE);
+       popMatrix();
+
+//		PVector jointPos_conv = new PVector();
+//		context.convertRealWorldToProjective(jointPos, jointPos_conv);
+//
+//		noStroke();
+//		fill(Color.BLUE.getRGB());
+//		float eX = jointPos_conv.x * (shape.getBoundingBox().getWidth() * 2)
+//				/ displayWidth + shape.getBoundingBox().getLeftTop().x;
+//		float eY = jointPos_conv.y * (shape.getBoundingBox().getHeight() * 2)
+//				/ displayHeight + shape.getBoundingBox().getLeftTop().y;
+//
+//		// ellipse(eX, eY, 20, 20);
+//		PVector handPos = new PVector(eX, eY);
+//		for (int j = 0; j < shape.tail.length; j++) {
+//			shape.tail[j].checkEdges();
+//			shape.tail[j].update(handPos);
+//			shape.tail[j].display();
+//
+//		}
+   }
+
     /**
      * This method draws a shape and fill it with an color
      *
