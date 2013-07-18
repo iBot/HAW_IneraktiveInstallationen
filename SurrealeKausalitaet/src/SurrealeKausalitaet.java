@@ -1,3 +1,5 @@
+
+
 import SimpleOpenNI.SimpleOpenNI;
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -228,6 +230,7 @@ public class SurrealeKausalitaet extends PApplet {
         }
         System.out.println("Abweichung = " + abweichungsFaktor + " Hälfte = " + haelfte + " JointPos = " + pos);
 //        System.out.println(jointPosConvMaxValue);
+       
         red = Math.round(c.getRed() * abweichungsFaktor);
         green = Math.round(c.getGreen()*abweichungsFaktor);
         blue = Math.round(c.getBlue()*abweichungsFaktor);
@@ -254,9 +257,13 @@ public class SurrealeKausalitaet extends PApplet {
         if (blue < 0) blue = 0;
         if (blue > 255) blue = 255;
         System.out.println("Rot: " + red + " Grün: " + green + " Blau: " + blue);
-//        Color neu = new Color(c.getRed(), c.getGreen(), blue);
-//        Color neu = new Color(red, c.getGreen(), c.getBlue());
-//        Color neu = new Color(c.getRed(), green, c.getBlue());
+        Color neu = c;
+        if(shape.getColorToChange().equals(ColorToChange.RED))
+            neu = new Color(red, c.getGreen(), c.getBlue());
+        else if(shape.getColorToChange().equals(ColorToChange.BLUE))
+        	neu = new Color(c.getRed(), c.getGreen(), blue);
+        else if(shape.getColorToChange().equals(ColorToChange.GREEN))
+        	neu = new Color(c.getRed(), green, c.getBlue());
 
         return neu;
     }
@@ -285,27 +292,38 @@ public class SurrealeKausalitaet extends PApplet {
 
         //Orange --> grün
 //        shapes.get(0).setColor(new Color(0xD04328));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 //        //Braun - grün
 //        shapes.get(0).setColor(new Color(0x63382D));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 //        //Ocker -->grün
         shapes.get(0).setColor(new Color(0xC2782F));
+        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 //        //Laubgrün -> grün verändern
 //        shapes.get(0).setColor(new Color(0x346E45));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 //        //Kobaldblau --> grün
 //        shapes.get(0).setColor(new Color(0x344761));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 //        //Rot-Orange -->grün
 //		shapes.get(0).setColor(new Color(0x5A4826));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 //        
         // -->grün
 //		shapes.get(0).setColor(new Color(0x796659));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
         //blau
 //		shapes.get(0).setColor(new Color(0x3A7487));
+//        shapes.get(0).setColorToChange(ColorToChange.BLUE);
 		//blau
 //		shapes.get(0).setColor(new Color(0x7D9F64));
+//        shapes.get(0).setColorToChange(ColorToChange.BLUE);
         //grün
 //		shapes.get(0).setColor(new Color(0xC63D30));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
         //grün
 //		shapes.get(0).setColor(new Color(0x1C764F));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
 
 
         for (Shape shape : shapes) {
