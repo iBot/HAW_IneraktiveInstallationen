@@ -87,9 +87,9 @@ public class UserManager {
             }
             Collections.shuffle(tmpShapes);
             //TODO: Habe gerade keine Kinect um zu testen, aber sublist ist doch nicht destruktiv, oder? Das heißt,die folgende Zeile kann gelöscht werden. Oder?
-            tmpShapes.subList(0, 4);
+            tmpShapes.subList(0, 1);
             // Assign Shapes to the user
-            SurrealeKausalitaet.userShapes.put(userId, tmpShapes.subList(0, 4));
+            SurrealeKausalitaet.userShapes.put(userId, tmpShapes.subList(0, 1));
             // begin skeleton tracking
             context.startTrackingSkeleton(userId);
         } else {

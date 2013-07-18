@@ -22,7 +22,10 @@ public class SurrealeKausalitaet extends PApplet {
      * This maps contains the assignment from users to the shapes that he controls
      */
     public static Map<Integer, List<Shape>> userShapes = new HashMap<>();
+    private final float scaleFactorY = displayWidth / 480f;
+    float jointPosConvMaxValue = 0;
     SimpleOpenNI context;
+    private float scaleFactorX;
     /**
      * Will be set on true as soon as the kinect is configured. Nice for testing without
      * kinect: If kinect is not configured, don't use kinect stuff...
@@ -50,6 +53,8 @@ public class SurrealeKausalitaet extends PApplet {
     @Override
     public void setup() {
         size(displayWidth, displayHeight, OPENGL);
+        scaleFactorX = displayWidth / 640f;
+
         initShapes();
         background(Color.BLACK.getRGB());
         //TODO: Zeit kann gel��scht werde, oder?
@@ -122,12 +127,11 @@ public class SurrealeKausalitaet extends PApplet {
      * This method draws a shape and fill it with an color and draw Tails Which
      * follow the Hand
      *
-     * @param shape    the shape which will contain the tail
-     * @param color    the color of the shape
-     * @param jointPos the position of start of the tail
+     * @param shape the shape which will contain the tail
+     * @param color the color of the shape
      */
     private void drawColoredShape(Shape shape, Color color) {
-    	
+
         pushMatrix();
 
         // set the color for filling the shape
@@ -191,7 +195,7 @@ public class SurrealeKausalitaet extends PApplet {
 
         return neu;
     }
-    
+
     /**
      * This Method is used to recalculate the Color of a Shape, based on the position of
      * a given joint
@@ -209,31 +213,47 @@ public class SurrealeKausalitaet extends PApplet {
         PVector jointPos_conv = new PVector();
         context.convertRealWorldToProjective(jointPos, jointPos_conv);
 
-        float haelfte = displayWidth/2f;
+        System.out.println("JointPos " + jointPos_conv.x + " ScaleFactor " + scaleFactorX);
+        float pos = jointPos_conv.x * scaleFactorX;
+
+        float haelfte = displayWidth / 2f;
         Color c = shape.getColor();
         int red = 0, green = 0, blue = 0;
-        if(jointPos_conv.x >= haelfte){
-        	jointPos_conv.x = jointPos_conv.x-haelfte;
-        	float prozent = jointPos_conv.x/haelfte*20f;
-        	red = Math.round(c.getRed()*(1+prozent/100f));
-        	green = Math.round(c.getGreen()*(1+prozent/100f));
-        	blue = Math.round(c.getBlue()*(1+prozent/100f));
-        	
-        	
+        float delta = 30;
+        float abweichungsFaktor;
+        if (pos >= haelfte) {
+            abweichungsFaktor = 1 + ((pos - haelfte) * delta / 100 / haelfte);
+        } else {
+            abweichungsFaktor = 1 - ((haelfte - pos) * delta / 100 / haelfte);
         }
-        else if(jointPos_conv.x < haelfte){
-        	float prozent = jointPos_conv.x/haelfte*20f;
-        	red = Math.round(c.getRed()*(1-prozent/100f));
-        	green = Math.round(c.getGreen()*(1-prozent/100f));
-        	blue = Math.round(c.getBlue()*(1-prozent/100f));
-        }
-        if(red<0) red = 0;
-        if(red>255) red = 255;
-        if(green<0) green = 0;
-        if(green>255) green = 255;
-        if(blue<0) blue = 0;
-        if(blue>255) blue = 255;
-        System.out.println("Rot: "+red+" Grün: "+green+" Blau: "+blue);
+        System.out.println("Abweichung = " + abweichungsFaktor + " Hälfte = " + haelfte + " JointPos = " + pos);
+//        System.out.println(jointPosConvMaxValue);
+        red = Math.round(c.getRed() * abweichungsFaktor);
+        green = Math.round(c.getGreen()*abweichungsFaktor);
+        blue = Math.round(c.getBlue()*abweichungsFaktor);
+
+        //        if(jointPos_conv.x >= haelfte){
+//        	jointPos_conv.x = jointPos_conv.x-haelfte;
+//        	float prozent = jointPos_conv.x/haelfte*20f;
+//        	red = Math.round(c.getRed()*(1+prozent/100f));
+//        	green = Math.round(c.getGreen()*(1+prozent/100f));
+//        	blue = Math.round(c.getBlue()*(1+prozent/100f));
+//
+//
+//        }
+//        else if(jointPos_conv.x < haelfte){
+//        	float prozent = jointPos_conv.x/haelfte*20f;
+//        	red = Math.round(c.getRed()*(1-prozent/100f));
+//        	green = Math.round(c.getGreen()*(1-prozent/100f));
+//        	blue = Math.round(c.getBlue()*(1-prozent/100f));
+//        }
+        if (red < 0) red = 0;
+        if (red > 255) red = 255;
+        if (green < 0) green = 0;
+        if (green > 255) green = 255;
+        if (blue < 0) blue = 0;
+        if (blue > 255) blue = 255;
+        System.out.println("Rot: " + red + " Grün: " + green + " Blau: " + blue);
         Color neu = new Color(red, green, blue);
 
         return neu;
@@ -248,54 +268,32 @@ public class SurrealeKausalitaet extends PApplet {
      */
     private void initShapes() {
         //TODO: Shapes aus Datei parsen, welcher Parameter beim Programmstart ��bergeben wird.
-        shapes.add(new Shape(367, 567));
-        shapes.add(new Shape(280, 567));
-        shapes.add(new Shape(476, 566));
-        shapes.add(new Shape(723, 534));
-        shapes.add(new Shape(555, 592));
-        shapes.add(new Shape(303, 481));
+        shapes.add(new Shape(808, 511));
 
-        shapes.get(0).add(66, -41);
-        shapes.get(0).add(74, 38);
-        shapes.get(0).add(-74, 54);
-        shapes.get(0).add(-72, -54);
+        shapes.get(0).add(-356, -340);
+        shapes.get(0).add(-502, 104);
+        shapes.get(0).add(-106, 390);
+        shapes.get(0).add(174, 286);
+        shapes.get(0).add(502, -200);
+        shapes.get(0).add(17, -354);
+        shapes.get(0).add(-48, -179);
+        shapes.get(0).add(-156, -374);
+        shapes.get(0).add(-270, -334);
+        shapes.get(0).add(-289, -389);
 
-        shapes.get(1).add(15, -54);
-        shapes.get(1).add(-15, -5);
-        shapes.get(1).add(13, 54);
-
-        shapes.get(2).add(-26, 35);
-        shapes.get(2).add(-34, -34);
-        shapes.get(2).add(35, 15);
-
-        shapes.get(3).add(68, -3);
-        shapes.get(3).add(62, -39);
-        shapes.get(3).add(-68, -29);
-        shapes.get(3).add(-53, 39);
-
-        shapes.get(4).add(105, -20);
-        shapes.get(4).add(-106, -62);
-        shapes.get(4).add(59, 62);
-        shapes.get(4).add(107, 56);
-
-        shapes.get(5).add(-141, 8);
-        shapes.get(5).add(130, 45);
-        shapes.get(5).add(141, 15);
-        shapes.get(5).add(-92, -45);
-        
         //Orange
-		shapes.get(0).setColor(new Color(0xD04328));
-        //Braun
-		shapes.get(1).setColor(new Color(0x63382D));
-        //Ocker
-		shapes.get(2).setColor(new Color(0xC2782F));
-        //Mov
-		shapes.get(3).setColor(new Color(0x8A443A));
-        //Laubgrün
-		shapes.get(4).setColor(new Color(0x346E45));
-        //Kobaldblau
-		shapes.get(5).setColor(new Color(0x344761));
-        //Rot-Orange
+        shapes.get(0).setColor(new Color(0xD04328));
+//        //Braun
+//        shapes.get(1).setColor(new Color(0x63382D));
+//        //Ocker
+//        shapes.get(2).setColor(new Color(0xC2782F));
+//        //Mov
+//        shapes.get(3).setColor(new Color(0x8A443A));
+//        //Laubgrün
+//        shapes.get(4).setColor(new Color(0x346E45));
+//        //Kobaldblau
+//        shapes.get(5).setColor(new Color(0x344761));
+//        //Rot-Orange
 //		shapes.get(6).setColor(new Color(0x5A4826));
 //        
 //		shapes.get(7).setColor(new Color(0x796659));
