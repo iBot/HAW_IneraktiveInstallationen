@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class Shape extends Point {
 
-    public static enum ColorToChange{RED, GREEN, BLUE}
 
     /**
      * TODO: What are num, mx[], my[] and tail[] for? Do we still need them?
