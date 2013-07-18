@@ -254,7 +254,9 @@ public class SurrealeKausalitaet extends PApplet {
         if (blue < 0) blue = 0;
         if (blue > 255) blue = 255;
         System.out.println("Rot: " + red + " Grün: " + green + " Blau: " + blue);
-        Color neu = new Color(red, green, blue);
+//        Color neu = new Color(c.getRed(), c.getGreen(), blue);
+//        Color neu = new Color(red, c.getGreen(), c.getBlue());
+//        Color neu = new Color(c.getRed(), green, c.getBlue());
 
         return neu;
     }
@@ -281,26 +283,29 @@ public class SurrealeKausalitaet extends PApplet {
         shapes.get(0).add(-270, -334);
         shapes.get(0).add(-289, -389);
 
-        //Orange
-        shapes.get(0).setColor(new Color(0xD04328));
-//        //Braun
-//        shapes.get(1).setColor(new Color(0x63382D));
-//        //Ocker
-//        shapes.get(2).setColor(new Color(0xC2782F));
-//        //Mov
-//        shapes.get(3).setColor(new Color(0x8A443A));
-//        //Laubgrün
-//        shapes.get(4).setColor(new Color(0x346E45));
-//        //Kobaldblau
-//        shapes.get(5).setColor(new Color(0x344761));
-//        //Rot-Orange
-//		shapes.get(6).setColor(new Color(0x5A4826));
+        //Orange --> grün
+//        shapes.get(0).setColor(new Color(0xD04328));
+//        //Braun - grün
+//        shapes.get(0).setColor(new Color(0x63382D));
+//        //Ocker -->grün
+        shapes.get(0).setColor(new Color(0xC2782F));
+//        //Laubgrün -> grün verändern
+//        shapes.get(0).setColor(new Color(0x346E45));
+//        //Kobaldblau --> grün
+//        shapes.get(0).setColor(new Color(0x344761));
+//        //Rot-Orange -->grün
+//		shapes.get(0).setColor(new Color(0x5A4826));
 //        
-//		shapes.get(7).setColor(new Color(0x796659));
-//		shapes.get(8).setColor(new Color(0x3A7487));
-//		shapes.get(9).setColor(new Color(0x7D9F64));
-//		shapes.get(9).setColor(new Color(0xC63D30));
-//		shapes.get(9).setColor(new Color(0x1C764F));
+        // -->grün
+//		shapes.get(0).setColor(new Color(0x796659));
+        //blau
+//		shapes.get(0).setColor(new Color(0x3A7487));
+		//blau
+//		shapes.get(0).setColor(new Color(0x7D9F64));
+        //grün
+//		shapes.get(0).setColor(new Color(0xC63D30));
+        //grün
+//		shapes.get(0).setColor(new Color(0x1C764F));
 
 
         for (Shape shape : shapes) {
