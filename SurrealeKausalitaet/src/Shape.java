@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class Shape extends Point {
 
+    public enum ColorToChange{RED, GREEN, BLUE}
+
     /**
      * TODO: What are num, mx[], my[] and tail[] for? Do we still need them?
      */
@@ -35,6 +37,16 @@ public class Shape extends Point {
     private float mx[] = new float[num];
     private float my[] = new float[num];
 
+    public ColorToChange getColorToChange() {
+        return colorToChange;
+    }
+
+    public void setColorToChange(ColorToChange colorToChange) {
+        this.colorToChange = colorToChange;
+    }
+
+    private ColorToChange colorToChange;
+
     /**
      * Shape Constructor
      *
@@ -55,7 +67,7 @@ public class Shape extends Point {
     public Shape(int x, int y, PImage image) {
         super(x, y);
         this.image = image;
-
+        colorToChange = ColorToChange.GREEN;
 
     }
 
