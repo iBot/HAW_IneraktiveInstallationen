@@ -97,25 +97,26 @@ public class SurrealeKausalitaet extends PApplet {
         context.update();
 
         // Max ? Spieler
-        int numberOfPlayers = 1;
+        int numberOfPlayers = 2;
         for (int i = 1; i < (numberOfPlayers + 1); i++) {
 
+            //TODO: Umstellen auf User-Tracking. Siehe dazu http://mlab.taik.fi/~fsen/nui/28.3/readycodes/OpenNI_UserPosition_Simple.pde
             if (context.isTrackingSkeleton(i)) {
                 drawColoredShape(
                         userShapes.get(i).get(0),
                         getChangedColor(i,
                                 SimpleOpenNI.SKEL_LEFT_HAND, userShapes.get(i)
                                 .get(0)));
-//                drawColoredShape(
-//                        userShapes.get(i).get(1),
-//                        getChangedColor(i,
-//                                SimpleOpenNI.SKEL_RIGHT_HAND, userShapes.get(i)
-//                                .get(1)));
-//                drawColoredShape(
-//                        userShapes.get(i).get(2),
-//                        getChangedColor(i,
-//                                SimpleOpenNI.SKEL_RIGHT_KNEE, userShapes.get(i)
-//                                .get(2)));
+                drawColoredShape(
+                        userShapes.get(i).get(1),
+                        getChangedColor(i,
+                                SimpleOpenNI.SKEL_RIGHT_HAND, userShapes.get(i)
+                                .get(1)));
+                drawColoredShape(
+                        userShapes.get(i).get(2),
+                        getChangedColor(i,
+                                SimpleOpenNI.SKEL_RIGHT_KNEE, userShapes.get(i)
+                                .get(2)));
 //                drawColoredShape(
 //                        userShapes.get(i).get(3),
 //                        getChangedColor(i,
@@ -277,47 +278,75 @@ public class SurrealeKausalitaet extends PApplet {
      */
     private void initShapes() {
         //TODO: Shapes aus Datei parsen, welcher Parameter beim Programmstart ��bergeben wird.
-        shapes.add(new Shape(808, 511));
+        shapes.add(new Shape(669, 554));
+        shapes.add(new Shape(445, 573));
+        shapes.add(new Shape(456, 654));
+        shapes.add(new Shape(675, 620));
+        shapes.add(new Shape(167, 584));
+        shapes.add(new Shape(186, 698));
+        shapes.add(new Shape(106, 632));
 
-        shapes.get(0).add(-356, -340);
-        shapes.get(0).add(-502, 104);
-        shapes.get(0).add(-106, 390);
-        shapes.get(0).add(174, 286);
-        shapes.get(0).add(502, -200);
-        shapes.get(0).add(17, -354);
-        shapes.get(0).add(-48, -179);
-        shapes.get(0).add(-156, -374);
-        shapes.get(0).add(-270, -334);
-        shapes.get(0).add(-289, -389);
+        shapes.get(0).add(84, 15);
+        shapes.get(0).add(86, -14);
+        shapes.get(0).add(-73, -34);
+        shapes.get(0).add(-85, 35);
 
+        shapes.get(1).add(133, -53);
+        shapes.get(1).add(121, 22);
+        shapes.get(1).add(-133, 54);
+        shapes.get(1).add(-110, -24);
+
+        shapes.get(2).add(113, -50);
+        shapes.get(2).add(144, -2);
+        shapes.get(2).add(-104, 51);
+        shapes.get(2).add(-144, -16);
+
+        shapes.get(3).add(-94, -18);
+        shapes.get(3).add(-58, 38);
+        shapes.get(3).add(94, -4);
+        shapes.get(3).add(82, -38);
+
+        shapes.get(4).add(146, -38);
+        shapes.get(4).add(-75, -32);
+        shapes.get(4).add(-145, 11);
+        shapes.get(4).add(119, 39);
+
+        shapes.get(5).add(111, -59);
+        shapes.get(5).add(155, 16);
+        shapes.get(5).add(-70, 60);
+        shapes.get(5).add(-154, -25);
+
+        shapes.get(6).add(99, -1);
+        shapes.get(6).add(-81, 29);
+        shapes.get(6).add(-98, -28);
         //Orange --> grün
-//        shapes.get(0).setColor(new Color(0xD04328));
-//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
-//        //Braun - grün
-//        shapes.get(0).setColor(new Color(0x63382D));
-//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
-//        //Ocker -->grün
-        shapes.get(0).setColor(new Color(0xC2782F));
+        shapes.get(0).setColor(new Color(0xD04328));
         shapes.get(0).setColorToChange(ColorToChange.GREEN);
+//        //Braun - grün
+//        shapes.get(1).setColor(new Color(0x63382D));
+//        shapes.get(1).setColorToChange(ColorToChange.GREEN);
+//        //Ocker -->grün
+        shapes.get(2).setColor(new Color(0xC2782F));
+        shapes.get(2).setColorToChange(ColorToChange.GREEN);
 //        //Laubgrün -> grün verändern
-//        shapes.get(0).setColor(new Color(0x346E45));
-//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
+        shapes.get(3).setColor(new Color(0x346E45));
+        shapes.get(3).setColorToChange(ColorToChange.GREEN);
 //        //Kobaldblau --> grün
-//        shapes.get(0).setColor(new Color(0x344761));
-//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
+        shapes.get(4).setColor(new Color(0x344761));
+        shapes.get(4).setColorToChange(ColorToChange.GREEN);
 //        //Rot-Orange -->grün
-//		shapes.get(0).setColor(new Color(0x5A4826));
-//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
+		shapes.get(5).setColor(new Color(0x5A4826));
+        shapes.get(5).setColorToChange(ColorToChange.GREEN);
 //        
         // -->grün
-//		shapes.get(0).setColor(new Color(0x796659));
-//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
+		shapes.get(6).setColor(new Color(0x796659));
+        shapes.get(6).setColorToChange(ColorToChange.GREEN);
         //blau
 //		shapes.get(0).setColor(new Color(0x3A7487));
 //        shapes.get(0).setColorToChange(ColorToChange.BLUE);
 		//blau
-//		shapes.get(0).setColor(new Color(0x7D9F64));
-//        shapes.get(0).setColorToChange(ColorToChange.BLUE);
+		shapes.get(1).setColor(new Color(0x7D9F64));
+        shapes.get(1).setColorToChange(ColorToChange.BLUE);
         //grün
 //		shapes.get(0).setColor(new Color(0xC63D30));
 //        shapes.get(0).setColorToChange(ColorToChange.GREEN);
