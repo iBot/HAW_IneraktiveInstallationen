@@ -124,6 +124,7 @@ public class SurrealeKausalitaet extends PApplet {
 //                                .get(3)));
             }
         }
+        //TODO: Alle nicht belegten Shapes mit deren Grundfarbe färben.
     }
 
     /**
