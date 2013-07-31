@@ -100,7 +100,8 @@ public class SurrealeKausalitaet extends PApplet {
         int numberOfPlayers = 2;
         for (int i = 1; i < (numberOfPlayers + 1); i++) {
 
-            //TODO: Umstellen auf User-Tracking. Siehe dazu http://mlab.taik.fi/~fsen/nui/28.3/readycodes/OpenNI_UserPosition_Simple.pde
+            //TODO: Umstellen auf User-Tracking. Siehe dazu http://mlab.taik.fi/~fsen/nui/28.3/readycodes/OpenNI_UserPosition_Simple.pde (getCoM -> get Center of Mass)
+            //http://stackoverflow.com/questions/14742261/simple-openni-getuserpixels
             if (context.isTrackingSkeleton(i)) {
                 drawColoredShape(
                         userShapes.get(i).get(0),
@@ -177,7 +178,7 @@ public class SurrealeKausalitaet extends PApplet {
      * a given joint
      *
      * @param userId the user, whose joint position should be checked
-     * @param joint  the joint, whose should be checked
+     * @param joint  the joint, whose should be checked heute hier morgen dort
      * @param shape  the shape, whose color should be adjusted
      * @return the recalculated color
      */

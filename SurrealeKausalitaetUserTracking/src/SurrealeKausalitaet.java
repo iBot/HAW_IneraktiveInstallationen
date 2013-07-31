@@ -158,9 +158,7 @@ public class SurrealeKausalitaet extends PApplet {
 
 	/**
 	 * Detects position of a users joint
-	 * 
-	 * @param joint
-	 *            the joint, whose position will be detected
+	 *
 	 * @param userID
 	 *            the user of the given joint
 	 * @return PVector with coordinates of the joint
@@ -208,10 +206,8 @@ public class SurrealeKausalitaet extends PApplet {
 	 * This Method is used to recalculate the Color of a Shape, based on the
 	 * position of a given joint
 	 * 
-	 * @param userId
-	 *            the user, whose joint position should be checked
-	 * @param joint
-	 *            the joint, whose should be checked
+	 * @param position
+	 *
 	 * @param shape
 	 *            the shape, whose color should be adjusted
 	 * @return the recalculated color
@@ -284,7 +280,7 @@ public class SurrealeKausalitaet extends PApplet {
 	 * @param userId
 	 *            id of the new user
 	 */
-	void onNewUser(int userId) {
+	public void onNewUser(int userId) {
 		println("detected" + userId);
 		users.add(userId);// a new user was detected add the id to the list
 	}
@@ -295,7 +291,7 @@ public class SurrealeKausalitaet extends PApplet {
 	 * @param userId
 	 *            id of the loft user
 	 */
-	void onLostUser(int userId) {
+	public void onLostUser(int userId) {
 		println("lost: " + userId);
 		// not 100% sure if users.remove(userId) will remove the element with
 		// value userId or the element at index userId
