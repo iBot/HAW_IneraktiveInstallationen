@@ -25,6 +25,7 @@ public class SurrealeKausalitaet extends PApplet {
 	 * A list to keep track of users
 	 */
 	ArrayList<Integer> users = new ArrayList<Integer>();
+	private int userCount = users.size();
 	PVector pos = new PVector();// the position of the current user will be
 								// stored here
 	/**
@@ -48,6 +49,7 @@ public class SurrealeKausalitaet extends PApplet {
 	 */
 	private long time;
 
+	private boolean useUsers;
 	/**
 	 * Run this program as Java application to start the PAppplet in fullscreen
 	 * mode
@@ -100,14 +102,20 @@ public class SurrealeKausalitaet extends PApplet {
 		background(Color.BLACK.getRGB());
 		context.update();
 
-		int userCount = users.size();
+		userCount = users.size();
 		if (userCount > 0) {// if there are any users
 			shapesForUsers(userCount);
-			for (int user : users) {// for each user
+			for (int j=0; j<userCount; j++) {// for each user
+				try{
+				int user = users.get(j);
 				pos = getPosition(user);
 				for (int i = 0; i < userShapes.get(user).size(); i++)
 					drawColoredShape(userShapes.get(user).get(i),
 							getChangedColor(pos, userShapes.get(user).get(i)));
+				}
+				catch(NullPointerException e){
+					break;
+				}
 			}
 		}
 		//sicher??? 
