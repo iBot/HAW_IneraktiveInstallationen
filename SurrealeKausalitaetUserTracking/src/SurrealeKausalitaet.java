@@ -104,9 +104,13 @@ public class SurrealeKausalitaet extends PApplet {
             int userID = entry.getKey();
             List<Shape> shapesForCurrentUser = entry.getValue();
             PVector position = getPosition(userID);
-            if ((position.x > 0) && (position.x < displayWidth)){
+            if ((position.x > 0) && (position.x <= displayWidth)){
                 for (Shape shape : shapesForCurrentUser) {
                     drawColoredShape(shape, getChangedColor(position, shape));
+                }
+            } else {
+                for (Shape shape : shapesForCurrentUser) {
+                    drawColoredShape(shape, shape.getColor());
                 }
             }
         }
@@ -466,10 +470,10 @@ public class SurrealeKausalitaet extends PApplet {
         // shapes.get(0).setColor(new Color(0x1C764F));
         // shapes.get(0).setColorToChange(ColorToChange.GREEN);
 
-        for (Shape shape : shapes) {
-            shape.initTail(this);
-            // System.out.println(shape.getBoundingBox());
-        }
+//        for (Shape shape : shapes) {
+//            shape.initTail(this);
+//            // System.out.println(shape.getBoundingBox());
+//        }
     }
 
 }
