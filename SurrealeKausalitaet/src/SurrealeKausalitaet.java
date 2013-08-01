@@ -24,10 +24,9 @@ public class SurrealeKausalitaet extends PApplet {
      * This maps contains the assignment from users to the shapes that he controls
      */
     public static Map<Integer, List<Shape>> userShapes = new HashMap<>();
-    private final float scaleFactorY = displayWidth / 480f;
+    private float scaleFactorX;
     float jointPosConvMaxValue = 0;
     SimpleOpenNI context;
-    private float scaleFactorX;
     /**
      * Will be set on true as soon as the kinect is configured. Nice for testing without
      * kinect: If kinect is not configured, don't use kinect stuff...
@@ -56,7 +55,6 @@ public class SurrealeKausalitaet extends PApplet {
     public void setup() {
         size(displayWidth, displayHeight, OPENGL);
         scaleFactorX = displayWidth / 640f;
-
         initShapes();
         background(Color.BLACK.getRGB());
         //TODO: Zeit kann gel��scht werde, oder?
@@ -190,13 +188,13 @@ public class SurrealeKausalitaet extends PApplet {
         PVector jointPos_conv = new PVector();
         context.convertRealWorldToProjective(jointPos, jointPos_conv);
 
-        float saturation = jointPos_conv.x / displayWidth;
+        float hue = jointPos_conv.x / displayWidth;
         Color c = shape.getColor();
         float[] hsb = new float[3];
         // System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
         // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
         Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
-        Color neu = Color.getHSBColor(hsb[0], saturation, hsb[2]);
+        Color neu = Color.getHSBColor(hue, hsb[1], hsb[2]);
 
         return neu;
     }
