@@ -35,15 +35,6 @@ public class Shape extends Point {
     private Color color;
     private float mx[] = new float[num];
     private float my[] = new float[num];
-
-    public ColorToChange getColorToChange() {
-        return colorToChange;
-    }
-
-    public void setColorToChange(ColorToChange colorToChange) {
-        this.colorToChange = colorToChange;
-    }
-
     private ColorToChange colorToChange;
 
     /**
@@ -68,6 +59,14 @@ public class Shape extends Point {
         this.image = image;
         colorToChange = ColorToChange.GREEN;
 
+    }
+
+    public ColorToChange getColorToChange() {
+        return colorToChange;
+    }
+
+    public void setColorToChange(ColorToChange colorToChange) {
+        this.colorToChange = colorToChange;
     }
 
     /**
@@ -213,7 +212,7 @@ public class Shape extends Point {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("X: %d; Y: %d, Color: %s", x, y, color);
     }
 

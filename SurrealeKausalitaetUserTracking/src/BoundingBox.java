@@ -1,11 +1,5 @@
-
-
 /**
- * Created with IntelliJ IDEA.
- * User: tobi
- * Date: 13.05.13
- * Time: 08:58
- * To change this template use File | Settings | File Templates.
+ * BoundingBox
  */
 public class BoundingBox {
 

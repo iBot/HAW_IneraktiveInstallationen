@@ -4,6 +4,10 @@ import processing.core.PVector;
 import java.awt.*;
 
 //TODO: Do we still need the Tail? Don't think so :-( Delete? If we keep it, add JavaDoc comments
+
+/**
+ * NOT IN USE ANYMORE
+ */
 public class Tail extends PApplet {
     PVector location;
     PVector velocity;

@@ -12,41 +12,32 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SurrealeKausalitaet extends PApplet {
 
-    public final int SHAPES_PER_USER = 2;
     /**
-     * This List will contain all the Shapes which we will fill with different
-     * colors
+     * This List will contain all the Shapes which are not assigned to any user
      */
     public static List<Shape> shapes = Collections.synchronizedList(new LinkedList<Shape>());
+    /**
+     * This map mapps the user IDs of all detected user to the shapes which are controlled by the user.
+     */
     public static Map<Integer, List<Shape>> userShapes = new ConcurrentHashMap<>();
-    private final float scaleFactorY = displayWidth / 480f;
     /**
-     * This maps contains the assignment from users to the shapes that he
-     * controls
+     * Number of shapes per user
      */
-    public int shapeCount = 4;
+    public final int SHAPES_PER_USER = 2;
+    /**
+     * The SimpleOpenNI context (Kinect sensor) for this program
+     */
     SimpleOpenNI context;
-    // stored here
     /**
-     * A list to keep track of users
+     * By converting rela world position to perspective positions the result is a vector within the kinect resolution of 640 * 480 pixels.
+     * This scaleFactor will be used to scale the x coordinate (between 0 and 640) to the display width (between 0 and displayWidth)
      */
-//    List<Integer> users = Collections.synchronizedList(new ArrayList<Integer>());
-//    PVector pos = new PVector();// the position of the current user will be
-    float jointPosConvMaxValue = 0;
-//    private int userCount = users.size();
     private float scaleFactorX;
     /**
      * Will be set on true as soon as the kinect is configured. Nice for testing
      * without kinect: If kinect is not configured, don't use kinect stuff...
      */
     private boolean kinectIsConfigured = false;
-    private float xMax, yMax;
-    /**
-     * The time variable will be used to calculate the time difference between
-     * the update intervals
-     */
-    private long time;
-    private boolean useUsers;
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen
@@ -93,18 +84,19 @@ public class SurrealeKausalitaet extends PApplet {
     }
 
     /**
-     * Draws all the stuff which will be displayed
+     * Draws all everything which will be displayed
      */
     @Override
     public void draw() {
         background(Color.BLACK.getRGB());
         context.update();
 
-        for(Map.Entry<Integer,List<Shape>> entry : userShapes.entrySet()){
+        //Draw all shapes assigned to an user
+        for (Map.Entry<Integer, List<Shape>> entry : userShapes.entrySet()) {
             int userID = entry.getKey();
             List<Shape> shapesForCurrentUser = entry.getValue();
             PVector position = getPosition(userID);
-            if ((position.x > 0) && (position.x <= displayWidth)){
+            if ((position.x > 0) && (position.x <= displayWidth)) {
                 for (Shape shape : shapesForCurrentUser) {
                     drawColoredShape(shape, getChangedColor(position, shape));
                 }
@@ -114,33 +106,15 @@ public class SurrealeKausalitaet extends PApplet {
                 }
             }
         }
-//        userCount = users.size();
-//        if (userCount > 0) {// if there are any users
-////            shapesForUsers(userCount);
-//            for (int j = 0; j < userCount; j++) {// for each user
-//                try {
-//                    int user = users.get(j);
-//                    pos = getPosition(user);
-//                    List<Shape> currentshapes = userShapes.get(user);
-//                    for (Shape shape : currentshapes) {
-//                        drawColoredShape(shape,
-//                                getChangedColor(pos, shape));
-//                    }
-//                } catch (NullPointerException e) {
-//                    break;
-//                }
-//            }
-//        }
-//        //sicher??? sicher!
-//        // TODO: Alle nicht belegten Shapes mit deren Grundfarbe färben.
-      for (Shape shape: shapes){
-          drawColoredShape(shape,shape.getColor());
-      }
+
+        //Draw all shapes which are NOT assigned to an user
+        for (Shape shape : shapes) {
+            drawColoredShape(shape, shape.getColor());
+        }
     }
 
     /**
-     * This method draws a shape and fill it with an color and draw Tails Which
-     * follow the Hand
+     * This method draws a shape and fill it with an color
      *
      * @param shape the shape which will contain the tail
      * @param color the color of the shape
@@ -171,20 +145,20 @@ public class SurrealeKausalitaet extends PApplet {
     }
 
     /**
-     * Detects position of a users joint
+     * Detects position of a users
      *
-     * @param userID the user of the given joint
+     * @param userID the user id of the user whose position will be detected
      * @return PVector with coordinates of the joint
      */
     private PVector getPosition(int userID) {
 
         PVector position = new PVector();
         PVector position_conv = new PVector();
+        //Get "Center of Mass" of the user
         context.getCoM(userID, position);
         context.convertRealWorldToProjective(position, position_conv);
         return position_conv;
     }
-
 
     /**
      * This Method is used to recalculate the Color of a Shape, based on the
@@ -208,29 +182,13 @@ public class SurrealeKausalitaet extends PApplet {
         } else {
             abweichungsFaktor = 1 - ((haelfte - pos) * delta / 100 / haelfte);
         }
-        // System.out.println("Abweichung = " + abweichungsFaktor + " Hälfte = "
-        // + haelfte + " JointPos = " + pos);
-        // System.out.println(jointPosConvMaxValue);
+
 
         red = Math.round(c.getRed() * abweichungsFaktor);
         green = Math.round(c.getGreen() * abweichungsFaktor);
         blue = Math.round(c.getBlue() * abweichungsFaktor);
 
-        // if(jointPos_conv.x >= haelfte){
-        // jointPos_conv.x = jointPos_conv.x-haelfte;
-        // float prozent = jointPos_conv.x/haelfte*20f;
-        // red = Math.round(c.getRed()*(1+prozent/100f));
-        // green = Math.round(c.getGreen()*(1+prozent/100f));
-        // blue = Math.round(c.getBlue()*(1+prozent/100f));
-        //
-        //
-        // }
-        // else if(jointPos_conv.x < haelfte){
-        // float prozent = jointPos_conv.x/haelfte*20f;
-        // red = Math.round(c.getRed()*(1-prozent/100f));
-        // green = Math.round(c.getGreen()*(1-prozent/100f));
-        // blue = Math.round(c.getBlue()*(1-prozent/100f));
-        // }
+
         if (red < 0)
             red = 0;
         if (red > 255)
@@ -243,41 +201,41 @@ public class SurrealeKausalitaet extends PApplet {
             blue = 0;
         if (blue > 255)
             blue = 255;
-//        System.out.println("Rot: " + red + " Grün: " + green + " Blau: " + blue);
-        Color neu = c;
-        if (shape.getColorToChange().equals(ColorToChange.RED))
-            neu = new Color(red, c.getGreen(), c.getBlue());
-        else if (shape.getColorToChange().equals(ColorToChange.BLUE))
-            neu = new Color(c.getRed(), c.getGreen(), blue);
-        else if (shape.getColorToChange().equals(ColorToChange.GREEN))
-            neu = new Color(c.getRed(), green, c.getBlue());
 
+        Color neu = c;
+        if (shape.getColorToChange().equals(ColorToChange.RED)) {
+            neu = new Color(red, c.getGreen(), c.getBlue());
+        } else if (shape.getColorToChange().equals(ColorToChange.BLUE)) {
+            neu = new Color(c.getRed(), c.getGreen(), blue);
+        } else {
+            neu = new Color(c.getRed(), green, c.getBlue());
+        }
         return neu;
     }
 
-    /**
-     * This Method is used to recalculate the Color of a Shape, based on the position of
-     * a given joint
-     *
-     * @param pos
-     * @param shape  the shape, whose color should be adjusted
-     * @return the recalculated color
-     */
-    private Color getChangedSaturationColor(PVector pos, Shape shape) {
-        // jointPos contains coordinats of realWorld
-
-        float posX = pos.x * scaleFactorX;
-//        float hue = posX / displayWidth;
-        Color c = shape.getColor();
-        float[] hsb = new float[3];
-        // System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
-        // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
-        Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
-        colorMode(HSB, displayWidth, 99, 99);
-        int neu =  color(posX, hsb[1], hsb[2]);
-        Color colorNeu = new Color(neu);
-        return colorNeu;
-    }
+//    /**
+//     * This Method is used to recalculate the Color of a Shape, based on the position of
+//     * a given joint
+//     *
+//     * @param pos
+//     * @param shape  the shape, whose color should be adjusted
+//     * @return the recalculated color
+//     */
+//    private Color getChangedSaturationColor(PVector pos, Shape shape) {
+//        // jointPos contains coordinats of realWorld
+//
+//        float posX = pos.x * scaleFactorX;
+////        float hue = posX / displayWidth;
+//        Color c = shape.getColor();
+//        float[] hsb = new float[3];
+//        // System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
+//        // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
+//        Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
+//        colorMode(HSB, displayWidth, 99, 99);
+//        int neu =  color(posX, hsb[1], hsb[2]);
+//        Color colorNeu = new Color(neu);
+//        return colorNeu;
+//    }
 
     /**
      * when a person ('user') enters the field of view
@@ -286,21 +244,23 @@ public class SurrealeKausalitaet extends PApplet {
      */
     public void onNewUser(int userId) {
         println("detected" + userId);
+
+        //assign random shapes to the new user
         Collections.shuffle(shapes);
         List<Shape> tmpShapes;
         int size = shapes.size();
-        if (size<=0){
+        if (size <= 0) {
             tmpShapes = Collections.emptyList();
-        } else if (size<=SHAPES_PER_USER){
-            tmpShapes = new ArrayList<>(shapes.subList(0,size));
+        } else if (size <= SHAPES_PER_USER) {
+            tmpShapes = new ArrayList<>(shapes.subList(0, size));
         } else {
-            tmpShapes = new ArrayList<>(shapes.subList(0,SHAPES_PER_USER));
+            tmpShapes = new ArrayList<>(shapes.subList(0, SHAPES_PER_USER));
         }
-        tmpShapes = new ArrayList<>(shapes.subList(0,SHAPES_PER_USER));
-        for (Shape shape : tmpShapes){
+        tmpShapes = new ArrayList<>(shapes.subList(0, SHAPES_PER_USER));
+        for (Shape shape : tmpShapes) {
             System.out.println(shape);
         }
-        userShapes.put(userId,tmpShapes);
+        userShapes.put(userId, tmpShapes);
         shapes.removeAll(tmpShapes);
     }
 
@@ -311,78 +271,9 @@ public class SurrealeKausalitaet extends PApplet {
      */
     public void onLostUser(int userId) {
         println("lost: " + userId);
-        shapes.addAll(userShapes.remove(userId));
-        ;
-        // not 100% sure if users.remove(userId) will remove the element with
-        // value userId or the element at index userId
-       // users.remove((Integer) userId);// user was lost, remove the id from the
-        // list
-    }
 
-//    private void shapesForUsers(int userCount) {
-//        boolean fits = false;
-//        int shapesPerUser = shapeCount / userCount;
-//        int rest = shapeCount % userCount;
-//        List<Shape> tmpShapes = new ArrayList<>(shapes);
-//        for (List<Shape> usedShapes : userShapes.values()) {
-//            tmpShapes.removeAll(usedShapes);
-//        }
-//        Collections.shuffle(tmpShapes);
-//        for (int user : users) {
-//            // wenn der user schon flächen zugewiesen hat soll er die auch
-//            // behalten und nicht komplett neue bekommen
-//            if (userShapes.containsKey(user)) {
-//                // fits gibt an ob die anzahl der zugewiesenen flächen dieses
-//                // users zu der anzahl der spieler passt
-//                fits = false;
-//                int count = userShapes.get(user).size();
-//                if (rest > 0) {
-//                    if (count == shapesPerUser || count == (shapesPerUser + 1)) {
-//                        fits = true;
-//                    }
-//                } else {
-//                    if (count == shapesPerUser) {
-//                        fits = true;
-//                    }
-//                }
-//                // wenn der user nicht die richtige anzahl flächen hat dann
-//                // müssen ihm
-//                // welche hinzugefügt oder weggenommen werden
-//                if (!fits) {
-//                    int difference = shapesPerUser - count;
-//                    if (difference > 0) {
-//                        userShapes.get(user).addAll(
-//                                tmpShapes.subList(0, difference));
-//                        //tmpShapes.subList(0, difference).clear();
-//                        tmpShapes.removeAll(new ArrayList<Shape>(tmpShapes.subList(0, difference)));
-//                    } else {
-//                        difference = difference * (-1);
-//                        if (rest > 0) {
-//                            difference++;
-//                            rest--;
-//                        }
-//                        tmpShapes.addAll(userShapes.get(user).subList(0,
-//                                difference));
-//
-//                        //userShapes.get(user).subList(0, difference).clear();
-//                        userShapes.get(user).removeAll(new ArrayList<Shape>(userShapes.get(user).subList(0, difference)));
-//                    }
-//                }
-//                // wenn der user noch gar keine flächen hat dann werden ihm so
-//                // viele wie er braucht zugewiesen
-//            } else {
-//                int anzahl = shapesPerUser;
-//                if (rest > 0) {
-//                    anzahl++;
-//                    rest--;
-//                }
-//                userShapes.put(user, tmpShapes.subList(0, anzahl));
-//
-//                //tmpShapes.subList(0, shapesPerUser).clear();
-//                tmpShapes.removeAll( new ArrayList<Shape>(tmpShapes.subList(0, shapesPerUser)));
-//            }
-//        }
-//    }
+        shapes.addAll(userShapes.remove(userId));
+    }
 
     /**
      * This method will create all the shapes for this sketch and add them to
@@ -392,8 +283,6 @@ public class SurrealeKausalitaet extends PApplet {
      * Examples shapes are created with a display resolution of 1920 *1080
      */
     private void initShapes() {
-        // TODO: Shapes aus Datei parsen, welcher Parameter beim Programmstart
-        // ��bergeben wird.
         shapes.add(new Shape(669, 454));
         shapes.add(new Shape(445, 473));
         shapes.add(new Shape(456, 554));
@@ -470,10 +359,6 @@ public class SurrealeKausalitaet extends PApplet {
         // shapes.get(0).setColor(new Color(0x1C764F));
         // shapes.get(0).setColorToChange(ColorToChange.GREEN);
 
-//        for (Shape shape : shapes) {
-//            shape.initTail(this);
-//            // System.out.println(shape.getBoundingBox());
-//        }
     }
 
 }
