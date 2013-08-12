@@ -256,7 +256,6 @@ public class SurrealeKausalitaet extends PApplet {
         } else {
             tmpShapes = new ArrayList<>(shapes.subList(0, SHAPES_PER_USER));
         }
-        tmpShapes = new ArrayList<>(shapes.subList(0, SHAPES_PER_USER));
         for (Shape shape : tmpShapes) {
             System.out.println(shape);
         }
