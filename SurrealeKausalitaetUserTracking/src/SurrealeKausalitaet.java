@@ -117,6 +117,7 @@ public class SurrealeKausalitaet extends PApplet {
         pushMatrix();
         hue = hue % displayWidth;
         // set the color for filling the shape
+        colorMode(HSB,displayWidth,99,99);
         int neu =  color(hue, 99, 99);
         Color colorNeu = new Color(neu);
         fill(colorNeu.getRGB());
@@ -378,7 +379,8 @@ public class SurrealeKausalitaet extends PApplet {
 		{
 			float hue =rand.nextFloat()*displayWidth;
 			s.setHue(hue);
-		}
+            System.out.println(hue);
+        }
 		
     }
 
