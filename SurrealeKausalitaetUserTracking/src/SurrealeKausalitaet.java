@@ -95,13 +95,13 @@ public class SurrealeKausalitaet extends PApplet {
             PVector position = getPosition(userID);
             hueDif += position.x*scaleFactorX;
         }
-        if (users.size()>=0){
+        if (users.size()>0){
           hueDif = hueDif / users.size();
         }
 
         //Draw all shapes assigned to an user
         for (Shape shape : shapes) {
-                    drawColoredShape(shape, getChangedColor2(hueDif, shape));
+            drawColoredShape(shape, getChangedColor2(hueDif, shape));
         }
 
 
