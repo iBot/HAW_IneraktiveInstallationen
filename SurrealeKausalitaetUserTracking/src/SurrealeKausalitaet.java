@@ -36,6 +36,9 @@ public class SurrealeKausalitaet extends PApplet {
     
     private static Random rand = new Random();
 
+
+   private float lastHue = 0.0f;
+
     /**
      * Run this program as Java application to start the PAppplet in fullscreen
      * mode
@@ -98,6 +101,11 @@ public class SurrealeKausalitaet extends PApplet {
         if (users.size()>0){
           hueDif = hueDif / users.size();
         }
+        if (Float.isNaN(hueDif)){
+            hueDif = lastHue;
+        } else {
+            lastHue = hueDif;
+        }
 
         //Draw all shapes assigned to an user
         for (Shape shape : shapes) {
@@ -116,7 +124,7 @@ public class SurrealeKausalitaet extends PApplet {
     private void drawColoredShape(Shape shape, float hue) {
 
         pushMatrix();
-//        hue = hue % displayWidth;
+        hue = hue % displayWidth;
         // set the color for filling the shape
         colorMode(HSB,displayWidth,99,99);
         int neu =  color(hue, 99, 99);
