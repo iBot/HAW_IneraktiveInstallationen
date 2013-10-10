@@ -38,6 +38,8 @@ public class SurrealeKausalitaet extends PApplet {
      * without kinect: If kinect is not configured, don't use kinect stuff...
      */
     private boolean kinectIsConfigured = false;
+    
+    private static Random rand = new Random();
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen
@@ -56,6 +58,8 @@ public class SurrealeKausalitaet extends PApplet {
         size(displayWidth, displayHeight, OPENGL);
         scaleFactorX = displayWidth / 640f;
 
+        colorMode(HSB, displayWidth, 99, 99);
+        
         initShapes();
         background(Color.BLACK.getRGB());
         stroke(0, 255, 0);
@@ -168,50 +172,50 @@ public class SurrealeKausalitaet extends PApplet {
      * @param shape    the shape, whose color should be adjusted
      * @return the recalculated color
      */
-    private Color getChangedColor(PVector position, Shape shape) {
-
-        float pos = position.x * scaleFactorX;
-
-        float haelfte = displayWidth / 2f;
-        Color c = shape.getColor();
-        int red = 0, green = 0, blue = 0;
-        float delta = 60;
-        float abweichungsFaktor;
-        if (pos >= haelfte) {
-            abweichungsFaktor = 1 + ((pos - haelfte) * delta / 100 / haelfte);
-        } else {
-            abweichungsFaktor = 1 - ((haelfte - pos) * delta / 100 / haelfte);
-        }
-
-
-        red = Math.round(c.getRed() * abweichungsFaktor);
-        green = Math.round(c.getGreen() * abweichungsFaktor);
-        blue = Math.round(c.getBlue() * abweichungsFaktor);
-
-
-        if (red < 0)
-            red = 0;
-        if (red > 255)
-            red = 255;
-        if (green < 0)
-            green = 0;
-        if (green > 255)
-            green = 255;
-        if (blue < 0)
-            blue = 0;
-        if (blue > 255)
-            blue = 255;
-
-        Color neu = c;
-        if (shape.getColorToChange().equals(ColorToChange.RED)) {
-            neu = new Color(red, c.getGreen(), c.getBlue());
-        } else if (shape.getColorToChange().equals(ColorToChange.BLUE)) {
-            neu = new Color(c.getRed(), c.getGreen(), blue);
-        } else {
-            neu = new Color(c.getRed(), green, c.getBlue());
-        }
-        return neu;
-    }
+//    private Color getChangedColor(PVector position, Shape shape) {
+//
+//        float pos = position.x * scaleFactorX;
+//
+//        float haelfte = displayWidth / 2f;
+//        Color c = shape.getColor();
+//        int red = 0, green = 0, blue = 0;
+//        float delta = 60;
+//        float abweichungsFaktor;
+//        if (pos >= haelfte) {
+//            abweichungsFaktor = 1 + ((pos - haelfte) * delta / 100 / haelfte);
+//        } else {
+//            abweichungsFaktor = 1 - ((haelfte - pos) * delta / 100 / haelfte);
+//        }
+//
+//
+//        red = Math.round(c.getRed() * abweichungsFaktor);
+//        green = Math.round(c.getGreen() * abweichungsFaktor);
+//        blue = Math.round(c.getBlue() * abweichungsFaktor);
+//
+//
+//        if (red < 0)
+//            red = 0;
+//        if (red > 255)
+//            red = 255;
+//        if (green < 0)
+//            green = 0;
+//        if (green > 255)
+//            green = 255;
+//        if (blue < 0)
+//            blue = 0;
+//        if (blue > 255)
+//            blue = 255;
+//
+//        Color neu = c;
+//        if (shape.getColorToChange().equals(ColorToChange.RED)) {
+//            neu = new Color(red, c.getGreen(), c.getBlue());
+//        } else if (shape.getColorToChange().equals(ColorToChange.BLUE)) {
+//            neu = new Color(c.getRed(), c.getGreen(), blue);
+//        } else {
+//            neu = new Color(c.getRed(), green, c.getBlue());
+//        }
+//        return neu;
+//    }
 
     /**
      * This Method is used to recalculate the Color of a Shape, based on the position of
@@ -249,14 +253,10 @@ public class SurrealeKausalitaet extends PApplet {
         // jointPos contains coordinats of realWorld
 
         float posX = pos.x * scaleFactorX;
-//        float hue = posX / displayWidth;
-        Color c = shape.getColor();
-        float[] hsb = new float[3];
-        // System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
-        // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
-        Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
-        colorMode(HSB, displayWidth, 99, 99);
-        int neu =  color(posX, 99, 99);
+        float hue = shape.getHue();
+        float newHue = hue + posX;
+        
+        int neu =  color(newHue, 99, 99);
         Color colorNeu = new Color(neu);
         return colorNeu;
     }
@@ -306,88 +306,107 @@ public class SurrealeKausalitaet extends PApplet {
      * Examples shapes are created with a display resolution of 1920 *1080
      */
     private void initShapes() {
-        shapes.add(new Shape(389, 438));
-        shapes.add(new Shape(138, 450));
-        shapes.add(new Shape(494, 417));
-        shapes.add(new Shape(601, 457));
-        shapes.add(new Shape(601, 527));
-        shapes.add(new Shape(406, 536));
-        shapes.add(new Shape(185, 585));
-        shapes.add(new Shape(137, 496));
+//        shapes.add(new Shape(389, 438));
+//        shapes.add(new Shape(138, 450));
+//        shapes.add(new Shape(494, 417));
+//        shapes.add(new Shape(601, 457));
+//        shapes.add(new Shape(601, 527));
+//        shapes.add(new Shape(406, 536));
+//        shapes.add(new Shape(185, 585));
+//        shapes.add(new Shape(137, 496));
+//
+//        shapes.get(0).add(-113, -46);
+//        shapes.get(0).add(63, -77);
+//        shapes.get(0).add(114, 40);
+//        shapes.get(0).add(-108, 77);
+//
+//        shapes.get(1).add(127, -59);
+//        shapes.get(1).add(-111, -61);
+//        shapes.get(1).add(-133, -16);
+//        shapes.get(1).add(-130, -7);
+//        shapes.get(1).add(133, 61);
+//
+//        shapes.get(2).add(-28, -53);
+//        shapes.get(2).add(28, -39);
+//        shapes.get(2).add(15, 54);
+//
+//        shapes.get(3).add(-71, -72);
+//        shapes.get(3).add(82, 68);
+//        shapes.get(3).add(80, 73);
+//        shapes.get(3).add(-82, 19);
+//
+//        shapes.get(4).add(-82, -41);
+//        shapes.get(4).add(-55, 36);
+//        shapes.get(4).add(82, 42);
+//        shapes.get(4).add(78, 12);
+//
+//        shapes.get(5).add(104, -48);
+//        shapes.get(5).add(-126, -10);
+//        shapes.get(5).add(-63, 48);
+//        shapes.get(5).add(126, 25);
+//
+//        shapes.get(6).add(144, 2);
+//        shapes.get(6).add(-57, 61);
+//        shapes.get(6).add(-144, -38);
+//        shapes.get(6).add(86, -60);
+//
+//        shapes.get(7).add(-121, -37);
+//        shapes.get(7).add(122, 23);
+//        shapes.get(7).add(-101, 37);
+//        // Orange --> gr��n
+//        shapes.get(0).setColor(new Color(0xD04328));
+//        shapes.get(0).setColorToChange(ColorToChange.GREEN);
+//        // //Braun - gr��n
+//        // shapes.get(1).setColor(new Color(0x63382D));
+//        // shapes.get(1).setColorToChange(ColorToChange.GREEN);
+//        // //Ocker -->gr��n
+//        shapes.get(2).setColor(new Color(0xC2782F));
+//        shapes.get(2).setColorToChange(ColorToChange.GREEN);
+//        // //Laubgr��n -> gr��n ver��ndern
+//        shapes.get(3).setColor(new Color(0x346E45));
+//        shapes.get(3).setColorToChange(ColorToChange.GREEN);
+//        // //Kobaldblau --> gr��n
+//        shapes.get(4).setColor(new Color(0x344761));
+//        shapes.get(4).setColorToChange(ColorToChange.GREEN);
+//        // //Rot-Orange -->gr��n
+//        shapes.get(5).setColor(new Color(0x5A4826));
+//        shapes.get(5).setColorToChange(ColorToChange.GREEN);
+//        //
+//        // -->gr��n
+//        shapes.get(6).setColor(new Color(0x796659));
+//        shapes.get(6).setColorToChange(ColorToChange.GREEN);
+////        blau
+//        shapes.get(7).setColor(new Color(0x3A7487));
+//        shapes.get(7).setColorToChange(ColorToChange.BLUE);
+//        // blau
+//        shapes.get(1).setColor(new Color(0x7D9F64));
+//        shapes.get(1).setColorToChange(ColorToChange.BLUE);
+//        // gr��n
+//        // shapes.get(0).setColor(new Color(0xC63D30));
+//        // shapes.get(0).setColorToChange(ColorToChange.GREEN);
+//        // gr��n
+//        // shapes.get(0).setColor(new Color(0x1C764F));
+//        // shapes.get(0).setColorToChange(ColorToChange.GREEN);
 
-        shapes.get(0).add(-113, -46);
-        shapes.get(0).add(63, -77);
-        shapes.get(0).add(114, 40);
-        shapes.get(0).add(-108, 77);
+    	shapes.add(new Shape(337, 392));
+		shapes.add(new Shape(903, 392));
 
-        shapes.get(1).add(127, -59);
-        shapes.get(1).add(-111, -61);
-        shapes.get(1).add(-133, -16);
-        shapes.get(1).add(-130, -7);
-        shapes.get(1).add(133, 61);
+		shapes.get(0).add(-268, -318);
+		shapes.get(0).add(269, -323);
+		shapes.get(0).add(270, 323);
+		shapes.get(0).add(-270, 316);
 
-        shapes.get(2).add(-28, -53);
-        shapes.get(2).add(28, -39);
-        shapes.get(2).add(15, 54);
-
-        shapes.get(3).add(-71, -72);
-        shapes.get(3).add(82, 68);
-        shapes.get(3).add(80, 73);
-        shapes.get(3).add(-82, 19);
-
-        shapes.get(4).add(-82, -41);
-        shapes.get(4).add(-55, 36);
-        shapes.get(4).add(82, 42);
-        shapes.get(4).add(78, 12);
-
-        shapes.get(5).add(104, -48);
-        shapes.get(5).add(-126, -10);
-        shapes.get(5).add(-63, 48);
-        shapes.get(5).add(126, 25);
-
-        shapes.get(6).add(144, 2);
-        shapes.get(6).add(-57, 61);
-        shapes.get(6).add(-144, -38);
-        shapes.get(6).add(86, -60);
-
-        shapes.get(7).add(-121, -37);
-        shapes.get(7).add(122, 23);
-        shapes.get(7).add(-101, 37);
-        // Orange --> grün
-        shapes.get(0).setColor(new Color(0xD04328));
-        shapes.get(0).setColorToChange(ColorToChange.GREEN);
-        // //Braun - grün
-        // shapes.get(1).setColor(new Color(0x63382D));
-        // shapes.get(1).setColorToChange(ColorToChange.GREEN);
-        // //Ocker -->grün
-        shapes.get(2).setColor(new Color(0xC2782F));
-        shapes.get(2).setColorToChange(ColorToChange.GREEN);
-        // //Laubgrün -> grün verändern
-        shapes.get(3).setColor(new Color(0x346E45));
-        shapes.get(3).setColorToChange(ColorToChange.GREEN);
-        // //Kobaldblau --> grün
-        shapes.get(4).setColor(new Color(0x344761));
-        shapes.get(4).setColorToChange(ColorToChange.GREEN);
-        // //Rot-Orange -->grün
-        shapes.get(5).setColor(new Color(0x5A4826));
-        shapes.get(5).setColorToChange(ColorToChange.GREEN);
-        //
-        // -->grün
-        shapes.get(6).setColor(new Color(0x796659));
-        shapes.get(6).setColorToChange(ColorToChange.GREEN);
-//        blau
-        shapes.get(7).setColor(new Color(0x3A7487));
-        shapes.get(7).setColorToChange(ColorToChange.BLUE);
-        // blau
-        shapes.get(1).setColor(new Color(0x7D9F64));
-        shapes.get(1).setColorToChange(ColorToChange.BLUE);
-        // grün
-        // shapes.get(0).setColor(new Color(0xC63D30));
-        // shapes.get(0).setColorToChange(ColorToChange.GREEN);
-        // grün
-        // shapes.get(0).setColor(new Color(0x1C764F));
-        // shapes.get(0).setColorToChange(ColorToChange.GREEN);
-
+		shapes.get(1).add(-240, -325);
+		shapes.get(1).add(-226, 326);
+		shapes.get(1).add(240, 314);
+		shapes.get(1).add(204, -311);
+		
+		for (Shape s:shapes)
+		{
+			float hue =rand.nextFloat()*displayWidth;
+			s.setHue(hue);
+		}
+		
     }
 
 }
