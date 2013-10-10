@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1301d623-3a62-4607-887d-ed3cd4e37666" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ProcessingShapes.java" afterPath="$PROJECT_DIR$/src/ProcessingShapes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SurrealeKausalitaetUserTracking/src/Shape.java" afterPath="$PROJECT_DIR$/../SurrealeKausalitaetUserTracking/src/Shape.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="1e7de571-77d5-40d3-bb63-d4c0495654fa" name="Ahhhhhh" comment="" />
@@ -11,7 +9,7 @@
     <ignored path=".idea/workspace.xml" />
     <file path="/fragment.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1372059479315" ignored="false" />
     <file path="/ProcessingShapes.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1381405552104" ignored="false" />
-    <file path="/Dummy.txt" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1381405797035" ignored="false" />
+    <file path="/Dummy.txt" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1381405966789" ignored="false" />
     <file path="$PROJECT_DIR$/../IIPrototyp/.idea/workspace.xml" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1365591491944" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/catalog.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451830" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/html5/xhtml5.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451830" ignored="false" />
@@ -33,7 +31,7 @@
     <file path="$APPLICATION_HOME_DIR$/lib/idea.jar!/standardSchemas/XMLSchema-instance.xsd" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366382451832" ignored="false" />
     <file path="/a.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1366614963768" ignored="false" />
     <file path="/Point.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367216969344" ignored="false" />
-    <file path="/Shape.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1381405838859" ignored="false" />
+    <file path="/Shape.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1381405951460" ignored="false" />
     <file path="/PlayBack.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1367228700156" ignored="false" />
     <file path="/TwoKinects.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370255720236" ignored="false" />
     <file path="/UserManager.java" changelist="1301d623-3a62-4607-887d-ed3cd4e37666" time="1370861235207" ignored="false" />
@@ -565,7 +563,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="0" width="1372" height="745" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SQL" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
