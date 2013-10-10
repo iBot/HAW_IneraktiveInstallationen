@@ -33,7 +33,7 @@ public class Shape extends Point {
     /**
      * Color of the shape
      */
-    private int color;
+    private Color color;
     private float mx[] = new float[num];
     private float my[] = new float[num];
 
@@ -181,7 +181,7 @@ public class Shape extends Point {
      *
      * @return color of the shape
      */
-    public int getColor() {
+    public Color getColor() {
         return color;
     }
 
@@ -190,7 +190,7 @@ public class Shape extends Point {
      *
      * @param color color for the shape
      */
-    public void setColor(int color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
