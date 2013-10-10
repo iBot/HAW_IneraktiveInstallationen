@@ -95,12 +95,13 @@ public class SurrealeKausalitaet extends PApplet {
             PVector position = getPosition(userID);
             hueDif += position.x*scaleFactorX;
         }
-        hueDif = hueDif / users.size();
+        if (users.size()>=0){
+          hueDif = hueDif / users.size();
+        }
 
         //Draw all shapes assigned to an user
         for (Shape shape : shapes) {
                     drawColoredShape(shape, getChangedColor2(hueDif, shape));
-
         }
 
 
@@ -115,11 +116,12 @@ public class SurrealeKausalitaet extends PApplet {
     private void drawColoredShape(Shape shape, float hue) {
 
         pushMatrix();
-        hue = hue % displayWidth;
+//        hue = hue % displayWidth;
         // set the color for filling the shape
         colorMode(HSB,displayWidth,99,99);
         int neu =  color(hue, 99, 99);
         Color colorNeu = new Color(neu);
+        System.out.println("ColorNeu "+colorNeu);
         fill(colorNeu.getRGB());
         translate(shape.x, shape.y);
 
@@ -244,7 +246,7 @@ public class SurrealeKausalitaet extends PApplet {
 
         float hue = shape.getHue();
         float newHue = hue + posX;
-        
+        System.out.println(posX);
         return newHue;
 //        int neu =  color(newHue, 99, 99);
 //        Color colorNeu = new Color(neu);
@@ -379,7 +381,6 @@ public class SurrealeKausalitaet extends PApplet {
 		{
 			float hue =rand.nextFloat()*displayWidth;
 			s.setHue(hue);
-            System.out.println(hue);
         }
 		
     }
