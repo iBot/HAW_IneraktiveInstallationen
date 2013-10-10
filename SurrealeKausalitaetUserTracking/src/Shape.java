@@ -4,6 +4,7 @@ import processing.core.PImage;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Just a shape.
@@ -32,10 +33,12 @@ public class Shape extends Point {
     /**
      * Color of the shape
      */
-    private Color color;
+    private int color;
     private float mx[] = new float[num];
     private float my[] = new float[num];
-    private ColorToChange colorToChange;
+
+
+    private static Random rand = new Random();
 
     /**
      * Shape Constructor
@@ -57,17 +60,14 @@ public class Shape extends Point {
     public Shape(int x, int y, PImage image) {
         super(x, y);
         this.image = image;
-        colorToChange = ColorToChange.GREEN;
-
+//        colorToChange = ColorToChange.GREEN;
     }
 
-    public ColorToChange getColorToChange() {
-        return colorToChange;
-    }
 
-    public void setColorToChange(ColorToChange colorToChange) {
-        this.colorToChange = colorToChange;
-    }
+
+//    public void setColorToChange(ColorToChange colorToChange) {
+//        this.colorToChange = colorToChange;
+//    }
 
     /**
      * Initializes the tail, drawn inside the tape
@@ -181,7 +181,7 @@ public class Shape extends Point {
      *
      * @return color of the shape
      */
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 
@@ -190,7 +190,7 @@ public class Shape extends Point {
      *
      * @param color color for the shape
      */
-    public void setColor(Color color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
