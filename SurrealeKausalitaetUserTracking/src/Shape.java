@@ -36,13 +36,13 @@ public class Shape extends Point {
     private Color color;
     private float mx[] = new float[num];
     private float my[] = new float[num];
-    private int hue;
+    private float hue;
 
-    public int getHue() {
+    public float getHue() {
         return hue;
     }
 
-    public void setHue(int hue) {
+    public void setHue(float hue) {
         this.hue = hue;
     }
 
