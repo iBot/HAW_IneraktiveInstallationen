@@ -16,14 +16,9 @@ public class SurrealeKausalitaet extends PApplet {
      * This List will contain all the Shapes which are not assigned to any user
      */
     public static List<Shape> shapes = Collections.synchronizedList(new LinkedList<Shape>());
-    /**
-     * This map mapps the user IDs of all detected user to the shapes which are controlled by the user.
-     */
-    public static Map<Integer, List<Shape>> userShapes = new ConcurrentHashMap<>();
-    /**
-     * Number of shapes per user
-     */
-    public final int SHAPES_PER_USER = 2;
+
+
+    private Collection<Integer> users = new HashSet<>();
     /**
      * The SimpleOpenNI context (Kinect sensor) for this program
      */
@@ -95,26 +90,20 @@ public class SurrealeKausalitaet extends PApplet {
         background(Color.BLACK.getRGB());
         context.update();
 
-        //Draw all shapes assigned to an user
-        for (Map.Entry<Integer, List<Shape>> entry : userShapes.entrySet()) {
-            int userID = entry.getKey();
-            List<Shape> shapesForCurrentUser = entry.getValue();
+        float hueDif = 0;
+        for (int userID : users){
             PVector position = getPosition(userID);
-            if ((position.x > 0) && (position.x <= displayWidth)) {
-                for (Shape shape : shapesForCurrentUser) {
-                    drawColoredShape(shape, getChangedColor2(position, shape));
-                }
-            } else {
-                for (Shape shape : shapesForCurrentUser) {
-                    drawColoredShape(shape, shape.getHue());
-                }
-            }
+            hueDif += position.x*scaleFactorX;
+        }
+        hueDif = hueDif / users.size();
+
+        //Draw all shapes assigned to an user
+        for (Shape shape : shapes) {
+                    drawColoredShape(shape, getChangedColor2(hueDif, shape));
+
         }
 
-        //Draw all shapes which are NOT assigned to an user
-        for (Shape shape : shapes) {
-            drawColoredShape(shape, shape.getHue());
-        }
+
     }
 
     /**
@@ -247,14 +236,11 @@ public class SurrealeKausalitaet extends PApplet {
      * This Method is used to recalculate the Color of a Shape, based on the position of
      * a given joint
      *
-     * @param pos
      * @param shape  the shape, whose color should be adjusted
      * @return the recalculated color
      */
-    private float getChangedColor2(PVector pos, Shape shape) {
-        // jointPos contains coordinats of realWorld
+    private float getChangedColor2(float posX, Shape shape) {
 
-        float posX = pos.x * scaleFactorX;
         float hue = shape.getHue();
         float newHue = hue + posX;
         
@@ -271,23 +257,7 @@ public class SurrealeKausalitaet extends PApplet {
      */
     public void onNewUser(int userId) {
         println("detected" + userId);
-
-        //assign random shapes to the new user
-        Collections.shuffle(shapes);
-        List<Shape> tmpShapes;
-        int size = shapes.size();
-        if (size <= 0) {
-            tmpShapes = Collections.emptyList();
-        } else if (size <= SHAPES_PER_USER) {
-            tmpShapes = new ArrayList<>(shapes.subList(0, size));
-        } else {
-            tmpShapes = new ArrayList<>(shapes.subList(0, SHAPES_PER_USER));
-        }
-        for (Shape shape : tmpShapes) {
-            System.out.println(shape);
-        }
-        userShapes.put(userId, tmpShapes);
-        shapes.removeAll(tmpShapes);
+        users.add(userId);
     }
 
     /**
@@ -298,7 +268,7 @@ public class SurrealeKausalitaet extends PApplet {
     public void onLostUser(int userId) {
         println("lost: " + userId);
 
-        shapes.addAll(userShapes.remove(userId));
+       users.remove(userId);
     }
 
     /**
