@@ -36,7 +36,15 @@ public class Shape extends Point {
     private Color color;
     private float mx[] = new float[num];
     private float my[] = new float[num];
+    private int hue;
 
+    public int getHue() {
+        return hue;
+    }
+
+    public void setHue(int hue) {
+        this.hue = hue;
+    }
 
     private static Random rand = new Random();
 

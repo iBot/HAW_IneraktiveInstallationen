@@ -420,6 +420,7 @@ public class ProcessingShapes extends PApplet {
         float saturation = 0.99f;
         float value = 0.99f;
         Color c = Color.getHSBColor(hue, saturation, value);
+        c.get
 
         return c;
 //        String rgb = Integer.toHexString(c.getRGB());
@@ -528,13 +529,7 @@ pushMatrix();
         
     }
     
-    * This method draws a shape and fill it with an color and draw Tails Which
-    * follow the Hand
-    *
-    * @param shape    the shape which will contain the tail
-    * @param color    the color of the shape
-    * @param jointPos the position of start of the tail
-    */
+
    private void drawColoredShapeWithTails(Shape shape, Color color,
                                           PVector jointPos) {
        // I didn't analyse what pushMatrix(), translate(x,y) and popMatrix() do
