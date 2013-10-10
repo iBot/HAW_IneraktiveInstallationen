@@ -68,7 +68,7 @@ public class Shape extends Point {
     public Shape(int x, int y, PImage image) {
         super(x, y);
         this.image = image;
-        this.color = new Color(255,0,0);
+//        this.color = new Color(255,0,0);
 //        colorToChange = ColorToChange.GREEN;
     }
 

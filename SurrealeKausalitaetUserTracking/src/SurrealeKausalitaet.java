@@ -121,12 +121,12 @@ public class SurrealeKausalitaet extends PApplet {
      * This method draws a shape and fill it with an color
      *
      * @param shape the shape which will contain the tail
-     * @param color the color of the shape
+     * @param hue the color of the shape
      */
     private void drawColoredShape(Shape shape, float hue) {
 
         pushMatrix();
-
+        hue = hue % displayWidth;
         // set the color for filling the shape
         int neu =  color(hue, 99, 99);
         Color colorNeu = new Color(neu);
