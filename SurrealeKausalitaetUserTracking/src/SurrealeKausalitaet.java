@@ -106,14 +106,14 @@ public class SurrealeKausalitaet extends PApplet {
                 }
             } else {
                 for (Shape shape : shapesForCurrentUser) {
-                    drawColoredShape(shape, shape.getColor());
+                    drawColoredShape(shape, shape.getHue());
                 }
             }
         }
 
         //Draw all shapes which are NOT assigned to an user
         for (Shape shape : shapes) {
-            drawColoredShape(shape, shape.getColor());
+            drawColoredShape(shape, shape.getHue());
         }
     }
 
@@ -123,12 +123,14 @@ public class SurrealeKausalitaet extends PApplet {
      * @param shape the shape which will contain the tail
      * @param color the color of the shape
      */
-    private void drawColoredShape(Shape shape, Color color) {
+    private void drawColoredShape(Shape shape, float hue) {
 
         pushMatrix();
 
         // set the color for filling the shape
-        fill(color.getRGB());
+        int neu =  color(hue, 99, 99);
+        Color colorNeu = new Color(neu);
+        fill(colorNeu.getRGB());
         translate(shape.x, shape.y);
 
         beginShape();
@@ -249,16 +251,17 @@ public class SurrealeKausalitaet extends PApplet {
      * @param shape  the shape, whose color should be adjusted
      * @return the recalculated color
      */
-    private Color getChangedColor2(PVector pos, Shape shape) {
+    private float getChangedColor2(PVector pos, Shape shape) {
         // jointPos contains coordinats of realWorld
 
         float posX = pos.x * scaleFactorX;
         float hue = shape.getHue();
         float newHue = hue + posX;
         
-        int neu =  color(newHue, 99, 99);
-        Color colorNeu = new Color(neu);
-        return colorNeu;
+        return newHue;
+//        int neu =  color(newHue, 99, 99);
+//        Color colorNeu = new Color(neu);
+//        return colorNeu;
     }
 
     /**
