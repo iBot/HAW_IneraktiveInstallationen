@@ -3,6 +3,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.awt.*;
+import java.awt.geom.Arc2D;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,7 +19,7 @@ public class SurrealeKausalitaet extends PApplet {
     public static List<Shape> shapes = Collections.synchronizedList(new LinkedList<Shape>());
 
 
-    private Collection<Integer> users = new HashSet<>();
+    private Map<Integer, Float> users = new HashMap<>();
     /**
      * The SimpleOpenNI context (Kinect sensor) for this program
      */
@@ -36,8 +37,6 @@ public class SurrealeKausalitaet extends PApplet {
     
     private static Random rand = new Random();
 
-
-   private float lastHue = 0.0f;
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen
@@ -93,18 +92,32 @@ public class SurrealeKausalitaet extends PApplet {
         background(Color.BLACK.getRGB());
         context.update();
 
+        int validUsers = 0;
         float hueDif = 0;
-        for (int userID : users){
+        for (Map.Entry<Integer, Float> userEntry : users.entrySet()){
+            int userID = userEntry.getKey();
             PVector position = getPosition(userID);
-            hueDif += position.x*scaleFactorX;
+            if (Float.isNaN(position.x)){
+                Float oldPosition = userEntry.getValue();
+                if(!oldPosition.isNaN()){
+                    hueDif += oldPosition*scaleFactorX;
+                    validUsers++;
+                }
+            } else {
+                userEntry.setValue(position.x);
+                hueDif += position.x*scaleFactorX;
+                validUsers++;
+            }
+
         }
-        if (users.size()>0){
-          hueDif = hueDif / users.size();
+
+        //TODO: Save hueDif and vaklidUsers
+        if (validUsers>0){
+          hueDif = hueDif / validUsers;
         }
+
         if (Float.isNaN(hueDif)){
-            hueDif = lastHue;
-        } else {
-            lastHue = hueDif;
+            System.out.println("bla");
         }
 
         //Draw all shapes assigned to an user
@@ -250,11 +263,11 @@ public class SurrealeKausalitaet extends PApplet {
      * @param shape  the shape, whose color should be adjusted
      * @return the recalculated color
      */
-    private float getChangedColor2(float posX, Shape shape) {
+    private float getChangedColor2(float hueDif, Shape shape) {
 
         float hue = shape.getHue();
-        float newHue = hue + posX;
-        System.out.println(posX);
+        float newHue = hue + hueDif;
+        System.out.println(hueDif);
         return newHue;
 //        int neu =  color(newHue, 99, 99);
 //        Color colorNeu = new Color(neu);
@@ -268,7 +281,7 @@ public class SurrealeKausalitaet extends PApplet {
      */
     public void onNewUser(int userId) {
         println("detected" + userId);
-        users.add(userId);
+        users.put(userId, Float.NaN);
     }
 
     /**
