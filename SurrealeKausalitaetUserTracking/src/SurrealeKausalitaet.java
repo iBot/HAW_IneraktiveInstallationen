@@ -3,10 +3,8 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 import java.awt.*;
-import java.awt.geom.Arc2D;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Main class of the program, contains the logic, interaction and visual effects
@@ -17,13 +15,12 @@ public class SurrealeKausalitaet extends PApplet {
      * This List will contain all the Shapes which are not assigned to any user
      */
     public static List<Shape> shapes = Collections.synchronizedList(new LinkedList<Shape>());
-
-
-    private Map<Integer, Float> users = new HashMap<>();
+    private static Random rand = new Random();
     /**
      * The SimpleOpenNI context (Kinect sensor) for this program
      */
     SimpleOpenNI context;
+    private Map<Integer, Float> users = new HashMap<>();
     /**
      * By converting rela world position to perspective positions the result is a vector within the kinect resolution of 640 * 480 pixels.
      * This scaleFactor will be used to scale the x coordinate (between 0 and 640) to the display width (between 0 and displayWidth)
@@ -34,9 +31,9 @@ public class SurrealeKausalitaet extends PApplet {
      * without kinect: If kinect is not configured, don't use kinect stuff...
      */
     private boolean kinectIsConfigured = false;
-    
-    private static Random rand = new Random();
-
+    private UDPClient udpClient = new UDPClient();
+    private UDPServer udpServer = new UDPServer();
+    private Thread serverThread;
 
     /**
      * Run this program as Java application to start the PAppplet in fullscreen
@@ -56,13 +53,27 @@ public class SurrealeKausalitaet extends PApplet {
         scaleFactorX = displayWidth / 640f;
 
         colorMode(HSB, displayWidth, 99, 99);
-        
+
         initShapes();
         background(Color.BLACK.getRGB());
         stroke(0, 255, 0);
         strokeWeight(3);
         smooth();
         setupKinect();
+
+        Runnable server = new Runnable() {
+            @Override
+            public void run() {
+                udpServer.startJob();
+            }
+        };
+
+        serverThread = new Thread(server);
+        serverThread.start();
+
+
+
+
     }
 
     /**
@@ -84,45 +95,79 @@ public class SurrealeKausalitaet extends PApplet {
         kinectIsConfigured = true;
     }
 
+    private void end() {
+        if (serverThread != null) {
+            serverThread.interrupt();
+            udpServer.stopJob();
+        }
+        exit();
+    }
+
     /**
      * Draws all everything which will be displayed
      */
     @Override
     public void draw() {
+        if (keyPressed) {
+            if (key == 'q' || key == 'Q') {
+                end();
+            }
+        }
+
+
         background(Color.BLACK.getRGB());
         context.update();
 
         int validUsers = 0;
         float hueDif = 0;
-        for (Map.Entry<Integer, Float> userEntry : users.entrySet()){
+        for (Map.Entry<Integer, Float> userEntry : users.entrySet()) {
             int userID = userEntry.getKey();
             PVector position = getPosition(userID);
-            if (Float.isNaN(position.x)){
+            if (Float.isNaN(position.x)) {
                 Float oldPosition = userEntry.getValue();
-                if(!oldPosition.isNaN()){
-                    hueDif += oldPosition*scaleFactorX;
+                if (!oldPosition.isNaN()) {
+                    hueDif += oldPosition * scaleFactorX;
                     validUsers++;
                 }
             } else {
                 userEntry.setValue(position.x);
-                hueDif += position.x*scaleFactorX;
+                hueDif += position.x * scaleFactorX;
                 validUsers++;
             }
 
         }
 
-        //TODO: Save hueDif and vaklidUsers
-        if (validUsers>0){
-          hueDif = hueDif / validUsers;
+        String ownExchangeValues = String.format("%d#%s", validUsers, hueDif);
+
+
+        udpClient.sendMessage(ownExchangeValues);
+
+        String other = udpServer.getMessage();
+        int otherNumberOfUsers = 0;
+        float otherHueDif = 0f;
+        String[] values;
+        if (other != null) {
+            values = other.split("#");
+            try {
+                otherNumberOfUsers = Integer.parseInt(values[0]);
+                otherHueDif = Float.parseFloat(values[1]);
+            } catch (NumberFormatException nfe) {
+
+            }
+        }
+        float commonHueDif = hueDif + otherHueDif;
+        int commonNumOfUsers = validUsers + otherNumberOfUsers;
+        if (commonNumOfUsers > 0) {
+            commonHueDif = commonHueDif / commonNumOfUsers;
         }
 
-        if (Float.isNaN(hueDif)){
+        if (Float.isNaN(hueDif)) {
             System.out.println("bla");
         }
 
         //Draw all shapes assigned to an user
         for (Shape shape : shapes) {
-            drawColoredShape(shape, getChangedColor2(hueDif, shape));
+            drawColoredShape(shape, getChangedColor2(commonHueDif, shape));
         }
 
 
@@ -132,17 +177,17 @@ public class SurrealeKausalitaet extends PApplet {
      * This method draws a shape and fill it with an color
      *
      * @param shape the shape which will contain the tail
-     * @param hue the color of the shape
+     * @param hue   the color of the shape
      */
     private void drawColoredShape(Shape shape, float hue) {
 
         pushMatrix();
         hue = hue % displayWidth;
         // set the color for filling the shape
-        colorMode(HSB,displayWidth,99,99);
-        int neu =  color(hue, 99, 99);
+        colorMode(HSB, displayWidth, 99, 99);
+        int neu = color(hue, 99, 99);
         Color colorNeu = new Color(neu);
-        System.out.println("ColorNeu "+colorNeu);
+        System.out.println("ColorNeu " + colorNeu);
         fill(colorNeu.getRGB());
         translate(shape.x, shape.y);
 
@@ -237,7 +282,7 @@ public class SurrealeKausalitaet extends PApplet {
      * a given joint
      *
      * @param pos
-     * @param shape  the shape, whose color should be adjusted
+     * @param shape the shape, whose color should be adjusted
      * @return the recalculated color
      */
     private Color getChangedSaturationColor(PVector pos, Shape shape) {
@@ -251,7 +296,7 @@ public class SurrealeKausalitaet extends PApplet {
         // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
         Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
         colorMode(HSB, displayWidth, 99, 99);
-        int neu =  color(posX, hsb[1], hsb[2]);
+        int neu = color(posX, hsb[1], hsb[2]);
         Color colorNeu = new Color(neu);
         return colorNeu;
     }
@@ -260,7 +305,7 @@ public class SurrealeKausalitaet extends PApplet {
      * This Method is used to recalculate the Color of a Shape, based on the position of
      * a given joint
      *
-     * @param shape  the shape, whose color should be adjusted
+     * @param shape the shape, whose color should be adjusted
      * @return the recalculated color
      */
     private float getChangedColor2(float hueDif, Shape shape) {
@@ -292,7 +337,7 @@ public class SurrealeKausalitaet extends PApplet {
     public void onLostUser(int userId) {
         println("lost: " + userId);
 
-       users.remove(userId);
+        users.remove(userId);
     }
 
     /**
@@ -385,25 +430,24 @@ public class SurrealeKausalitaet extends PApplet {
 //        // shapes.get(0).setColor(new Color(0x1C764F));
 //        // shapes.get(0).setColorToChange(ColorToChange.GREEN);
 
-    	shapes.add(new Shape(337, 392));
-		shapes.add(new Shape(903, 392));
+        shapes.add(new Shape(337, 392));
+        shapes.add(new Shape(903, 392));
 
-		shapes.get(0).add(-268, -318);
-		shapes.get(0).add(269, -323);
-		shapes.get(0).add(270, 323);
-		shapes.get(0).add(-270, 316);
+        shapes.get(0).add(-268, -318);
+        shapes.get(0).add(269, -323);
+        shapes.get(0).add(270, 323);
+        shapes.get(0).add(-270, 316);
 
-		shapes.get(1).add(-240, -325);
-		shapes.get(1).add(-226, 326);
-		shapes.get(1).add(240, 314);
-		shapes.get(1).add(204, -311);
-		
-		for (Shape s:shapes)
-		{
-			float hue =rand.nextFloat()*displayWidth;
-			s.setHue(hue);
+        shapes.get(1).add(-240, -325);
+        shapes.get(1).add(-226, 326);
+        shapes.get(1).add(240, 314);
+        shapes.get(1).add(204, -311);
+
+        for (Shape s : shapes) {
+            float hue = rand.nextFloat() * displayWidth;
+            s.setHue(hue);
         }
-		
+
     }
 
 }
