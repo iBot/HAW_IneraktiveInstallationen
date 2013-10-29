@@ -30,7 +30,7 @@ public class SurrealeKausalitaet extends PApplet {
      * Will be set on true as soon as the kinect is configured. Nice for testing
      * without kinect: If kinect is not configured, don't use kinect stuff...
      */
-    private boolean kinectIsConfigured = false;
+
     private UDPClient udpClient = new UDPClient();
     private UDPServer udpServer = new UDPServer();
     private Thread serverThread;
@@ -92,7 +92,6 @@ public class SurrealeKausalitaet extends PApplet {
         context.enableUser(SimpleOpenNI.SKEL_PROFILE_NONE);
 
         context.setMirror(true);
-        kinectIsConfigured = true;
     }
 
     private void end() {
@@ -152,17 +151,13 @@ public class SurrealeKausalitaet extends PApplet {
                 otherNumberOfUsers = Integer.parseInt(values[0]);
                 otherHueDif = Float.parseFloat(values[1]);
             } catch (NumberFormatException nfe) {
-
+                //if the Values are not valid, they will be ignored
             }
         }
         float commonHueDif = hueDif + otherHueDif;
         int commonNumOfUsers = validUsers + otherNumberOfUsers;
         if (commonNumOfUsers > 0) {
             commonHueDif = commonHueDif / commonNumOfUsers;
-        }
-
-        if (Float.isNaN(hueDif)) {
-            System.out.println("bla");
         }
 
         //Draw all shapes assigned to an user
@@ -187,7 +182,7 @@ public class SurrealeKausalitaet extends PApplet {
         colorMode(HSB, displayWidth, 99, 99);
         int neu = color(hue, 99, 99);
         Color colorNeu = new Color(neu);
-        System.out.println("ColorNeu " + colorNeu);
+//        System.out.println("ColorNeu " + colorNeu);
         fill(colorNeu.getRGB());
         translate(shape.x, shape.y);
 
@@ -277,29 +272,29 @@ public class SurrealeKausalitaet extends PApplet {
 //        return neu;
 //    }
 
-    /**
-     * This Method is used to recalculate the Color of a Shape, based on the position of
-     * a given joint
-     *
-     * @param pos
-     * @param shape the shape, whose color should be adjusted
-     * @return the recalculated color
-     */
-    private Color getChangedSaturationColor(PVector pos, Shape shape) {
-        // jointPos contains coordinats of realWorld
-
-        float posX = pos.x * scaleFactorX;
-//        float hue = posX / displayWidth;
-        Color c = shape.getColor();
-        float[] hsb = new float[3];
-        // System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
-        // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
-        Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
-        colorMode(HSB, displayWidth, 99, 99);
-        int neu = color(posX, hsb[1], hsb[2]);
-        Color colorNeu = new Color(neu);
-        return colorNeu;
-    }
+//    /**
+//     * This Method is used to recalculate the Color of a Shape, based on the position of
+//     * a given joint
+//     *
+//     * @param pos
+//     * @param shape the shape, whose color should be adjusted
+//     * @return the recalculated color
+//     */
+//    private Color getChangedSaturationColor(PVector pos, Shape shape) {
+//        // jointPos contains coordinats of realWorld
+//
+//        float posX = pos.x * scaleFactorX;
+////        float hue = posX / displayWidth;
+//        Color c = shape.getColor();
+//        float[] hsb = new float[3];
+//        // System.out.println("Red: " + c.getRed() + " Green: " + c.getGreen()
+//        // + " getBlue: " + c.getBlue() + " hsb: " + hsb);
+//        Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsb);
+//        colorMode(HSB, displayWidth, 99, 99);
+//        int neu = color(posX, hsb[1], hsb[2]);
+//        Color colorNeu = new Color(neu);
+//        return colorNeu;
+//    }
 
     /**
      * This Method is used to recalculate the Color of a Shape, based on the position of
@@ -312,7 +307,7 @@ public class SurrealeKausalitaet extends PApplet {
 
         float hue = shape.getHue();
         float newHue = hue + hueDif;
-        System.out.println(hueDif);
+//        System.out.println(hueDif);
         return newHue;
 //        int neu =  color(newHue, 99, 99);
 //        Color colorNeu = new Color(neu);
@@ -324,6 +319,7 @@ public class SurrealeKausalitaet extends PApplet {
      *
      * @param userId id of the new user
      */
+    @SuppressWarnings("unused")
     public void onNewUser(int userId) {
         println("detected" + userId);
         users.put(userId, Float.NaN);
@@ -334,6 +330,7 @@ public class SurrealeKausalitaet extends PApplet {
      *
      * @param userId id of the loft user
      */
+    @SuppressWarnings("unused")
     public void onLostUser(int userId) {
         println("lost: " + userId);
 
@@ -430,18 +427,196 @@ public class SurrealeKausalitaet extends PApplet {
 //        // shapes.get(0).setColor(new Color(0x1C764F));
 //        // shapes.get(0).setColorToChange(ColorToChange.GREEN);
 
-        shapes.add(new Shape(337, 392));
-        shapes.add(new Shape(903, 392));
+        shapes.add(new Shape(202, 109));
+        shapes.add(new Shape(428, 196));
+        shapes.add(new Shape(874, 408));
+        shapes.add(new Shape(649, 423));
+        shapes.add(new Shape(611, 224));
+        shapes.add(new Shape(327, 442));
+        shapes.add(new Shape(444, 450));
+        shapes.add(new Shape(391, 612));
+        shapes.add(new Shape(352, 539));
+        shapes.add(new Shape(326, 372));
+        shapes.add(new Shape(455, 374));
+        shapes.add(new Shape(651, 529));
+        shapes.add(new Shape(930, 169));
+        shapes.add(new Shape(1219, 98));
+        shapes.add(new Shape(1224, 656));
+        shapes.add(new Shape(509, 78));
 
-        shapes.get(0).add(-268, -318);
-        shapes.get(0).add(269, -323);
-        shapes.get(0).add(270, 323);
-        shapes.get(0).add(-270, 316);
+        shapes.get(0).add(-61, -80);
+        shapes.get(0).add(-85, 81);
+        shapes.get(0).add(86, 65);
+        shapes.get(0).add(57, -18);
 
-        shapes.get(1).add(-240, -325);
-        shapes.get(1).add(-226, 326);
-        shapes.get(1).add(240, 314);
-        shapes.get(1).add(204, -311);
+        shapes.get(1).add(-57, -53);
+        shapes.get(1).add(-95, 64);
+        shapes.get(1).add(88, 89);
+        shapes.get(1).add(96, -36);
+        shapes.get(1).add(-53, -89);
+
+        shapes.get(2).add(-135, -171);
+        shapes.get(2).add(-157, -62);
+        shapes.get(2).add(-11, -107);
+        shapes.get(2).add(-18, -191);
+        shapes.get(2).add(-154, -247);
+        shapes.get(2).add(-158, -213);
+        shapes.get(2).add(-184, -190);
+        shapes.get(2).add(-185, -136);
+        shapes.get(2).add(-258, -142);
+        shapes.get(2).add(-238, -72);
+        shapes.get(2).add(-217, -37);
+        shapes.get(2).add(-162, -30);
+        shapes.get(2).add(-210, -5);
+        shapes.get(2).add(-118, -4);
+        shapes.get(2).add(-145, 41);
+        shapes.get(2).add(25, 53);
+        shapes.get(2).add(-156, 247);
+        shapes.get(2).add(259, 16);
+        shapes.get(2).add(156, -18);
+        shapes.get(2).add(121, 45);
+        shapes.get(2).add(38, 4);
+        shapes.get(2).add(-44, -16);
+        shapes.get(2).add(220, -66);
+        shapes.get(2).add(-180, -50);
+
+        shapes.get(3).add(386, -263);
+        shapes.get(3).add(388, -286);
+        shapes.get(3).add(414, -298);
+        shapes.get(3).add(442, -305);
+        shapes.get(3).add(462, -299);
+        shapes.get(3).add(487, -288);
+        shapes.get(3).add(510, -272);
+        shapes.get(3).add(555, -247);
+        shapes.get(3).add(564, -233);
+        shapes.get(3).add(585, -210);
+        shapes.get(3).add(601, -179);
+        shapes.get(3).add(612, -162);
+        shapes.get(3).add(604, -120);
+        shapes.get(3).add(620, -27);
+        shapes.get(3).add(607, 26);
+        shapes.get(3).add(597, 75);
+        shapes.get(3).add(506, 209);
+        shapes.get(3).add(386, 266);
+        shapes.get(3).add(310, 298);
+        shapes.get(3).add(221, 316);
+        shapes.get(3).add(-125, 317);
+        shapes.get(3).add(-459, 312);
+        shapes.get(3).add(-586, 281);
+        shapes.get(3).add(-599, 266);
+        shapes.get(3).add(-606, 235);
+        shapes.get(3).add(-610, 199);
+        shapes.get(3).add(-601, 109);
+        shapes.get(3).add(-603, -106);
+        shapes.get(3).add(-620, -257);
+        shapes.get(3).add(-555, -316);
+        shapes.get(3).add(-550, -262);
+        shapes.get(3).add(-565, -159);
+        shapes.get(3).add(-507, -35);
+        shapes.get(3).add(-428, -116);
+        shapes.get(3).add(-466, -11);
+        shapes.get(3).add(-525, 6);
+        shapes.get(3).add(-554, -35);
+        shapes.get(3).add(-547, 81);
+        shapes.get(3).add(-549, 214);
+        shapes.get(3).add(-354, 283);
+        shapes.get(3).add(-112, 291);
+        shapes.get(3).add(178, 273);
+        shapes.get(3).add(354, 238);
+        shapes.get(3).add(423, 199);
+        shapes.get(3).add(485, 132);
+        shapes.get(3).add(534, 27);
+        shapes.get(3).add(529, -31);
+        shapes.get(3).add(550, -105);
+        shapes.get(3).add(551, -174);
+        shapes.get(3).add(506, -208);
+        shapes.get(3).add(461, -229);
+        shapes.get(3).add(441, -188);
+        shapes.get(3).add(393, -154);
+        shapes.get(3).add(360, -194);
+        shapes.get(3).add(334, -241);
+        shapes.get(3).add(330, -270);
+        shapes.get(3).add(365, -271);
+
+        shapes.get(4).add(62, -148);
+        shapes.get(4).add(-104, 149);
+        shapes.get(4).add(105, -134);
+
+        shapes.get(5).add(-22, -19);
+        shapes.get(5).add(5, -36);
+        shapes.get(5).add(26, -20);
+        shapes.get(5).add(36, 3);
+        shapes.get(5).add(16, 27);
+        shapes.get(5).add(-16, 37);
+        shapes.get(5).add(-34, 23);
+        shapes.get(5).add(-35, -1);
+
+        shapes.get(6).add(-15, -36);
+        shapes.get(6).add(-38, -21);
+        shapes.get(6).add(-39, 0);
+        shapes.get(6).add(-39, 23);
+        shapes.get(6).add(-18, 39);
+        shapes.get(6).add(3, 39);
+        shapes.get(6).add(25, 33);
+        shapes.get(6).add(36, 14);
+        shapes.get(6).add(39, -10);
+        shapes.get(6).add(25, -27);
+        shapes.get(6).add(6, -38);
+
+        shapes.get(7).add(-133, -54);
+        shapes.get(7).add(-88, 28);
+        shapes.get(7).add(-29, 55);
+        shapes.get(7).add(41, 49);
+        shapes.get(7).add(110, 15);
+        shapes.get(7).add(134, -35);
+        shapes.get(7).add(74, -10);
+        shapes.get(7).add(18, 6);
+        shapes.get(7).add(-37, 3);
+        shapes.get(7).add(-71, -7);
+
+        shapes.get(8).add(17, -29);
+        shapes.get(8).add(-31, 30);
+        shapes.get(8).add(23, 13);
+        shapes.get(8).add(31, -7);
+
+        shapes.get(9).add(-44, 15);
+        shapes.get(9).add(0, 2);
+        shapes.get(9).add(44, 25);
+        shapes.get(9).add(-7, -25);
+
+        shapes.get(10).add(-41, 21);
+        shapes.get(10).add(27, -24);
+        shapes.get(10).add(42, 25);
+        shapes.get(10).add(19, 1);
+
+        shapes.get(11).add(-52, -65);
+        shapes.get(11).add(-76, 36);
+        shapes.get(11).add(38, 65);
+        shapes.get(11).add(76, 9);
+        shapes.get(11).add(-9, -60);
+
+        shapes.get(12).add(-99, -106);
+        shapes.get(12).add(-101, -7);
+        shapes.get(12).add(-45, 17);
+        shapes.get(12).add(-21, 132);
+        shapes.get(12).add(58, 135);
+        shapes.get(12).add(19, -28);
+        shapes.get(12).add(101, -72);
+        shapes.get(12).add(63, -134);
+        shapes.get(12).add(-86, -106);
+
+        shapes.get(13).add(-96, -71);
+        shapes.get(13).add(97, 73);
+        shapes.get(13).add(97, -72);
+
+        shapes.get(14).add(-81, 79);
+        shapes.get(14).add(82, -78);
+        shapes.get(14).add(82, 79);
+
+        shapes.get(15).add(-7, -19);
+        shapes.get(15).add(44, 36);
+        shapes.get(15).add(-44, -13);
+        shapes.get(15).add(35, -36);
 
         for (Shape s : shapes) {
             float hue = rand.nextFloat() * displayWidth;

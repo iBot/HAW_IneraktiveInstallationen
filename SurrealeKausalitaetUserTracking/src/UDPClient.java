@@ -1,15 +1,12 @@
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
-/**
- * Created with IntelliJ IDEA.
- * User: tobi
- * Date: 29.10.13
- * Time: 15:14
- * To change this template use File | Settings | File Templates.
- */
+
 public class UDPClient {
-    public static final int BUFFER_SIZE = 123;
     public final int SERVER_PORT = 50001;
 
     public UDPClient() {
@@ -34,7 +31,7 @@ public class UDPClient {
                     serverIpAddress = InetAddress.getByName("localhost"); // Zieladresse
 
 
-                    System.out.println("ENTER UDP-DATA: ");
+//                    System.out.println("ENTER UDP-DATA: ");
 
                 /* Sende den String als UDP-Paket zum Server */
                     writeToServer(serverIpAddress, clientSocket, message);
@@ -47,10 +44,8 @@ public class UDPClient {
             /* Socket schließen (freigeben)*/
 
 
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                } catch (SocketException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (SocketException | UnknownHostException e) {
+                    e.printStackTrace();
                 }
             }
         };
@@ -75,6 +70,6 @@ public class UDPClient {
         } catch (IOException e) {
             System.err.println(e.toString());
         }
-        System.out.println("UDP Client has sent the message: " + sendString);
+//        System.out.println("UDP Client has sent the message: " + sendString);
     }
 }
